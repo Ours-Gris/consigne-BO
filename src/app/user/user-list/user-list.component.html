@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <h3 i18n="@@UserList.title">List of Users</h3>
+
+            <div>
+                <label for="searchInput">
+                    <input matInput
+                           id="searchInput"
+                           i18n-placeholder="@@UserList.findUser.placeholder"
+                           placeholder="Find a user"
+                           #input>
+                </label>
+            </div>
+
+            <mat-table class="lessons-table mat-elevation-z8"
+                       [dataSource]="users"
+                       matSort
+                       matSortActive="Nom"
+                       matSortDirection="asc">
+
+                <!-- Username Column -->
+                <ng-container matColumnDef="username">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.username"> Username
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user"> {{user.username}} </mat-cell>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.email"> Email
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user"> {{user.email}} </mat-cell>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.actions"> Actions
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                        <button mat-icon-button
+                                [matMenuTriggerFor]="menu"
+                                aria-label="icon-button with a menu actions">
+                            <mat-icon color="primary">menu</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item
+                                    (click)="editUser(user._id)">
+                                <mat-icon color="accent">mode</mat-icon>
+                                <span i18n="@@UserAction.edit">Edit</span>
+                            </button>
+                            <button mat-menu-item
+                                    (click)="deleteUser(user._id)">
+                                <mat-icon color="warn">delete</mat-icon>
+                                <span i18n="@@UserAction.delete">Delete</span>
+                            </button>
+                        </mat-menu>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator [pageIndex]="0"
+                           [length]="totalUsers"
+                           [pageSize]="3"
+                           [pageSizeOptions]="[3, 5, 10]"
+                           [showFirstLastButtons]="true"></mat-paginator>
+
+            <div class="spinner-container"
+                 *ngIf="users && users.loading$ | async">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <button mat-raised-button
+                    class="mt-2"
+                    color="primary"
+                    routerLink="/user/add">
+                <span i18n="@@UserList.button.addUser">Add user</span>
+            </button>
+        </div>
+    </div>
+</div>

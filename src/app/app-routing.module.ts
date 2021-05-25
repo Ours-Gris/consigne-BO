@@ -10,6 +10,11 @@ const routes: Routes = [
         component: HomeComponent
     },
     {
+        path: 'user',
+        canActivate: [LoggedInGuardService],
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+    },
+    {
         path: 'map',
         canActivate: [LoggedInGuardService],
         loadChildren: () => import('./map/map.module').then(m => m.MapModule)

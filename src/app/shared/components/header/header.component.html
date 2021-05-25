@@ -35,12 +35,14 @@
           class="m-lg-2">CONSIGNE</span>
 
     <button mat-stroked-button
+            *ngIf="logged"
             class="m-lg-2"
             routerLinkActive="active"
             routerLink="/user">
         <span>Utilisateur</span>
     </button>
     <button mat-stroked-button
+            *ngIf="logged"
             routerLinkActive="active"
             routerLink="/map">
         <span>Carte teste</span>

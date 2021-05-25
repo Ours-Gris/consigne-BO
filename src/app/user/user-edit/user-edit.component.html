@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <h3 i18n="@@UserEdit.title">Edit user</h3>
+            <form [formGroup]="editUserForm"
+                  (ngSubmit)="onSubmit()"
+                  *ngIf="user">
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="userName">Username</mat-label>
+                    <input matInput
+                           formControlName="username"
+                           id="userName"
+                           placeholder="Enter his name">
+                    <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('required')">
+                        Username is required
+                    </mat-error>
+                    <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('minlength')">
+                        Username should be 3 characters min
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="email">Email</mat-label>
+                    <input matInput
+                           formControlName="email"
+                           id="email"
+                           placeholder="Enter his email">
+                    <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('required')">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('email')">
+                        Email is incorrect
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="editUserForm.invalid">Edit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
