@@ -16,7 +16,7 @@ import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
     styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-    user!: User;
+    currentUser!: User | null;
     users!: UsersDataSource;
     displayedColumns: string[] = ['username', 'email', 'actions'];
     totalUsers: number = 0;
@@ -31,10 +31,13 @@ export class UserListComponent implements OnInit {
         private snackBar: MatSnackBar,
         public router: Router
     ) {
+        this.authService.currentUser.subscribe(user => {
+            user ? this.currentUser = user : this.currentUser = null
+        });
     }
 
     ngOnInit(): void {
-        if (this.authService.currentUserValue) {
+        if (this.currentUser) {
             this.users = new UsersDataSource(this.userService);
             this.users.loadUsers();
         }

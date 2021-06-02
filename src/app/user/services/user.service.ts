@@ -24,9 +24,6 @@ export class UserService {
             params = params.set('Nom_contains', filter);
         }
         const options = {
-            headers: {
-                Authorization: 'Bearer ' + this.authService.currentUserToken
-            },
             params
         };
         return this.http.get(this.authUrl + 'users/count', options).pipe(
@@ -43,9 +40,6 @@ export class UserService {
             params = params.set('username_contains', filter);
         }
         const options = {
-            headers: {
-                Authorization: 'Bearer ' + this.authService.currentUserToken
-            },
             params
         };
 
@@ -55,46 +49,25 @@ export class UserService {
     }
 
     getOneUser(idUser: string): Observable<User> {
-        const options = {
-            headers: {
-                Authorization: 'Bearer ' + this.authService.currentUserToken
-            }
-        };
-
-        return this.http.get(this.authUrl + 'users/' + idUser, options).pipe(
+        return this.http.get(this.authUrl + 'users/' + idUser).pipe(
             map((res: any) => res)
         );
     }
 
     addUser(user: User): Observable<User> {
-        const options = {
-            headers: {
-                Authorization: 'Bearer ' + this.authService.currentUserToken
-            }
-        };
-        return this.http.post(this.authUrl + 'users', user, options).pipe(
+        return this.http.post(this.authUrl + 'users', user).pipe(
             map((newUser: any) => newUser)
         );
     }
 
     editUser(idUser: string, user: User): Observable<User> {
-        const options = {
-            headers: {
-                Authorization: 'Bearer ' + this.authService.currentUserToken
-            }
-        };
-        return this.http.put(this.authUrl + 'users/' + idUser, user, options).pipe(
+        return this.http.put(this.authUrl + 'users/' + idUser, user).pipe(
             map((newUser: any) => newUser)
         );
     }
 
     deleteUser(idUser: string): Observable<void> {
-        const options = {
-            headers: {
-                Authorization: 'Bearer ' + this.authService.currentUserToken
-            }
-        };
-        return this.http.delete(`${this.authUrl}users/${idUser}`, options).pipe(
+        return this.http.delete(`${this.authUrl}users/${idUser}`).pipe(
             map(() => {
                 console.log('Gobelin supprimer');
             })

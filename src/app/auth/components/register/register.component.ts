@@ -5,6 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
 import {User} from '../../../models/User';
+import {MustMatch} from "../../../shared/must-match.validator";
 
 @Component({
     selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
     usernameCtrl!: FormControl;
     emailCtrl!: FormControl;
     passwordCtrl!: FormControl;
+    passwordRepeatCtrl!: FormControl;
 
     constructor(
         private authService: AuthService,
@@ -30,11 +32,15 @@ export class RegisterComponent implements OnInit {
             this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
             this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
             this.passwordCtrl = fb.control('', Validators.required);
+            this.passwordRepeatCtrl = fb.control('', Validators.required);
 
             this.userForm = fb.group({
                 username: this.usernameCtrl,
                 email: this.emailCtrl,
-                password: this.passwordCtrl
+                password: this.passwordCtrl,
+                passwordRepeat: this.passwordRepeatCtrl
+            }, {
+                validator: MustMatch('password', 'passwordRepeat')
             });
         }
     }
@@ -45,6 +51,7 @@ export class RegisterComponent implements OnInit {
     onSubmit(): void {
         this.authService.register(this.userForm.value).subscribe({
             next: () => {
+                this.router.navigateByUrl('').catch(err => console.error(err));
                 Swal.fire(`User created`).then();
             },
             error: (err: HttpErrorResponse) => {

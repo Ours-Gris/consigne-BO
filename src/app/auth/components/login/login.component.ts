@@ -19,18 +19,13 @@ export class LoginComponent implements OnInit {
         private fb: FormBuilder,
         public router: Router
     ) {
-        // redirect to home if already logged in
-        if (this.authService.currentUserToken) {
-            this.router.navigate(['/']).catch(err => console.error(err));
-        } else {
-            this.identifierCtrl = fb.control('', Validators.required);
-            this.passwordCtrl = fb.control('', Validators.required);
+        this.identifierCtrl = fb.control('', Validators.required);
+        this.passwordCtrl = fb.control('', Validators.required);
 
-            this.userForm = fb.group({
-                identifier: this.identifierCtrl,
-                password: this.passwordCtrl
-            });
-        }
+        this.userForm = fb.group({
+            identifier: this.identifierCtrl,
+            password: this.passwordCtrl
+        });
     }
 
     ngOnInit(): void {

@@ -5,4 +5,5 @@ export interface User {
     blocked: boolean;
     confirmed: boolean;
     provider: string;
+    token: string;
 }

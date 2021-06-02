@@ -10,8 +10,8 @@ import {User} from '../../models/User';
 })
 export class AuthService {
     private authUrl = environment.api_base_url;
-    public currentUserSubject: BehaviorSubject<User | null>;
-    public currentUser: Observable<User | null>;
+    private currentUserSubject!: BehaviorSubject<User | null>;
+    public currentUser!: Observable<User | null>;
 
     constructor(
         private http: HttpClient
@@ -25,40 +25,28 @@ export class AuthService {
         return this.currentUserSubject.value;
     }
 
-    public get currentUserToken(): string {
-        let token = localStorage.getItem('token');
-        return token ? JSON.parse(token) : '';
-    }
-
     isLoggedIn(): boolean {
-        // un token expiré donne true attention
-        return this.currentUserToken !== null;
+        return this.currentUserValue?.token !== null;
     }
 
     login(model: any): Observable<any> {
-        return this.http.post(this.authUrl + 'auth/login', model).pipe(
+        return this.http.post<User>(this.authUrl + 'auth/login', model).pipe(
             map(
-                (response: any) => {
-                    if (response.token) {
-                        localStorage.setItem('token', JSON.stringify(response.token));
-                    }
-                    localStorage.setItem('user', JSON.stringify(response.user));
-                    this.currentUserSubject.next(response.user);
-                    return response.user;
+                (user: User) => {
+                    localStorage.setItem('user', JSON.stringify(user));
+                    this.currentUserSubject.next(user);
                 }
             )
         );
     }
 
     register(model: any): Observable<any> {
-        const data = model;
-        return this.http.post(this.authUrl + 'auth/signup', data).pipe(
+        return this.http.post(this.authUrl + 'auth/signup', model).pipe(
             map(
                 (response: any) => {
                     const user = response.user;
-                    console.log(user);
                     if (response.jwt) {
-                        localStorage.setItem('token', response.jwt);
+                        localStorage.setItem('user', JSON.stringify(user));
                     }
                 }
             )
