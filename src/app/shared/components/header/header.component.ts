@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
-import Swal from 'sweetalert2';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-header',
@@ -12,18 +12,19 @@ export class HeaderComponent implements OnInit {
     logged = false;
 
     constructor(
-        private authService: AuthService,
+        private _authService: AuthService,
+        private _snackBar: MatSnackBar,
         public router: Router
     ) {
     }
 
     ngOnInit(): void {
-        this.authService.currentUser.subscribe(user => this.logged = !!user);
+        this._authService.currentUser.subscribe(user => this.logged = !!user);
     }
 
     logout(): void {
-        this.authService.logout();
-        Swal.fire(`You are disconnected`).then();
+        this._authService.logout();
         this.router.navigateByUrl('').then();
+        this._snackBar.open('Vous êtes déconnecté', '', {duration: 2000});
     }
 }

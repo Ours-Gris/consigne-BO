@@ -14,7 +14,7 @@ export class AuthService {
     public currentUser!: Observable<User | null>;
 
     constructor(
-        private http: HttpClient
+        private _http: HttpClient
     ) {
         let user = localStorage.getItem('user');
         this.currentUserSubject = new BehaviorSubject<User | null>(user ? JSON.parse(user) : '');
@@ -30,7 +30,7 @@ export class AuthService {
     }
 
     login(model: any): Observable<any> {
-        return this.http.post<User>(this.authUrl + 'auth/login', model).pipe(
+        return this._http.post<User>(this.authUrl + 'auth/login', model).pipe(
             map(
                 (user: User) => {
                     localStorage.setItem('user', JSON.stringify(user));
@@ -41,7 +41,7 @@ export class AuthService {
     }
 
     register(model: any): Observable<any> {
-        return this.http.post(this.authUrl + 'auth/signup', model).pipe(
+        return this._http.post(this.authUrl + 'auth/signup', model).pipe(
             map(
                 (response: any) => {
                     const user = response.user;
@@ -58,5 +58,6 @@ export class AuthService {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         this.currentUserSubject.next(null);
+
     }
 }

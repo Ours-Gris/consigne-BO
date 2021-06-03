@@ -1,13 +1,37 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './pages/home/home.component';
 import {LoggedInGuardService} from './shared/services/logged-in-guard.service';
 import {NotFoundComponent} from './shared/components/not-found/not-found.component';
+import {DescriptionComponent} from "./pages/description/description.component";
+import {ShopsListComponent} from "./pages/shops-list/shops-list.component";
+import {NewsListComponent} from "./pages/news-list/news-list.component";
+import {ContactComponent} from "./pages/contact/contact.component";
 
 const routes: Routes = [
     {
         path: '',
         component: HomeComponent
+    },
+    {
+        path: 'description',
+        component: DescriptionComponent
+    },
+    {
+        path: 'shops-list',
+        component: ShopsListComponent
+    },
+    {
+        path: 'producers-list',
+        component: DescriptionComponent
+    },
+    {
+        path: 'news-list',
+        component: NewsListComponent
+    },
+    {
+        path: 'contact',
+        component: ContactComponent
     },
     {
         path: 'user',

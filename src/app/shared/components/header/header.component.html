@@ -1,9 +1,66 @@
 <mat-toolbar>
+    <img routerLink="/"
+         src="assets/img/logo.png"
+         alt="Logo Oc'consigne">
+
+    <span class="spacer"></span>
+    <div class="list-button-flex-container">
+        <button mat-stroked-button
+                class="m-lg-2"
+                routerLinkActive="active"
+                routerLink="/description">
+            Comment ça marche ?
+        </button>
+
+        <button mat-stroked-button
+                class="m-lg-2"
+                routerLinkActive="active"
+                routerLink="/shops-list">
+            Magasins points de collecte
+        </button>
+
+        <button mat-stroked-button
+                class="m-lg-2"
+                routerLinkActive="active"
+                routerLink="/producers-list">
+            Producteurs engagés
+        </button>
+
+        <button mat-stroked-button
+                class="m-lg-2"
+                routerLinkActive="active"
+                routerLink="/news-list">
+            Actualités
+        </button>
+
+        <button mat-stroked-button
+                class="m-lg-2"
+                routerLinkActive="active"
+                routerLink="/contact">
+            Contactez-nous
+        </button>
+
+        <button mat-stroked-button
+                *ngIf="logged"
+                class="m-lg-2"
+                routerLinkActive="active"
+                routerLink="/user">
+            Utilisateur
+        </button>
+        <button mat-stroked-button
+                class="m-lg-2"
+                *ngIf="logged"
+                routerLinkActive="active"
+                routerLink="/map">
+            Carte teste
+        </button>
+    </div>
+
     <button mat-fab
             color="primary"
             [matMenuTriggerFor]="menu"
-            aria-label="Example icon-button with a menu">
-        <mat-icon>menu</mat-icon>
+            aria-label="icon-button">
+        <mat-icon>perm_identity</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item
@@ -30,23 +87,4 @@
             <span>Deconnection</span>
         </button>
     </mat-menu>
-
-    <span routerLink="/"
-          class="m-lg-2">CONSIGNE</span>
-
-    <button mat-stroked-button
-            *ngIf="logged"
-            class="m-lg-2"
-            routerLinkActive="active"
-            routerLink="/user">
-        <span>Utilisateur</span>
-    </button>
-    <button mat-stroked-button
-            *ngIf="logged"
-            routerLinkActive="active"
-            routerLink="/map">
-        <span>Carte teste</span>
-    </button>
-
-    <span class="spacer"></span>
 </mat-toolbar>

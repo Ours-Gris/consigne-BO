@@ -2,8 +2,11 @@
     flex: 1 1 auto;
 }
 
-.nav-bar {
-    position: fixed;
-    top: 0;
-    z-index: 99;
+.list-button-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+mat-toolbar {
+    height: auto;
 }

@@ -7,7 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {RouterModule} from "@angular/router";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AppComponent} from './app.component';
-import {HomeComponent} from "./home/home.component";
+import {HomeComponent} from "./pages/home/home.component";
 import {AuthService} from "./shared/services/auth.service";
 import {LoggedInGuardService} from "./shared/services/logged-in-guard.service";
 import {FormBuilder} from "@angular/forms";
@@ -15,11 +15,21 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ErrorInterceptor} from "./shared/error.interceptor";
 import {JwtInterceptor} from "./shared/jwt.interceptor";
+import {DescriptionComponent} from './pages/description/description.component';
+import {ShopsListComponent} from './pages/shops-list/shops-list.component';
+import {ProducersListComponent} from './pages/producers-list/producers-list.component';
+import {NewsListComponent} from './pages/news-list/news-list.component';
+import {ContactComponent} from './pages/contact/contact.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        DescriptionComponent,
+        ShopsListComponent,
+        ProducersListComponent,
+        NewsListComponent,
+        ContactComponent
     ],
     imports: [
         BrowserModule,

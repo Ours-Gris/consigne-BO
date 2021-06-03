@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../shared/services/auth.service';
-import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-login',
@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private fb: FormBuilder,
+        private _snackBar: MatSnackBar,
         public router: Router
     ) {
         this.identifierCtrl = fb.control('', Validators.required);
@@ -34,12 +35,12 @@ export class LoginComponent implements OnInit {
     onSubmit(): void {
         this.authService.login(this.userForm.value).subscribe({
             next: () => {
-                Swal.fire(`You are connected`).then();
                 this.router.navigateByUrl('').catch(err => console.error(err));
+                this._snackBar.open('Vous êtes connecté', '', {duration: 2000});
             },
             error: error => {
                 console.error(error);
-                Swal.fire(`Identifier or password wrong`).then();
+                this._snackBar.open('Identifiant ou mots de passe incorrecte', '', {duration: 2000});
             }
         });
     }
