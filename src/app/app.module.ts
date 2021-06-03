@@ -20,6 +20,7 @@ import {ShopsListComponent} from './pages/shops-list/shops-list.component';
 import {ProducersListComponent} from './pages/producers-list/producers-list.component';
 import {NewsListComponent} from './pages/news-list/news-list.component';
 import {ContactComponent} from './pages/contact/contact.component';
+import {YouTubePlayerModule} from "@angular/youtube-player";
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import {ContactComponent} from './pages/contact/contact.component';
         RouterModule,
         HttpClientModule,
         AppRoutingModule,
-        NgbModule
+        NgbModule,
+        YouTubePlayerModule
     ],
     providers: [
         {provide: LOCALE_ID, useValue: 'fr-FR'},
