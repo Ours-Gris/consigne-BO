@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../shared/services/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import Swal from 'sweetalert2';
@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
     emailCtrl!: FormControl;
     passwordCtrl!: FormControl;
     passwordRepeatCtrl!: FormControl;
+    captchaCtrl!: FormControl;
 
     constructor(
         private authService: AuthService,
@@ -33,15 +34,17 @@ export class RegisterComponent implements OnInit {
             this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
             this.passwordCtrl = fb.control('', Validators.required);
             this.passwordRepeatCtrl = fb.control('', Validators.required);
+            this.captchaCtrl = fb.control('', Validators.required);
 
             this.userForm = fb.group({
                 username: this.usernameCtrl,
                 email: this.emailCtrl,
                 password: this.passwordCtrl,
-                passwordRepeat: this.passwordRepeatCtrl
+                passwordRepeat: this.passwordRepeatCtrl,
+                captcha: this.captchaCtrl
             }, {
                 validator: MustMatch('password', 'passwordRepeat')
-            });
+            } as AbstractControlOptions);
         }
     }
 

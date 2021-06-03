@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from "sweetalert2";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {User} from "../../models/User";
 import {UserService} from "../services/user.service";
+import {MustMatch} from "../../shared/must-match.validator";
 
 @Component({
   selector: 'app-user-add',
@@ -15,6 +16,7 @@ export class UserAddComponent implements OnInit {
     usernameCtrl: FormControl;
     emailCtrl: FormControl;
     passwordCtrl: FormControl;
+    passwordRepeatCtrl: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -24,12 +26,16 @@ export class UserAddComponent implements OnInit {
         this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.emailCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.passwordCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
+        this.passwordRepeatCtrl = fb.control('', Validators.required);
 
         this.addUserForm = fb.group({
             username: this.usernameCtrl,
             email: this.emailCtrl,
-            password: this.passwordCtrl
-        });
+            password: this.passwordCtrl,
+            passwordRepeat: this.passwordRepeatCtrl
+        }, {
+            validator: MustMatch('password', 'passwordRepeat')
+        } as AbstractControlOptions);
     }
 
     ngOnInit(): void {

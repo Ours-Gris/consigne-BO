@@ -48,6 +48,22 @@
                     </mat-error>
                 </mat-form-field>
 
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="passwordRepeat">Password confirmation</mat-label>
+                    <input matInput
+                           type="password"
+                           name="passwordRepeat"
+                           formControlName="passwordRepeat"
+                           id="password_repeat">
+                    <mat-error *ngIf="passwordRepeatCtrl.touched && passwordRepeatCtrl.hasError('required')">
+                        Password confirmation is required
+                    </mat-error>
+                    <mat-error *ngIf="passwordRepeatCtrl.touched && passwordRepeatCtrl.hasError('mustMatch')">
+                        Passwords must match
+                    </mat-error>
+                </mat-form-field>
+
                 <button mat-raised-button
                         color="primary"
                         type="submit"
