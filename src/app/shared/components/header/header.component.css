@@ -1,6 +1,9 @@
 .spacer {
     flex: 1 1 auto;
 }
+.active {
+    color: #02acac;
+}
 
 .list-button-flex-container {
     display: flex;

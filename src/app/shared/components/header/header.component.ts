@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Role} from "../../../models/role";
 
 @Component({
     selector: 'app-header',
@@ -10,6 +11,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class HeaderComponent implements OnInit {
     logged = false;
+    roleAdmin: boolean = false;
 
     constructor(
         private _authService: AuthService,
@@ -19,7 +21,10 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._authService.currentUser.subscribe(user => this.logged = !!user);
+        this._authService.currentUser.subscribe(user => {
+            this.logged = !!user;
+            this.roleAdmin = user?.role === Role.Admin;
+        });
     }
 
     logout(): void {

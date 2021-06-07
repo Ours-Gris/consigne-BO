@@ -58,6 +58,15 @@ export class AuthService {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         this.currentUserSubject.next(null);
+    }
 
+    reset(email: string) : Observable<any> {
+        return this._http.post(this.authUrl + 'auth/reset', email).pipe(
+            map(
+                (response: any) => {
+                    console.log(response)
+                }
+            )
+        );
     }
 }

@@ -13,14 +13,15 @@ import {LoggedInGuardService} from "./shared/services/logged-in-guard.service";
 import {FormBuilder} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ErrorInterceptor} from "./shared/error.interceptor";
-import {JwtInterceptor} from "./shared/jwt.interceptor";
+import {ErrorInterceptor} from "./_helpers/error.interceptor";
+import {JwtInterceptor} from "./_helpers/jwt.interceptor";
 import {DescriptionComponent} from './pages/description/description.component';
 import {ShopsListComponent} from './pages/shops-list/shops-list.component';
 import {ProducersListComponent} from './pages/producers-list/producers-list.component';
 import {NewsListComponent} from './pages/news-list/news-list.component';
 import {ContactComponent} from './pages/contact/contact.component';
 import {YouTubePlayerModule} from "@angular/youtube-player";
+import {EnumToArrayPipe} from "./_helpers/enum.to.array.pipe";
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import {YouTubePlayerModule} from "@angular/youtube-player";
         ShopsListComponent,
         ProducersListComponent,
         NewsListComponent,
-        ContactComponent
+        ContactComponent,
+        EnumToArrayPipe
     ],
     imports: [
         BrowserModule,
@@ -52,6 +54,9 @@ import {YouTubePlayerModule} from "@angular/youtube-player";
         LoggedInGuardService,
         FormBuilder,
         MatSnackBar
+    ],
+    exports: [
+        EnumToArrayPipe
     ],
     bootstrap: [AppComponent]
 })

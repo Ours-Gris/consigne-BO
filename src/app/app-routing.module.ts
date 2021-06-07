@@ -7,6 +7,9 @@ import {DescriptionComponent} from "./pages/description/description.component";
 import {ShopsListComponent} from "./pages/shops-list/shops-list.component";
 import {NewsListComponent} from "./pages/news-list/news-list.component";
 import {ContactComponent} from "./pages/contact/contact.component";
+import {ProducersListComponent} from "./pages/producers-list/producers-list.component";
+import {AuthGuard} from "./_helpers/auth.guard";
+import {Role} from "./models/role";
 
 const routes: Routes = [
     {
@@ -23,7 +26,7 @@ const routes: Routes = [
     },
     {
         path: 'producers-list',
-        component: DescriptionComponent
+        component: ProducersListComponent
     },
     {
         path: 'news-list',
@@ -35,8 +38,9 @@ const routes: Routes = [
     },
     {
         path: 'user',
-        canActivate: [LoggedInGuardService],
-        loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+        data: { roles: [Role.Admin] }
     },
     {
         path: 'map',

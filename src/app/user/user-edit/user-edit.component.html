@@ -36,6 +36,19 @@
                     </mat-error>
                 </mat-form-field>
 
+                <mat-form-field appearance="standard">
+                    <mat-label>Rôle</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option *ngFor="let role of roles"
+                                    [value]="role">
+                            {{role}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="roleCtrl.touched && roleCtrl.hasError('required')">
+                        Email is incorrect
+                    </mat-error>
+                </mat-form-field>
+
                 <button mat-raised-button
                         color="primary"
                         type="submit"

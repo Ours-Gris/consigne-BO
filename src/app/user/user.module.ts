@@ -18,9 +18,9 @@ import {MatChipsModule} from "@angular/material/chips";
 // import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatButtonModule} from "@angular/material/button";
-import {RouterModule} from "@angular/router";
 import {UserService} from "./services/user.service";
 import {UserRoutingModule} from "./user-routing.module";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
     declarations: [
@@ -46,7 +46,7 @@ import {UserRoutingModule} from "./user-routing.module";
         MatChipsModule,
         MatTooltipModule,
         MatBadgeModule,
-        RouterModule
+        MatSelectModule
     ],
     providers: [UserService]
 })

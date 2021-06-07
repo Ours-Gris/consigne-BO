@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import Swal from "sweetalert2";
 import {User} from "../../models/User";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
+import {Role} from "../../models/role";
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css']
+    selector: 'app-user-edit',
+    templateUrl: './user-edit.component.html',
+    styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
     user!: User;
     editUserForm: FormGroup;
+    roles = Object.values(Role);
+
     usernameCtrl: FormControl;
     emailCtrl: FormControl;
+    roleCtrl: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -24,10 +28,12 @@ export class UserEditComponent implements OnInit {
     ) {
         this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
+        this.roleCtrl = fb.control('', [Validators.required]);
 
         this.editUserForm = fb.group({
             username: this.usernameCtrl,
-            email: this.emailCtrl
+            email: this.emailCtrl,
+            role: this.roleCtrl
         });
     }
 
@@ -42,7 +48,8 @@ export class UserEditComponent implements OnInit {
                     this.user = user;
                     this.editUserForm.setValue({
                         username: this.user.username,
-                        email: this.user.email
+                        email: this.user.email,
+                        role: this.user.role
                     });
                 },
                 error: error => {
