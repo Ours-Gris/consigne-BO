@@ -21,7 +21,6 @@ import {ProducersListComponent} from './pages/producers-list/producers-list.comp
 import {NewsListComponent} from './pages/news-list/news-list.component';
 import {ContactComponent} from './pages/contact/contact.component';
 import {YouTubePlayerModule} from "@angular/youtube-player";
-import {EnumToArrayPipe} from "./_helpers/enum.to.array.pipe";
 
 @NgModule({
     declarations: [
@@ -31,8 +30,7 @@ import {EnumToArrayPipe} from "./_helpers/enum.to.array.pipe";
         ShopsListComponent,
         ProducersListComponent,
         NewsListComponent,
-        ContactComponent,
-        EnumToArrayPipe
+        ContactComponent
     ],
     imports: [
         BrowserModule,
@@ -54,9 +52,6 @@ import {EnumToArrayPipe} from "./_helpers/enum.to.array.pipe";
         LoggedInGuardService,
         FormBuilder,
         MatSnackBar
-    ],
-    exports: [
-        EnumToArrayPipe
     ],
     bootstrap: [AppComponent]
 })
