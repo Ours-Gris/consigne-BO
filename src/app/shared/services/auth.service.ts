@@ -32,7 +32,9 @@ export class AuthService {
     login(model: any): Observable<any> {
         return this._http.post<User>(this.authUrl + 'auth/login', model).pipe(
             map(
-                (user: User) => {
+                (response: any) => {
+                    const user = response.user;
+                    user.token = response.token;
                     localStorage.setItem('user', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 }
@@ -45,6 +47,7 @@ export class AuthService {
             map(
                 (response: any) => {
                     const user = response.user;
+                    user.token = response.token;
                     if (response.jwt) {
                         localStorage.setItem('user', JSON.stringify(user));
                     }

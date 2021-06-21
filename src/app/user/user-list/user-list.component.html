@@ -53,12 +53,12 @@
                         </button>
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item
-                                    (click)="editUser(user._id)">
+                                    (click)="editUser(user.id)">
                                 <mat-icon color="accent">mode</mat-icon>
                                 <span i18n="@@UserAction.edit">Edit</span>
                             </button>
                             <button mat-menu-item
-                                    (click)="deleteUser(user._id)">
+                                    (click)="deleteUser(user.id)">
                                 <mat-icon color="warn">delete</mat-icon>
                                 <span i18n="@@UserAction.delete">Delete</span>
                             </button>

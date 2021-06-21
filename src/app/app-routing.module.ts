@@ -9,7 +9,7 @@ import {NewsListComponent} from "./pages/news-list/news-list.component";
 import {ContactComponent} from "./pages/contact/contact.component";
 import {ProducersListComponent} from "./pages/producers-list/producers-list.component";
 import {AuthGuard} from "./_helpers/auth.guard";
-import {Role} from "./models/role";
+import {Role} from "./models/Role";
 
 const routes: Routes = [
     {
@@ -40,7 +40,7 @@ const routes: Routes = [
         path: 'user',
         canActivate: [AuthGuard],
         loadChildren: () => import('./user/user.module').then(m => m.UserModule),
-        data: { roles: [Role.Admin] }
+        data: { roles: [Role.ADMIN] }
     },
     {
         path: 'map',

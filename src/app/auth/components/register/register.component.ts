@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../shared/services/auth.service';
-import {HttpErrorResponse} from '@angular/common/http';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
 import {User} from '../../../models/User';
 import {MustMatch} from "../../../shared/must-match.validator";
+import {ToastrService} from "ngx-toastr";
+import {openRole} from "../../../models/Role";
 
 @Component({
     selector: 'app-register',
@@ -14,17 +15,20 @@ import {MustMatch} from "../../../shared/must-match.validator";
 })
 export class RegisterComponent implements OnInit {
     user!: User;
+    roles = Object.values(openRole);
     userForm!: FormGroup;
     usernameCtrl!: FormControl;
     emailCtrl!: FormControl;
     passwordCtrl!: FormControl;
     passwordRepeatCtrl!: FormControl;
     captchaCtrl!: FormControl;
+    roleCtrl!: FormControl;
 
     constructor(
         private authService: AuthService,
         private fb: FormBuilder,
-        public router: Router
+        public router: Router,
+        private toastr: ToastrService,
     ) {
         // redirect to home if already logged in
         if (this.authService.currentUserValue) {
@@ -35,13 +39,15 @@ export class RegisterComponent implements OnInit {
             this.passwordCtrl = fb.control('', Validators.required);
             this.passwordRepeatCtrl = fb.control('', Validators.required);
             this.captchaCtrl = fb.control('', Validators.required);
+            this.roleCtrl = fb.control('', [Validators.required]);
 
             this.userForm = fb.group({
                 username: this.usernameCtrl,
                 email: this.emailCtrl,
                 password: this.passwordCtrl,
                 passwordRepeat: this.passwordRepeatCtrl,
-                captcha: this.captchaCtrl
+                captcha: this.captchaCtrl,
+                role: this.roleCtrl
             }, {
                 validator: MustMatch('password', 'passwordRepeat')
             } as AbstractControlOptions);
@@ -57,10 +63,11 @@ export class RegisterComponent implements OnInit {
                 this.router.navigateByUrl('').catch(err => console.error(err));
                 Swal.fire(`User created`).then();
             },
-            error: (err: HttpErrorResponse) => {
-                console.error(err);
-                //todo à corriger
-                Swal.fire(err.error.message[0].messages[0].message).then();
+            error: (error) => {
+                console.error(error);
+                error.map((err: string) => {
+                    this.toastr.error(err, 'Error !');
+                })
             }
         });
     }

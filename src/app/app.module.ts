@@ -21,6 +21,8 @@ import {ProducersListComponent} from './pages/producers-list/producers-list.comp
 import {NewsListComponent} from './pages/news-list/news-list.component';
 import {ContactComponent} from './pages/contact/contact.component';
 import {YouTubePlayerModule} from "@angular/youtube-player";
+import {MatButtonModule} from "@angular/material/button";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
     declarations: [
@@ -35,13 +37,15 @@ import {YouTubePlayerModule} from "@angular/youtube-player";
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        ToastrModule.forRoot(),
         AuthModule,
         SharedModule,
         RouterModule,
         HttpClientModule,
         AppRoutingModule,
         NgbModule,
-        YouTubePlayerModule
+        YouTubePlayerModule,
+        MatButtonModule
     ],
     providers: [
         {provide: LOCALE_ID, useValue: 'fr-FR'},

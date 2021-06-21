@@ -7,11 +7,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {NotFoundComponent} from './components/not-found/not-found.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
     declarations: [
         HeaderComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        FooterComponent
     ],
     imports: [
         CommonModule,
@@ -22,7 +24,8 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
         MatToolbarModule
     ],
     exports: [
-        HeaderComponent
+        HeaderComponent,
+        FooterComponent
     ]
 })
 export class SharedModule {

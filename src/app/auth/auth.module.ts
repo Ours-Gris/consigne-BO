@@ -11,6 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
     declarations: [
@@ -18,18 +19,19 @@ import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
         RegisterComponent,
         ResetPasswordComponent
     ],
-    imports: [
-        CommonModule,
-        AuthRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatButtonModule,
-        RecaptchaModule,
-        RecaptchaFormsModule
-    ],
+	imports: [
+		CommonModule,
+		AuthRoutingModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatIconModule,
+		MatInputModule,
+		MatButtonModule,
+		RecaptchaModule,
+		RecaptchaFormsModule,
+		MatSelectModule
+	],
     exports: [
         LoginComponent,
         RegisterComponent,

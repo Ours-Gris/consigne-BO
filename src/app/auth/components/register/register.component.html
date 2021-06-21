@@ -67,6 +67,19 @@
                 </mat-error>
             </mat-form-field>
 
+            <mat-form-field appearance="standard">
+                <mat-label>Rôle</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option *ngFor="let role of roles"
+                                [value]="role">
+                        {{role}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="roleCtrl.touched && roleCtrl.hasError('required')">
+                    Email is incorrect
+                </mat-error>
+            </mat-form-field>
+
 <!--            TODO Changer la clé -->
             <re-captcha class="mb-3 mt-3"
                 formControlName="captcha"

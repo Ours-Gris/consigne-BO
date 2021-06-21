@@ -4,7 +4,7 @@ import {User} from "../../models/User";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
-import {Role} from "../../models/role";
+import {Role} from "../../models/Role";
 
 @Component({
     selector: 'app-user-edit',
@@ -62,7 +62,7 @@ export class UserEditComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.userService.editUser(this.user._id, this.editUserForm.value).subscribe({
+        this.userService.editUser(this.user.id, this.editUserForm.value).subscribe({
             next: () => {
                 Swal.fire($localize`:@@UserEdit.validate.popup:${this.user.username} is edited`).then();
                 this.router.navigateByUrl('/user').catch(err => console.error(err));
