@@ -65,18 +65,18 @@
     <mat-menu #menu="matMenu">
         <button mat-menu-item
                 *ngIf="!logged"
-                [routerLink]="['register']">
+                [routerLink]="['auth/register']">
             <mat-icon color="primary">how_to_reg</mat-icon>
             <span>Register</span>
         </button>
         <button mat-menu-item
                 *ngIf="!logged"
-                [routerLink]="['login']">
+                [routerLink]="['auth/login']">
             <mat-icon color="accent">login</mat-icon>
             <span>Connection</span>
         </button>
         <button mat-menu-item
-                [routerLink]="['reset-password']">
+                [routerLink]="['auth/reset-password']">
             <mat-icon color="primary">password</mat-icon>
             <span>Reset password</span>
         </button>

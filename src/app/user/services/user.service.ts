@@ -31,9 +31,10 @@ export class UserService {
         );
     }
 
-    getUsers(filter?: string, sortOrder?: string, pageNumber?: number, pageSize?: number): Observable<User[]> {
+    getUsers(filter?: string, sortBy?: string, sortDirection?: string, pageNumber?: number, pageSize?: number): Observable<User[]> {
         let params = new HttpParams()
-            .set('_sort', sortOrder ? sortOrder : 'username:asc')
+            .set('_sort', sortBy ? sortBy : 'username')
+            .set('_direction', sortDirection ? sortDirection : 'ASC')
             .set('_start', pageNumber && pageSize ? (pageNumber * pageSize).toString() : '0')
             .set('_limit', pageSize ? pageSize.toString() : '3');
         if (filter) {

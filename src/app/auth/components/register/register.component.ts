@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
         } else {
             this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
             this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
-            this.passwordCtrl = fb.control('', Validators.required);
+            this.passwordCtrl = fb.control('', [Validators.required, Validators.minLength(6)]);
             this.passwordRepeatCtrl = fb.control('', Validators.required);
             this.captchaCtrl = fb.control('', Validators.required);
             this.roleCtrl = fb.control('', [Validators.required]);

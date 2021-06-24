@@ -4,6 +4,7 @@ import {map} from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {User} from '../../models/User';
+import {Role} from "../../models/Role";
 
 @Injectable({
     providedIn: 'root'
@@ -11,14 +12,22 @@ import {User} from '../../models/User';
 export class AuthService {
     private authUrl = environment.api_base_url;
     private currentUserSubject!: BehaviorSubject<User | null>;
+    private token: string = '';
+    public tokenKey: string = 'consigne-api';
     public currentUser!: Observable<User | null>;
 
     constructor(
         private _http: HttpClient
     ) {
-        let user = localStorage.getItem('user');
-        this.currentUserSubject = new BehaviorSubject<User | null>(user ? JSON.parse(user) : '');
-        this.currentUser = this.currentUserSubject.asObservable();
+        this.token = localStorage.getItem(this.tokenKey) || '';
+        let user = null
+        if (this.token) {
+            user = this.decodePayloadToken(this.token);
+            console.log(user)
+            this.currentUserSubject = new BehaviorSubject<User | null>(user ? user : '');
+            this.currentUser = this.currentUserSubject.asObservable();
+        }
+
     }
 
     public get currentUserValue(): User | null {
@@ -33,10 +42,12 @@ export class AuthService {
         return this._http.post<User>(this.authUrl + 'auth/login', model).pipe(
             map(
                 (response: any) => {
-                    const user = response.user;
-                    user.token = response.token;
-                    localStorage.setItem('user', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
+                    if (response.access_token) {
+                        this.token = response.access_token;
+                        const payload = this.decodePayloadToken(this.token)
+                        localStorage.setItem(this.tokenKey, this.token);
+                        this.currentUserSubject.next(payload);
+                    }
                 }
             )
         );
@@ -46,10 +57,11 @@ export class AuthService {
         return this._http.post(this.authUrl + 'auth/signup', model).pipe(
             map(
                 (response: any) => {
-                    const user = response.user;
-                    user.token = response.token;
-                    if (response.jwt) {
-                        localStorage.setItem('user', JSON.stringify(user));
+                    if (response.access_token) {
+                        this.token = response.access_token;
+                        const payload = this.decodePayloadToken(this.token)
+                        localStorage.setItem(this.tokenKey, this.token);
+                        this.currentUserSubject.next(payload);
                     }
                 }
             )
@@ -58,12 +70,11 @@ export class AuthService {
 
     // remove user from local storage and set current user to null
     logout(): void {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        localStorage.removeItem(this.tokenKey);
         this.currentUserSubject.next(null);
     }
 
-    reset(email: string) : Observable<any> {
+    reset(email: string): Observable<any> {
         return this._http.post(this.authUrl + 'auth/reset', email).pipe(
             map(
                 (response: any) => {
@@ -71,5 +82,17 @@ export class AuthService {
                 }
             )
         );
+    }
+
+    decodePayloadToken(token: string) {
+        return JSON.parse(atob(token.split('.')[1]));
+    }
+
+    get isAdmin() {
+        if (!this.token) {
+            return false
+        }
+        const payload = this.decodePayloadToken(this.token);
+        return payload.role === Role.ADMIN;
     }
 }

@@ -1,5 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {MapService} from '../services/map.service';
+import {UserService} from "../../user/services/user.service";
 
 @Component({
     selector: 'app-view',
@@ -9,7 +10,9 @@ import {MapService} from '../services/map.service';
 export class ViewComponent implements AfterViewInit {
 
     constructor(
-        private mapServices: MapService
+        private mapServices: MapService,
+        private userService: UserService,
+
     ) {}
 
     ngAfterViewInit(): void {
@@ -17,6 +20,10 @@ export class ViewComponent implements AfterViewInit {
     }
 
     createMap(): void {
-
+        this.userService.getUsers().subscribe(
+            users => {
+                console.log(users)
+            }
+        )
     }
 }

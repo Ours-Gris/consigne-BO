@@ -24,9 +24,9 @@ export class UsersDataSource implements DataSource<User> {
         this.loadingSubject.complete();
     }
 
-    loadUsers(filter?: string, sortDirection?: string, pageIndex?: number, pageSize?: number): void {
+    loadUsers(filter?: string, sortBy?: string, sortDirection?: string, pageIndex?: number, pageSize?: number): void {
         this.loadingSubject.next(true);
-        this.userService.getUsers(filter, sortDirection, pageIndex, pageSize)
+        this.userService.getUsers(filter, sortBy, sortDirection, pageIndex, pageSize)
             .pipe(
                 catchError(() => of([])),
                 finalize(() => this.loadingSubject.next(false))

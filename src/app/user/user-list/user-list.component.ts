@@ -70,7 +70,8 @@ export class UserListComponent implements OnInit {
     loadUsersPage(): void {
         this.users.loadUsers(
             this.input.nativeElement.value,
-            this.sort.active + ':' + this.sort.direction,
+            this.sort.active,
+            this.sort.direction,
             this.paginator.pageIndex,
             this.paginator.pageSize);
     }

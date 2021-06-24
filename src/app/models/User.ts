@@ -5,8 +5,5 @@ export interface User {
     username: string;
     email: string;
     role: Role;
-    blocked: boolean;
-    confirmed: boolean;
-    provider: string;
     token?: string;
 }

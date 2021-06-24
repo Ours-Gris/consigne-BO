@@ -49,6 +49,9 @@
                 <mat-error *ngIf="passwordCtrl.touched && passwordCtrl.hasError('required')">
                     Password is required
                 </mat-error>
+                <mat-error *ngIf="passwordCtrl.touched && passwordCtrl.hasError('minlength')">
+                    Password min is 6
+                </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="standard"

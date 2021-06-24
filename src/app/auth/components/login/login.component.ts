@@ -11,7 +11,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class LoginComponent implements OnInit {
     userForm!: FormGroup;
-    identifierCtrl!: FormControl;
+    emailCtrl!: FormControl;
     passwordCtrl!: FormControl;
 
     constructor(
@@ -20,11 +20,11 @@ export class LoginComponent implements OnInit {
         private _snackBar: MatSnackBar,
         public router: Router
     ) {
-        this.identifierCtrl = fb.control('', Validators.required);
+        this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
         this.passwordCtrl = fb.control('', Validators.required);
 
         this.userForm = fb.group({
-            identifier: this.identifierCtrl,
+            email: this.emailCtrl,
             password: this.passwordCtrl
         });
     }

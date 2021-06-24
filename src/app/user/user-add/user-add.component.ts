@@ -30,7 +30,7 @@ export class UserAddComponent implements OnInit {
         public router: Router
     ) {
         this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
-        this.emailCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
+        this.emailCtrl = fb.control('', [Validators.required, Validators.email, Validators.minLength(3)]);
         this.passwordCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.passwordRepeatCtrl = fb.control('', Validators.required);
         this.roleCtrl = fb.control('', [Validators.required]);

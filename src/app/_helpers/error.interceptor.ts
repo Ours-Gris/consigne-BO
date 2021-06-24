@@ -4,11 +4,13 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {AuthService} from "../shared/services/auth.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private authService: AuthService,
+        private toastr: ToastrService,
         public router: Router
     ) {}
 
@@ -17,9 +19,9 @@ export class ErrorInterceptor implements HttpInterceptor {
             if ([401].indexOf(err.status) !== -1) {
                 // auto logout if 401 response returned from api
                 this.authService.logout();
-                this.router.navigateByUrl('login');
+                this.router.navigateByUrl('auth/login');
             }
-
+            this.toastr.error(err.error.message || err.statusText, 'Error !');
             const error = err.error.message || err.statusText;
             return throwError(error);
         }))
