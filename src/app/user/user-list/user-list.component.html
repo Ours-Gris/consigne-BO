@@ -1,14 +1,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 pt-2">
-            <h3 i18n="@@UserList.title">List of Users</h3>
+            <h3 i18n="@@UserList.title">Liste des utilisateurs</h3>
 
             <div>
                 <label for="searchInput">
                     <input matInput
                            id="searchInput"
                            i18n-placeholder="@@UserList.findUser.placeholder"
-                           placeholder="Find a user"
+                           placeholder="Rechercher un utilisateur"
                            #input>
                 </label>
             </div>
@@ -16,14 +16,14 @@
             <mat-table class="lessons-table mat-elevation-z8"
                        [dataSource]="users"
                        matSort
-                       matSortActive="Nom"
+                       matSortActive="username"
                        matSortDirection="asc">
 
                 <!-- Username Column -->
                 <ng-container matColumnDef="username">
                     <mat-header-cell *matHeaderCellDef
                                      mat-sort-header
-                                     i18n="@@UserAttributes.username"> Username
+                                     i18n="@@UserAttributes.username"> Nom
                     </mat-header-cell>
                     <mat-cell mat-cell
                               *matCellDef="let user"> {{user.username}} </mat-cell>
@@ -55,12 +55,12 @@
                             <button mat-menu-item
                                     (click)="editUser(user.id)">
                                 <mat-icon color="accent">mode</mat-icon>
-                                <span i18n="@@UserAction.edit">Edit</span>
+                                <span i18n="@@UserAction.edit">Modifier</span>
                             </button>
                             <button mat-menu-item
                                     (click)="deleteUser(user.id)">
                                 <mat-icon color="warn">delete</mat-icon>
-                                <span i18n="@@UserAction.delete">Delete</span>
+                                <span i18n="@@UserAction.delete">Supprimer</span>
                             </button>
                         </mat-menu>
                     </mat-cell>
@@ -84,7 +84,7 @@
                     class="mt-2"
                     color="primary"
                     routerLink="/user/add">
-                <span i18n="@@UserList.button.addUser">Add user</span>
+                <span i18n="@@UserList.button.addUser">Ajouter un utilisateur</span>
             </button>
         </div>
     </div>

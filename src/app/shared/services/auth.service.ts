@@ -23,11 +23,10 @@ export class AuthService {
         let user = null
         if (this.token) {
             user = this.decodePayloadToken(this.token);
-            console.log(user)
-            this.currentUserSubject = new BehaviorSubject<User | null>(user ? user : '');
-            this.currentUser = this.currentUserSubject.asObservable();
-        }
 
+        }
+        this.currentUserSubject = new BehaviorSubject<User | null>(user ? user : '');
+        this.currentUser = this.currentUserSubject.asObservable();
     }
 
     public get currentUserValue(): User | null {

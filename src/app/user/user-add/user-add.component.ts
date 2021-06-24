@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import Swal from "sweetalert2";
 import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {User} from "../../models/User";
 import {UserService} from "../services/user.service";
 import {MustMatch} from "../../shared/must-match.validator";
 import {ToastrService} from "ngx-toastr";
@@ -53,11 +51,12 @@ export class UserAddComponent implements OnInit {
 
     onSubmit(): void {
         this.userService.addUser(this.addUserForm.value).subscribe({
-            next: (user: User) => {
-                Swal.fire($localize`:@@UserAdd.validate.popup:${user.username} is created`).then();
+            next: () => {
+                this.toastr.success('L\'utilisateur a été ajouté', 'Ajouter');
                 this.router.navigateByUrl('/user').catch(err => console.error(err));
             },
             error: error => {
+                console.error(error);
                 if (Array.isArray(error)) {
                     error.map((err: string) => {
                         this.toastr.error(err, 'Error !');

@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {User} from "../../models/User";
 import {UsersDataSource} from "../data/users-data-source";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
@@ -9,6 +8,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {fromEvent, merge} from "rxjs";
 import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-user-list',
@@ -16,7 +16,6 @@ import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
     styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-    currentUser!: User | null;
     users!: UsersDataSource;
     displayedColumns: string[] = ['username', 'email', 'actions'];
     totalUsers: number = 0;
@@ -29,18 +28,14 @@ export class UserListComponent implements OnInit {
         private authService: AuthService,
         private userService: UserService,
         private snackBar: MatSnackBar,
+        private toastr: ToastrService,
         public router: Router
     ) {
-        this.authService.currentUser.subscribe(user => {
-            user ? this.currentUser = user : this.currentUser = null
-        });
     }
 
     ngOnInit(): void {
-        if (this.currentUser) {
-            this.users = new UsersDataSource(this.userService);
-            this.users.loadUsers();
-        }
+        this.users = new UsersDataSource(this.userService);
+        this.users.loadUsers();
     }
 
     ngAfterViewInit(): void {
@@ -91,11 +86,21 @@ export class UserListComponent implements OnInit {
     }
 
     deleteUser(idUser: string): void {
-        this.userService.deleteUser(idUser).subscribe(
-            () => {
+        this.userService.deleteUser(idUser).subscribe({
+            next: () => {
                 this.loadUsersPage();
-                this.snackBar.open('User deleted !', '', {duration: 3000});
+                this.toastr.success('L\'utilisateur a été supprimé', 'Supprimer');
+            },
+            error: error => {
+                console.error(error);
+                if (Array.isArray(error)) {
+                    error.map((err: string) => {
+                        this.toastr.error(err, 'Error !');
+                    })
+                } else {
+                    this.toastr.error(error, 'Error !');
+                }
             }
-        );
+        });
     }
 }

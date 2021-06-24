@@ -21,10 +21,13 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._authService.currentUser.subscribe(user => {
-            this.logged = !!user;
-            this.roleAdmin = user?.role === Role.ADMIN;
-        });
+        if (this._authService.currentUser) {
+            this._authService.currentUser.subscribe(user => {
+                this.logged = !!user;
+                this.roleAdmin = user?.role === Role.ADMIN;
+            });
+        }
+
     }
 
     logout(): void {
