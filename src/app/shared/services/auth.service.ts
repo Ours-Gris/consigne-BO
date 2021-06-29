@@ -74,7 +74,7 @@ export class AuthService {
     }
 
     reset(email: string): Observable<any> {
-        return this._http.post(this.authUrl + 'auth/reset', email).pipe(
+        return this._http.post(this.authUrl + 'auth/reset', {email}).pipe(
             map(
                 (response: any) => {
                     console.log(response)
@@ -93,5 +93,20 @@ export class AuthService {
         }
         const payload = this.decodePayloadToken(this.token);
         return payload.role === Role.ADMIN;
+    }
+
+    confirm(token: string): Observable<any> {
+        return this._http.post(this.authUrl + 'auth/confirm', {token}).pipe(
+            map(
+                (response: any) => {
+                    if (response.access_token) {
+                        this.token = response.access_token;
+                        const payload = this.decodePayloadToken(this.token)
+                        localStorage.setItem(this.tokenKey, this.token);
+                        this.currentUserSubject.next(payload);
+                    }
+                }
+            )
+        );
     }
 }
