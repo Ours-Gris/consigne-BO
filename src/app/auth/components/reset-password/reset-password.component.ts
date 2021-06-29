@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from "@angular/router";
-import Swal from "sweetalert2";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AuthService} from "../../../shared/services/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-reset-password',
@@ -17,6 +17,7 @@ export class ResetPasswordComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private authService: AuthService,
+        private toastr: ToastrService,
         public router: Router
     ) {
         this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
@@ -32,11 +33,11 @@ export class ResetPasswordComponent implements OnInit {
         if (this.userForm.valid) {
             this.authService.reset(this.userForm.value.email).subscribe({
                 next: () => {
-                    Swal.fire(`Vous allez recevoir un mail !`).then();
+                    this.toastr.info('Vous allez recevoir un mail !', 'Information');
                 },
                 error: (err: HttpErrorResponse) => {
                     console.error(err);
-                    Swal.fire('Ça n\'a pas fonctionné !').then();
+                    this.toastr.error('Ça n\'a pas fonctionné !', 'Erreur');
                 }
             });
         }

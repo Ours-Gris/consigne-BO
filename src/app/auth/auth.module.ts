@@ -12,12 +12,14 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
 import {MatSelectModule} from "@angular/material/select";
+import { NewPasswordComponent } from './components/new-password/new-password.component';
 
 @NgModule({
     declarations: [
         LoginComponent,
         RegisterComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        NewPasswordComponent
     ],
 	imports: [
 		CommonModule,

@@ -83,6 +83,23 @@ export class AuthService {
         );
     }
 
+    updatePassword(token: string, password: string) {
+        return this._http.put(
+            this.authUrl + 'users/me',
+            {password},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).pipe(
+            map(
+                (response: any) => {
+                    console.log(response)
+                }
+            )
+        );
+    }
+
     decodePayloadToken(token: string) {
         return JSON.parse(atob(token.split('.')[1]));
     }
