@@ -14,6 +14,12 @@ import {ToastrService} from "ngx-toastr";
 export class UserEditComponent implements OnInit {
     user!: User;
     editUserForm: FormGroup;
+    companyCtrl!: FormControl;
+    adressCtrl!: FormControl;
+    adress_detailsCtrl!: FormControl;
+    postal_codeCtrl!: FormControl;
+    cityCtrl!: FormControl;
+    telCtrl!: FormControl;
     roles = Object.values(Role);
 
     usernameCtrl: FormControl;
@@ -29,11 +35,23 @@ export class UserEditComponent implements OnInit {
     ) {
         this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
-        this.roleCtrl = fb.control('');
+        this.companyCtrl = fb.control('');
+        this.adressCtrl = fb.control('');
+        this.adress_detailsCtrl = fb.control('');
+        this.postal_codeCtrl = fb.control('');
+        this.cityCtrl = fb.control('');
+        this.telCtrl = fb.control('');
+        this.roleCtrl = fb.control('', [Validators.required]);
 
         this.editUserForm = fb.group({
             username: this.usernameCtrl,
             email: this.emailCtrl,
+            company: this.companyCtrl,
+            adress: this.adressCtrl,
+            adress_details: this.adress_detailsCtrl,
+            postal_code: this.postal_codeCtrl,
+            city: this.cityCtrl,
+            tel: this.telCtrl,
             role: this.roleCtrl
         });
     }
@@ -50,6 +68,12 @@ export class UserEditComponent implements OnInit {
                     this.editUserForm.setValue({
                         username: this.user.username,
                         email: this.user.email,
+                        company: this.user.company,
+                        adress: this.user.adress,
+                        adress_details: this.user.adress_details,
+                        postal_code: this.user.postal_code,
+                        city: this.user.city,
+                        tel: this.user.tel,
                         role: this.user.role
                     });
                 },

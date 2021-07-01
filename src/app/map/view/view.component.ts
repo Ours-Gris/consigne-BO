@@ -20,7 +20,7 @@ export class ViewComponent implements AfterViewInit {
     }
 
     createMap(): void {
-        this.userService.getUsers().subscribe(
+        this.userService.getMe().subscribe(
             users => {
                 console.log(users)
             }

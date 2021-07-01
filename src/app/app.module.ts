@@ -37,7 +37,13 @@ import {ToastrModule} from "ngx-toastr";
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        ToastrModule.forRoot(),
+        ToastrModule.forRoot({
+            timeOut: 3000,
+            positionClass: 'toast-bottom-right',
+            preventDuplicates: true,
+            countDuplicates: true,
+            resetTimeoutOnDuplicate: true
+        }),
         AuthModule,
         SharedModule,
         RouterModule,

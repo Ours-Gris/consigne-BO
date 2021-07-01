@@ -21,6 +21,12 @@ export class RegisterComponent implements OnInit {
     emailCtrl!: FormControl;
     passwordCtrl!: FormControl;
     passwordRepeatCtrl!: FormControl;
+    companyCtrl!: FormControl;
+    adressCtrl!: FormControl;
+    adress_detailsCtrl!: FormControl;
+    postal_codeCtrl!: FormControl;
+    cityCtrl!: FormControl;
+    telCtrl!: FormControl;
     captchaCtrl!: FormControl;
     roleCtrl!: FormControl;
 
@@ -38,6 +44,12 @@ export class RegisterComponent implements OnInit {
             this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
             this.passwordCtrl = fb.control('', [Validators.required, Validators.minLength(6)]);
             this.passwordRepeatCtrl = fb.control('', Validators.required);
+            this.companyCtrl = fb.control('');
+            this.adressCtrl = fb.control('');
+            this.adress_detailsCtrl = fb.control('');
+            this.postal_codeCtrl = fb.control('');
+            this.cityCtrl = fb.control('');
+            this.telCtrl = fb.control('');
             this.captchaCtrl = fb.control('', Validators.required);
             this.roleCtrl = fb.control('', [Validators.required]);
 
@@ -46,6 +58,12 @@ export class RegisterComponent implements OnInit {
                 email: this.emailCtrl,
                 password: this.passwordCtrl,
                 passwordRepeat: this.passwordRepeatCtrl,
+                company: this.companyCtrl,
+                adress: this.adressCtrl,
+                adress_details: this.adress_detailsCtrl,
+                postal_code: this.postal_codeCtrl,
+                city: this.cityCtrl,
+                tel: this.telCtrl,
                 captcha: this.captchaCtrl,
                 role: this.roleCtrl
             }, {

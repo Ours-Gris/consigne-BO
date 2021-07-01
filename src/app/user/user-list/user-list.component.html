@@ -19,6 +19,16 @@
                        matSortActive="username"
                        matSortDirection="asc">
 
+                <!-- Company Column -->
+                <ng-container matColumnDef="company">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.company"> Société
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user"> {{user.company}} </mat-cell>
+                </ng-container>
+
                 <!-- Username Column -->
                 <ng-container matColumnDef="username">
                     <mat-header-cell *matHeaderCellDef
@@ -37,6 +47,16 @@
                     </mat-header-cell>
                     <mat-cell mat-cell
                               *matCellDef="let user"> {{user.email}} </mat-cell>
+                </ng-container>
+
+                <!-- Tel Column -->
+                <ng-container matColumnDef="tel">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.tel"> Téléphone
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user"> {{user.tel}} </mat-cell>
                 </ng-container>
 
                 <!-- Actions Column -->

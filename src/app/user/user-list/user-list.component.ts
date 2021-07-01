@@ -17,7 +17,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class UserListComponent implements OnInit {
     users!: UsersDataSource;
-    displayedColumns: string[] = ['username', 'email', 'actions'];
+    displayedColumns: string[] = ['company', 'username', 'email', 'tel', 'actions'];
     totalUsers: number = 0;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;

@@ -3,37 +3,100 @@
         <div class="col-md-12 pt-2">
             <h3>Modifier</h3>
             <form [formGroup]="editUserForm"
-                  (ngSubmit)="onSubmit()"
-                  *ngIf="user">
+                  (ngSubmit)="onSubmit()">
 
                 <mat-form-field appearance="standard"
                                 color="accent">
-                    <mat-label for="userName">Nom</mat-label>
+                    <mat-label for="registerUsername">Nom d'utilisateur*</mat-label>
                     <input matInput
+                           type="text"
+                           name="username"
                            formControlName="username"
-                           id="userName"
-                           placeholder="Enter his name">
+                           id="registerUsername"
+                           placeholder="Enter username">
                     <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('required')">
-                        le Nom est requis
+                        Le nom d'utilisateur est requis
                     </mat-error>
                     <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('minlength')">
-                        le Nom doit faire au moins 3 caractères
+                        Le nom d'utilisateur doit faire au moins 3 caractères
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="standard"
                                 color="accent">
-                    <mat-label for="email">Email</mat-label>
+                    <mat-label for="registerEmail">Email*</mat-label>
                     <input matInput
+                           type="email"
+                           name="email"
+                           readonly
                            formControlName="email"
-                           id="email"
-                           placeholder="Enter his email">
+                           id="registerEmail"
+                           placeholder="Enter Email">
                     <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('required')">
-                        l'Email est requis
+                        Email is required
                     </mat-error>
                     <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('email')">
-                        l'Email est incorrect
+                        Email is not valide
                     </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="company">Société</mat-label>
+                    <input matInput
+                           type="text"
+                           name="company"
+                           formControlName="company"
+                           id="company">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="adress">Adresse</mat-label>
+                    <input matInput
+                           type="text"
+                           name="adress"
+                           formControlName="adress"
+                           id="adress">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="adress">Détails de l'adresse</mat-label>
+                    <input matInput
+                           type="text"
+                           name="adress_details"
+                           formControlName="adress_details">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="postal_code">Code postal</mat-label>
+                    <input matInput
+                           type="text"
+                           name="postal_code"
+                           formControlName="postal_code"
+                           id="postal_code">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="city">Ville</mat-label>
+                    <input matInput
+                           type="text"
+                           name="city"
+                           formControlName="city"
+                           id="city">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="tel">Téléphone</mat-label>
+                    <input matInput
+                           type="text"
+                           name="tel"
+                           formControlName="tel"
+                           id="tel">
                 </mat-form-field>
 
                 <mat-form-field appearance="standard">
