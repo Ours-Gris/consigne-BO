@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Role} from "../../../models/Role";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-header',
@@ -12,10 +12,11 @@ import {Role} from "../../../models/Role";
 export class HeaderComponent implements OnInit {
     logged = false;
     roleAdmin: boolean = false;
+    idCurrentUser: string | undefined;
 
     constructor(
         private _authService: AuthService,
-        private _snackBar: MatSnackBar,
+        private toastr: ToastrService,
         public router: Router
     ) {
     }
@@ -25,14 +26,14 @@ export class HeaderComponent implements OnInit {
             this._authService.currentUser.subscribe(user => {
                 this.logged = !!user;
                 this.roleAdmin = user?.role === Role.ADMIN;
+                this.idCurrentUser = user?.sub;
             });
         }
-
     }
 
     logout(): void {
         this._authService.logout();
         this.router.navigateByUrl('').then();
-        this._snackBar.open('Vous êtes déconnecté', '', {duration: 2000});
+        this.toastr.success('Vous êtes déconnecté', 'Déconnection');
     }
 }

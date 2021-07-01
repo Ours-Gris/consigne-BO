@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 pt-2">
-            <h3>Modifier</h3>
+            <h3>Mon Profil</h3>
             <form [formGroup]="editUserForm"
                   (ngSubmit)="onSubmit()"
                   *ngIf="user">
@@ -27,6 +27,7 @@
                     <input matInput
                            formControlName="email"
                            id="email"
+                           readonly
                            placeholder="Enter his email">
                     <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('required')">
                         l'Email est requis
@@ -34,16 +35,6 @@
                     <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('email')">
                         l'Email est incorrect
                     </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="standard">
-                    <mat-label>Rôle</mat-label>
-                    <mat-select formControlName="role">
-                        <mat-option *ngFor="let role of roles"
-                                    [value]="role">
-                            {{role}}
-                        </mat-option>
-                    </mat-select>
                 </mat-form-field>
 
                 <button mat-raised-button

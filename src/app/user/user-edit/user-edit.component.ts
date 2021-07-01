@@ -29,7 +29,7 @@ export class UserEditComponent implements OnInit {
     ) {
         this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
-        this.roleCtrl = fb.control('', [Validators.required]);
+        this.roleCtrl = fb.control('');
 
         this.editUserForm = fb.group({
             username: this.usernameCtrl,
@@ -56,7 +56,6 @@ export class UserEditComponent implements OnInit {
                 error: error => {
                     console.error(error);
                     this.router.navigate(['/not-found']).then();
-                    // Swal.fire(error.error.message[0].messages[0].message).then();
                 }
             });
         }
@@ -80,5 +79,4 @@ export class UserEditComponent implements OnInit {
             }
         });
     }
-
 }

@@ -6,12 +6,3 @@ form {
 .mat-form-field {
     width: 100%;
 }
-.create-carac {
-    width: 100%;
-    display: flex;
-    flex-wrap:wrap;
-}
-.create-carac>.mat-form-field {
-    flex: 1 0 30%; /* explanation below */
-    margin: 5px;
-}

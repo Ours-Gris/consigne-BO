@@ -18,6 +18,18 @@ export class UserService {
         private http: HttpClient
     ) {}
 
+    getMe(): Observable<User> {
+        return this.http.get(this.authUrl + 'users/me').pipe(
+            map((res: any) => res)
+        );
+    }
+
+    editMe(user: User): Observable<User> {
+        return this.http.put(this.authUrl + 'users/me', user).pipe(
+            map((newUser: any) => newUser)
+        );
+    }
+
     countAllUsers(filter?: string): Observable<number> {
         let params = new HttpParams();
         if (filter) {

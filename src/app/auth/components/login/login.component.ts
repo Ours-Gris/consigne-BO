@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../shared/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private fb: FormBuilder,
-        private _snackBar: MatSnackBar,
+        private toastr: ToastrService,
         public router: Router,
         public route: ActivatedRoute
     ) {
@@ -41,11 +41,11 @@ export class LoginComponent implements OnInit {
         this.authService.login(this.userForm.value).subscribe({
             next: () => {
                 this.router.navigateByUrl('').catch(err => console.error(err));
-                this._snackBar.open('Vous êtes connecté', '', {duration: 2000});
+                this.toastr.success('Vous êtes connecté', 'Connection');
             },
             error: error => {
                 console.error(error);
-                this._snackBar.open('Identifiant ou mots de passe incorrecte', '', {duration: 2000});
+                this.toastr.error('Identifiant ou mots de passe incorrecte', 'Connection');
             }
         });
     }
@@ -54,12 +54,12 @@ export class LoginComponent implements OnInit {
         this.authService.confirm(token).subscribe({
             next: () => {
                 this.router.navigateByUrl('').catch(err => console.error(err));
-                this._snackBar.open('Votre email est confirmé', '', {duration: 2000});
-                this._snackBar.open('Vous êtes connecté', '', {duration: 2000});
+                this.toastr.success('Votre email est confirmé', 'Confirmation');
+                this.toastr.success('Vous êtes connecté', 'Connection');
             },
             error: error => {
                 console.error(error);
-                this._snackBar.open('Erreur de confirmation de l\'email', '', {duration: 2000});
+                this.toastr.error('Erreur de confirmation de l\'email', 'Confirmation');
             }
         });
     }

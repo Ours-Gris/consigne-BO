@@ -76,6 +76,12 @@
             <span>Connection</span>
         </button>
         <button mat-menu-item
+                *ngIf="logged"
+                [routerLink]="['me']">
+            <mat-icon color="accent">perm_identity</mat-icon>
+            <span>Profil</span>
+        </button>
+        <button mat-menu-item
                 [routerLink]="['auth/reset-password']">
             <mat-icon color="primary">password</mat-icon>
             <span>Reset password</span>

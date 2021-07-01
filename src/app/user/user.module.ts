@@ -21,12 +21,14 @@ import {MatButtonModule} from "@angular/material/button";
 import {UserService} from "./services/user.service";
 import {UserRoutingModule} from "./user-routing.module";
 import {MatSelectModule} from "@angular/material/select";
+import {ProfilComponent} from './profil/profil.component';
 
 @NgModule({
     declarations: [
         UserAddComponent,
         UserListComponent,
-        UserEditComponent
+        UserEditComponent,
+        ProfilComponent
     ],
     imports: [
         CommonModule,
@@ -48,7 +50,8 @@ import {MatSelectModule} from "@angular/material/select";
         MatBadgeModule,
         MatSelectModule
     ],
-    providers: [UserService]
+    providers: [UserService],
+    exports: [ProfilComponent]
 })
 export class UserModule {
 }
