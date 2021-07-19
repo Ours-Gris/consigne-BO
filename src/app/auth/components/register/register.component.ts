@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
             this.postal_codeCtrl = fb.control('');
             this.cityCtrl = fb.control('');
             this.telCtrl = fb.control('');
-            this.captchaCtrl = fb.control('', Validators.required);
+            // this.captchaCtrl = fb.control('', Validators.required);
             this.roleCtrl = fb.control('', [Validators.required]);
 
             this.userForm = fb.group({
@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
                 postal_code: this.postal_codeCtrl,
                 city: this.cityCtrl,
                 tel: this.telCtrl,
-                captcha: this.captchaCtrl,
+                // captcha: this.captchaCtrl,
                 role: this.roleCtrl
             }, {
                 validator: MustMatch('password', 'passwordRepeat')

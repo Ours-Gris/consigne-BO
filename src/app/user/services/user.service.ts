@@ -19,13 +19,13 @@ export class UserService {
     ) {}
 
     getMe(): Observable<User> {
-        return this.http.get(this.authUrl + 'users/me').pipe(
+        return this.http.get(this.authUrl + '/users/me').pipe(
             map((res: any) => res)
         );
     }
 
     editMe(user: User): Observable<User> {
-        return this.http.put(this.authUrl + 'users/me', user).pipe(
+        return this.http.put(this.authUrl + '/users/me', user).pipe(
             map((newUser: any) => newUser)
         );
     }
@@ -38,7 +38,7 @@ export class UserService {
         const options = {
             params
         };
-        return this.http.get(this.authUrl + 'users/count', options).pipe(
+        return this.http.get(this.authUrl + '/users/count', options).pipe(
             map((res: any) => res)
         );
     }
@@ -56,31 +56,31 @@ export class UserService {
             params
         };
 
-        return this.http.get(this.authUrl + 'users', options).pipe(
+        return this.http.get(this.authUrl + '/users', options).pipe(
             map((res: any) => res)
         );
     }
 
     getOneUser(idUser: string): Observable<User> {
-        return this.http.get(this.authUrl + 'users/' + idUser).pipe(
+        return this.http.get(this.authUrl + '/users/' + idUser).pipe(
             map((res: any) => res)
         );
     }
 
     addUser(user: User): Observable<User> {
-        return this.http.post(this.authUrl + 'users', user).pipe(
+        return this.http.post(this.authUrl + '/users', user).pipe(
             map((newUser: any) => newUser)
         );
     }
 
     editUser(idUser: string, user: User): Observable<User> {
-        return this.http.put(this.authUrl + 'users/' + idUser, user).pipe(
+        return this.http.put(this.authUrl + '/users/' + idUser, user).pipe(
             map((newUser: any) => newUser)
         );
     }
 
     deleteUser(idUser: string): Observable<void> {
-        return this.http.delete(`${this.authUrl}users/${idUser}`).pipe(
+        return this.http.delete(`${this.authUrl}/users/${idUser}`).pipe(
             map(() => {
                 console.log('Gobelin supprimer');
             })

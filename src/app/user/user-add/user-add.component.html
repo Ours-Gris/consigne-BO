@@ -7,16 +7,16 @@
 
                 <mat-form-field appearance="standard"
                                 color="accent">
-                    <mat-label for="userName">Username</mat-label>
+                    <mat-label for="userName">Nom de l'utilisateur</mat-label>
                     <input matInput
                            formControlName="username"
                            id="userName"
                            placeholder="Enter his username">
                     <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('required')">
-                        Name is required
+                        Le nom de l'utilisateur est requis
                     </mat-error>
                     <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('minlength')">
-                        Name should be 3 characters min
+                        Le nom de l'utilisateur doit faire au moins 3 caractères
                     </mat-error>
                 </mat-form-field>
 
@@ -28,40 +28,102 @@
                            id="userEmail"
                            placeholder="Enter his email">
                     <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('required')">
-                        Family is required
+                        L'email est requis
                     </mat-error>
-                    <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('minlength')">
-                        Family should be 3 characters min
+                    <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('email')">
+                        L'email n'est pas valide
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="standard"
                                 color="accent">
-                    <mat-label for="registerPassword">Password</mat-label>
+                    <mat-label for="registerPassword">Mots de passe</mat-label>
                     <input matInput
                            type="password"
                            name="password"
                            formControlName="password"
                            id="registerPassword">
                     <mat-error *ngIf="passwordCtrl.touched && passwordCtrl.hasError('required')">
-                        Username is required
+                        Le mots de passe est requis
+                    </mat-error>
+                    <mat-error *ngIf="passwordCtrl.touched && passwordCtrl.hasError('minlength')">
+                        Le mots de passe doit faire au moins 6 caractères
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="standard"
                                 color="accent">
-                    <mat-label for="passwordRepeat">Password confirmation</mat-label>
+                    <mat-label for="passwordRepeat">Confirmation du Mots de passe</mat-label>
                     <input matInput
                            type="password"
                            name="passwordRepeat"
                            formControlName="passwordRepeat"
                            id="password_repeat">
                     <mat-error *ngIf="passwordRepeatCtrl.touched && passwordRepeatCtrl.hasError('required')">
-                        Password confirmation is required
+                        La confirmation du mots de passe est requise
                     </mat-error>
                     <mat-error *ngIf="passwordRepeatCtrl.touched && passwordRepeatCtrl.hasError('mustMatch')">
-                        Passwords must match
+                        La confirmation du mots de passe n'est pas valide
                     </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="company">Société</mat-label>
+                    <input matInput
+                        type="text"
+                        name="company"
+                        formControlName="company"
+                        id="company">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="adress">Adresse</mat-label>
+                    <input matInput
+                        type="text"
+                        name="adress"
+                        formControlName="adress"
+                        id="adress">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="adress">Détails de l'adresse</mat-label>
+                    <input matInput
+                        type="text"
+                        name="adress_details"
+                        formControlName="adress_details">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="postal_code">Code postal</mat-label>
+                    <input matInput
+                        type="text"
+                        name="postal_code"
+                        formControlName="postal_code"
+                        id="postal_code">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="city">Ville</mat-label>
+                    <input matInput
+                        type="text"
+                        name="city"
+                        formControlName="city"
+                        id="city">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="tel">Téléphone</mat-label>
+                    <input matInput
+                        type="text"
+                        name="tel"
+                        formControlName="tel"
+                        id="tel">
                 </mat-form-field>
 
                 <mat-form-field appearance="standard">
@@ -73,7 +135,7 @@
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="roleCtrl.touched && roleCtrl.hasError('required')">
-                        Email is incorrect
+                        Un rôle est requis
                     </mat-error>
                 </mat-form-field>
 

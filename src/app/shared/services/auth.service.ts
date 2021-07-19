@@ -38,7 +38,7 @@ export class AuthService {
     }
 
     login(model: any): Observable<any> {
-        return this._http.post<User>(this.authUrl + 'auth/login', model).pipe(
+        return this._http.post<User>(this.authUrl + '/auth/login', model).pipe(
             map(
                 (response: any) => {
                     if (response.access_token) {
@@ -53,7 +53,7 @@ export class AuthService {
     }
 
     register(model: any): Observable<any> {
-        return this._http.post(this.authUrl + 'auth/signup', model).pipe(
+        return this._http.post(this.authUrl + '/auth/signup', model).pipe(
             map(
                 (response: any) => {
                     if (response.access_token) {
@@ -74,7 +74,7 @@ export class AuthService {
     }
 
     reset(email: string): Observable<any> {
-        return this._http.post(this.authUrl + 'auth/reset', {email}).pipe(
+        return this._http.post(this.authUrl + '/auth/reset', {email}).pipe(
             map(
                 (response: any) => {
                     console.log(response)
@@ -85,7 +85,7 @@ export class AuthService {
 
     updatePassword(token: string, password: string) {
         return this._http.put(
-            this.authUrl + 'users/me',
+            this.authUrl + '/users/me',
             {password},
             {
                 headers: {
@@ -113,7 +113,7 @@ export class AuthService {
     }
 
     confirm(token: string): Observable<any> {
-        return this._http.post(this.authUrl + 'auth/confirm', {token}).pipe(
+        return this._http.post(this.authUrl + '/auth/confirm', {token}).pipe(
             map(
                 (response: any) => {
                     if (response.access_token) {

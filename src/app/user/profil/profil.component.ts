@@ -16,6 +16,12 @@ export class ProfilComponent implements OnInit {
 
     usernameCtrl: FormControl;
     emailCtrl: FormControl;
+    companyCtrl!: FormControl;
+    adressCtrl!: FormControl;
+    adress_detailsCtrl!: FormControl;
+    postal_codeCtrl!: FormControl;
+    cityCtrl!: FormControl;
+    telCtrl!: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -26,10 +32,22 @@ export class ProfilComponent implements OnInit {
     ) {
         this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
+        this.companyCtrl = fb.control('');
+        this.adressCtrl = fb.control('');
+        this.adress_detailsCtrl = fb.control('');
+        this.postal_codeCtrl = fb.control('');
+        this.cityCtrl = fb.control('');
+        this.telCtrl = fb.control('');
 
         this.editUserForm = fb.group({
             username: this.usernameCtrl,
-            email: this.emailCtrl
+            email: this.emailCtrl,
+            company: this.companyCtrl,
+            adress: this.adressCtrl,
+            adress_details: this.adress_detailsCtrl,
+            postal_code: this.postal_codeCtrl,
+            city: this.cityCtrl,
+            tel: this.telCtrl
         });
     }
 
@@ -43,7 +61,13 @@ export class ProfilComponent implements OnInit {
                 this.user = user;
                 this.editUserForm.setValue({
                     username: this.user.username,
-                    email: this.user.email
+                    email: this.user.email,
+                    company: this.user.company,
+                    adress: this.user.adress,
+                    adress_details: this.user.adress_details,
+                    postal_code: this.user.postal_code,
+                    city: this.user.city,
+                    tel: this.user.tel
                 });
             },
             error: error => {

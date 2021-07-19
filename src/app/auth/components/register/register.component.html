@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="col-md-6 offset-md-3 mt-4">
-        <h3>Enregistrement</h3>
+    <div class="col-md-12 pt-2">
+        <h3>Inscription</h3>
         <form [formGroup]="userForm"
               (ngSubmit)="onSubmit()">
 
             <mat-form-field appearance="standard"
                             color="accent">
-                <mat-label for="registerUsername">Nom d'utilisateur*</mat-label>
+                <mat-label for="registerUsername">Nom de l'utilisateur*</mat-label>
                 <input matInput
                        type="text"
                        name="username"
@@ -14,10 +14,10 @@
                        id="registerUsername"
                        placeholder="Enter username">
                 <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('required')">
-                    Le nom d'utilisateur est requis
+                    Le nom de l'utilisateur est requis
                 </mat-error>
                 <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('minlength')">
-                    Le nom d'utilisateur doit faire au moins 3 caractères
+                    Le nom de l'utilisateur doit faire au moins 3 caractères
                 </mat-error>
             </mat-form-field>
 
@@ -31,10 +31,10 @@
                        id="registerEmail"
                        placeholder="Enter Email">
                 <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('required')">
-                    Email is required
+                    L'email est requis
                 </mat-error>
                 <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('email')">
-                    Email is not valide
+                    L'email n'est pas valide
                 </mat-error>
             </mat-form-field>
 
@@ -47,10 +47,10 @@
                        formControlName="password"
                        id="registerPassword">
                 <mat-error *ngIf="passwordCtrl.touched && passwordCtrl.hasError('required')">
-                    Password is required
+                    Le mots de passe est requis
                 </mat-error>
                 <mat-error *ngIf="passwordCtrl.touched && passwordCtrl.hasError('minlength')">
-                    Password min is 6
+                    Le mots de passe doit faire au moins 6 caractères
                 </mat-error>
             </mat-form-field>
 
@@ -63,10 +63,10 @@
                        formControlName="passwordRepeat"
                        id="password_repeat">
                 <mat-error *ngIf="passwordRepeatCtrl.touched && passwordRepeatCtrl.hasError('required')">
-                    Password confirmation is required
+                    La confirmation du mots de passe est requis
                 </mat-error>
                 <mat-error *ngIf="passwordRepeatCtrl.touched && passwordRepeatCtrl.hasError('mustMatch')">
-                    Passwords must match
+                    La confirmation du mots de passe n'est pas valide
                 </mat-error>
             </mat-form-field>
 
@@ -138,16 +138,16 @@
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="roleCtrl.touched && roleCtrl.hasError('required')">
-                    Email is incorrect
+                    Un rôle est requis
                 </mat-error>
             </mat-form-field>
 
 <!--            TODO Changer la clé -->
-            <re-captcha class="mb-3 mt-3"
-                formControlName="captcha"
-                required
-                siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"
-            ></re-captcha>
+<!--            <re-captcha class="mb-3 mt-3"-->
+<!--                formControlName="captcha"-->
+<!--                required-->
+<!--                siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"-->
+<!--            ></re-captcha>-->
 
             <button mat-raised-button
                     color="primary"

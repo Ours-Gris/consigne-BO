@@ -19,6 +19,12 @@ export class UserAddComponent implements OnInit {
     emailCtrl: FormControl;
     passwordCtrl: FormControl;
     passwordRepeatCtrl: FormControl;
+    companyCtrl!: FormControl;
+    adressCtrl!: FormControl;
+    adress_detailsCtrl!: FormControl;
+    postal_codeCtrl!: FormControl;
+    cityCtrl!: FormControl;
+    telCtrl!: FormControl;
     roleCtrl: FormControl;
 
     constructor(
@@ -31,6 +37,12 @@ export class UserAddComponent implements OnInit {
         this.emailCtrl = fb.control('', [Validators.required, Validators.email, Validators.minLength(3)]);
         this.passwordCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.passwordRepeatCtrl = fb.control('', Validators.required);
+        this.companyCtrl = fb.control('');
+        this.adressCtrl = fb.control('');
+        this.adress_detailsCtrl = fb.control('');
+        this.postal_codeCtrl = fb.control('');
+        this.cityCtrl = fb.control('');
+        this.telCtrl = fb.control('');
         this.roleCtrl = fb.control('', [Validators.required]);
 
 
@@ -39,6 +51,12 @@ export class UserAddComponent implements OnInit {
             email: this.emailCtrl,
             password: this.passwordCtrl,
             passwordRepeat: this.passwordRepeatCtrl,
+            company: this.companyCtrl,
+            adress: this.adressCtrl,
+            adress_details: this.adress_detailsCtrl,
+            postal_code: this.postal_codeCtrl,
+            city: this.cityCtrl,
+            tel: this.telCtrl,
             role: this.roleCtrl
 
         }, {
