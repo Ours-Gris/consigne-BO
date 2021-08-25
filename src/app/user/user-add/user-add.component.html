@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 pt-2">
-            <h3>Add user</h3>
+            <h3>Ajouter un utilisateur</h3>
             <form [formGroup]="addUserForm"
                   (ngSubmit)="onSubmit()">
 
@@ -17,6 +17,19 @@
                     </mat-error>
                     <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('minlength')">
                         Le nom de l'utilisateur doit faire au moins 3 caractères
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard">
+                    <mat-label>Rôle</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option *ngFor="let role of roles"
+                                    [value]="role">
+                            {{role}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="roleCtrl.touched && roleCtrl.hasError('required')">
+                        Un rôle est requis
                     </mat-error>
                 </mat-form-field>
 
@@ -47,7 +60,7 @@
                         Le mots de passe est requis
                     </mat-error>
                     <mat-error *ngIf="passwordCtrl.touched && passwordCtrl.hasError('minlength')">
-                        Le mots de passe doit faire au moins 6 caractères
+                        Le mots de passe doit faire au moins 8 caractères
                     </mat-error>
                 </mat-form-field>
 
@@ -126,25 +139,21 @@
                         id="tel">
                 </mat-form-field>
 
-                <mat-form-field appearance="standard">
-                    <mat-label>Rôle</mat-label>
-                    <mat-select formControlName="role">
-                        <mat-option *ngFor="let role of roles"
-                                    [value]="role">
-                            {{role}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="roleCtrl.touched && roleCtrl.hasError('required')">
-                        Un rôle est requis
-                    </mat-error>
-                </mat-form-field>
-
-                <button mat-raised-button
-                        color="primary"
-                        type="submit"
-                        [disabled]="addUserForm.invalid"
-                        i18n="UserAdd.button.submit">Add
-                </button>
+                <div class="flex-row pt-2">
+                    <button mat-raised-button
+                            color="warn"
+                            class="m-lg-2"
+                            type="button"
+                            routerLink="/user"
+                            i18n="UserAdd.button.cancel">Annuler
+                    </button>
+                    <button mat-raised-button
+                            color="primary"
+                            type="submit"
+                            [disabled]="addUserForm.invalid"
+                            i18n="UserAdd.button.submit">Ajouter
+                    </button>
+                </div>
             </form>
         </div>
     </div>

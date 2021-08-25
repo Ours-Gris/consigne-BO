@@ -1,21 +1,20 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UsersDataSource} from "../data/users-data-source";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {AuthService} from "../../shared/services/auth.service";
 import {UserService} from "../services/user.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {fromEvent, merge} from "rxjs";
 import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
     styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, AfterViewInit {
     users!: UsersDataSource;
     displayedColumns: string[] = ['company', 'username', 'email', 'tel', 'actions'];
     totalUsers: number = 0;
@@ -25,9 +24,7 @@ export class UserListComponent implements OnInit {
     @ViewChild('input') input!: ElementRef;
 
     constructor(
-        private authService: AuthService,
         private userService: UserService,
-        private snackBar: MatSnackBar,
         private toastr: ToastrService,
         public router: Router
     ) {
@@ -86,21 +83,35 @@ export class UserListComponent implements OnInit {
     }
 
     deleteUser(idUser: string): void {
-        this.userService.deleteUser(idUser).subscribe({
-            next: () => {
-                this.loadUsersPage();
-                this.toastr.success('L\'utilisateur a été supprimé', 'Supprimer');
-            },
-            error: error => {
-                console.error(error);
-                if (Array.isArray(error)) {
-                    error.map((err: string) => {
-                        this.toastr.error(err, 'Error !');
+        Swal.fire({
+            title: `Supprimer l\'utilisateur`,
+            icon: 'warning',
+            text: 'Êtes-vous sûr de vouloir supprimer cet utilisateur ?',
+            showConfirmButton: true,
+            confirmButtonText: 'Supprimer',
+            showCancelButton: true,
+            cancelButtonText: 'Annuler'
+        }).then(
+            (result) => {
+                if (result.isConfirmed) {
+                    this.userService.deleteUser(idUser).subscribe({
+                        next: () => {
+                            this.loadUsersPage();
+                            this.toastr.success('L\'utilisateur a été supprimé', 'Supprimer');
+                        },
+                        error: error => {
+                            console.error(error);
+                            if (Array.isArray(error)) {
+                                error.map((err: string) => {
+                                    this.toastr.error(err, 'Error !');
+                                })
+                            } else {
+                                this.toastr.error(error, 'Error !');
+                            }
+                        }
                     })
-                } else {
-                    this.toastr.error(error, 'Error !');
                 }
             }
-        });
+        )
     }
 }

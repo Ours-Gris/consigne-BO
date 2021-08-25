@@ -48,6 +48,12 @@ const routes: Routes = [
         data: { roles: [Role.ADMIN] }
     },
     {
+        path: 'bottle',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./bottle/bottle.module').then(m => m.BottleModule),
+        data: { roles: [Role.ADMIN] }
+    },
+    {
         path: 'me',
         canActivate: [LoggedInGuardService],
         component: ProfilComponent

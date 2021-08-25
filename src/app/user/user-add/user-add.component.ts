@@ -35,7 +35,7 @@ export class UserAddComponent implements OnInit {
     ) {
         this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.emailCtrl = fb.control('', [Validators.required, Validators.email, Validators.minLength(3)]);
-        this.passwordCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
+        this.passwordCtrl = fb.control('', [Validators.required, Validators.minLength(8)]);
         this.passwordRepeatCtrl = fb.control('', Validators.required);
         this.companyCtrl = fb.control('');
         this.adressCtrl = fb.control('');

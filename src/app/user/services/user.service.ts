@@ -82,7 +82,7 @@ export class UserService {
     deleteUser(idUser: string): Observable<void> {
         return this.http.delete(`${this.authUrl}/users/${idUser}`).pipe(
             map(() => {
-                console.log('Gobelin supprimer');
+                console.log('Utilisateur supprimé');
             })
         );
     }

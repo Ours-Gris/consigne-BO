@@ -9,3 +9,11 @@
 img {
     max-height: 100px;
 }
+
+.icons-social {
+    display: inline-block;
+}
+
+.icon-social {
+    width: 48px;
+}

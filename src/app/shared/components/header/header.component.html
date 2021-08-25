@@ -4,65 +4,72 @@
          alt="Logo Oc'consigne">
 
     <span class="spacer"></span>
-    <div class="list-button-flex-container">
-        <button mat-stroked-button
-                class="m-lg-2"
-                routerLinkActive="active"
-                routerLink="/description">
-            Comment ça marche ?
-        </button>
-
-        <button mat-stroked-button
-                class="m-lg-2"
-                routerLinkActive="active"
-                routerLink="/shops-list">
-            Magasins points de collecte
-        </button>
-
-        <button mat-stroked-button
-                class="m-lg-2"
-                routerLinkActive="active"
-                routerLink="/producers-list">
-            Producteurs engagés
-        </button>
-
-        <button mat-stroked-button
-                class="m-lg-2"
-                routerLinkActive="active"
-                routerLink="/news-list">
-            Actualités
-        </button>
-
-        <button mat-stroked-button
-                class="m-lg-2"
-                routerLinkActive="active"
-                routerLink="/contact">
-            Contactez-nous
-        </button>
-
-        <button mat-stroked-button
-                *ngIf="roleAdmin"
-                class="m-lg-2"
-                routerLinkActive="active"
-                routerLink="/user">
-            Utilisateurs
-        </button>
-        <button mat-stroked-button
-                class="m-lg-2"
-                *ngIf="logged"
-                routerLinkActive="active"
-                routerLink="/map">
-            Carte teste
-        </button>
-    </div>
 
     <button mat-fab
             color="primary"
+            class="m-lg-2"
             [matMenuTriggerFor]="menu"
+            aria-label="icon-button">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item
+                [routerLink]="['description']">
+            <mat-icon color="accent">help_outline</mat-icon>
+            <span>Comment ça marche ?</span>
+        </button>
+        <button mat-menu-item
+                [routerLink]="['shops-list']">
+            <mat-icon color="accent">place</mat-icon>
+            <span>Magasins points de collecte</span>
+        </button>
+        <button mat-menu-item
+                [routerLink]="['producers-list']">
+            <mat-icon color="accent">group_work</mat-icon>
+            <span>Producteurs engagés</span>
+        </button>
+        <button mat-menu-item
+                [routerLink]="['news-list']">
+            <mat-icon color="accent">feed</mat-icon>
+            <span>Actualités</span>
+        </button>
+        <button mat-menu-item
+                [routerLink]="['contact']">
+            <mat-icon color="accent">mail</mat-icon>
+            <span>Contactez-nous</span>
+        </button>
+    </mat-menu>
+
+    <button mat-fab
+            color="primary"
+            *ngIf="roleAdmin"
+            [matMenuTriggerFor]="menuAdmin"
+            aria-label="icon-button">
+        <mat-icon>settings</mat-icon>
+    </button>
+    <mat-menu #menuAdmin="matMenu">
+        <button mat-menu-item
+                *ngIf="roleAdmin"
+                [routerLink]="['user']">
+            <mat-icon color="accent">people</mat-icon>
+            <span>Utilisateurs</span>
+        </button>
+        <button mat-menu-item
+                *ngIf="roleAdmin"
+                [routerLink]="['bottle']">
+            <mat-icon color="accent">liquor</mat-icon>
+            <span>Bouteilles</span>
+        </button>
+    </mat-menu>
+
+    <button mat-fab
+            color="primary"
+            class="m-lg-2"
+            [matMenuTriggerFor]="menuAccount"
             aria-label="icon-button">
         <mat-icon>perm_identity</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
+    <mat-menu #menuAccount="matMenu">
         <button mat-menu-item
                 *ngIf="!logged"
                 [routerLink]="['auth/register']">
@@ -78,8 +85,14 @@
         <button mat-menu-item
                 *ngIf="logged"
                 [routerLink]="['me']">
-            <mat-icon color="accent">perm_identity</mat-icon>
+            <mat-icon color="accent">manage_accounts</mat-icon>
             <span>Profil</span>
+        </button>
+        <button mat-menu-item
+                *ngIf="logged"
+                [routerLink]="['map']">
+            <mat-icon color="accent">local_shipping</mat-icon>
+            <span>Carte teste</span>
         </button>
         <button mat-menu-item
                 *ngIf="logged"

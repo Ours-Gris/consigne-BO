@@ -7,13 +7,13 @@
 
                 <mat-form-field appearance="standard"
                                 color="accent">
-                    <mat-label for="registerUsername">Nom d'utilisateur*</mat-label>
+                    <mat-label for="registerUsername">Nom de l'utilisateur*</mat-label>
                     <input matInput
                            type="text"
                            name="username"
                            formControlName="username"
                            id="registerUsername"
-                           placeholder="Enter username">
+                           placeholder="Ecrire le nom">
                     <mat-error *ngIf="usernameCtrl.touched && usernameCtrl.hasError('required')">
                         Le nom d'utilisateur est requis
                     </mat-error>
@@ -33,10 +33,10 @@
                            id="registerEmail"
                            placeholder="Enter Email">
                     <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('required')">
-                        Email is required
+                        L'email est requis
                     </mat-error>
                     <mat-error *ngIf="emailCtrl.touched && emailCtrl.hasError('email')">
-                        Email is not valide
+                        L'email n'est pas valide
                     </mat-error>
                 </mat-form-field>
 
@@ -108,12 +108,20 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-
-                <button mat-raised-button
-                        color="primary"
-                        type="submit"
-                        [disabled]="editUserForm.invalid">Edit
-                </button>
+                <div class="flex-row pt-2">
+                    <button mat-raised-button
+                            color="warn"
+                            class="m-lg-2"
+                            type="button"
+                            routerLink="/user"
+                            i18n="UserEdit.button.cancel">Annuler
+                    </button>
+                    <button mat-raised-button
+                            color="primary"
+                            type="submit"
+                            [disabled]="editUserForm.invalid">Edit
+                    </button>
+                </div>
             </form>
         </div>
     </div>

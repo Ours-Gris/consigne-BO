@@ -23,6 +23,7 @@ import {ContactComponent} from './pages/contact/contact.component';
 import {YouTubePlayerModule} from "@angular/youtube-player";
 import {MatButtonModule} from "@angular/material/button";
 import {ToastrModule} from "ngx-toastr";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
     declarations: [
@@ -34,25 +35,26 @@ import {ToastrModule} from "ngx-toastr";
         NewsListComponent,
         ContactComponent
     ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        ToastrModule.forRoot({
-            timeOut: 3000,
-            positionClass: 'toast-bottom-right',
-            preventDuplicates: true,
-            countDuplicates: true,
-            resetTimeoutOnDuplicate: true
-        }),
-        AuthModule,
-        SharedModule,
-        RouterModule,
-        HttpClientModule,
-        AppRoutingModule,
-        NgbModule,
-        YouTubePlayerModule,
-        MatButtonModule
-    ],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		ToastrModule.forRoot({
+			timeOut: 3000,
+			positionClass: 'toast-bottom-right',
+			preventDuplicates: true,
+			countDuplicates: true,
+			resetTimeoutOnDuplicate: true
+		}),
+		AuthModule,
+		SharedModule,
+		RouterModule,
+		HttpClientModule,
+		AppRoutingModule,
+		NgbModule,
+		YouTubePlayerModule,
+		MatButtonModule,
+		MatCardModule
+	],
     providers: [
         {provide: LOCALE_ID, useValue: 'fr-FR'},
         {provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR'},
