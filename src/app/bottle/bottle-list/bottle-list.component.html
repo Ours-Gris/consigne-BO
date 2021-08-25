@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <h3 i18n="@@BottleList.title">Liste des types de bouteille</h3>
+
+            <div>
+                <label for="searchInput">
+                    <input matInput
+                           id="searchInput"
+                           i18n-placeholder="@@BottleList.findBottle.placeholder"
+                           placeholder="Rechercher un type de bouteille"
+                           #input>
+                </label>
+            </div>
+
+            <mat-table class="lessons-table mat-elevation-z8"
+                       [dataSource]="bottles"
+                       matSort
+                       matSortActive="name"
+                       matSortDirection="asc">
+
+                <!-- name Column -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@BottleAttributes.name"> Nom
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let bottle"> {{bottle.name}} </mat-cell>
+                </ng-container>
+
+                <!-- Code Column -->
+                <ng-container matColumnDef="code">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@BottleAttributes.code"> Code
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let bottle"> {{bottle.code}} </mat-cell>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@BottleAttributes.actions"> Actions
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let bottle">
+                        <button mat-mini-fab
+                                (click)="editBottle(bottle.id)"
+                                title="Détails"
+                                class="m-lg-2"
+                                color="accent">
+                            <mat-icon >visibility</mat-icon>
+                        </button>
+                        <button mat-mini-fab
+                                (click)="deleteBottle(bottle.id)"
+                                title="Supprimer"
+                                class="m-lg-2"
+                                color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator [pageIndex]="0"
+                           [length]="totalBottles"
+                           [pageSize]="3"
+                           [pageSizeOptions]="[3, 5, 10]"
+                           [showFirstLastButtons]="true"></mat-paginator>
+
+            <div class="spinner-container"
+                 *ngIf="bottles && bottles.loading$ | async">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <button mat-raised-button
+                    class="mt-2"
+                    color="primary"
+                    routerLink="/bottle/add">
+                <span i18n="@@BottleList.button.addBottle">Ajouter un type de bouteille</span>
+            </button>
+        </div>
+    </div>
+</div>

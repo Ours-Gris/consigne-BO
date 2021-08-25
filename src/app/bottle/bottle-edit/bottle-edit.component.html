@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <h3>Ajouter un type de bouteille</h3>
+            <form [formGroup]="editBottleForm"
+                  (ngSubmit)="onSubmit()">
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="name">Nom du type de bouteille</mat-label>
+                    <input matInput
+                           formControlName="name"
+                           id="name"
+                           placeholder="nom">
+                    <mat-error *ngIf="nameCtrl.touched && nameCtrl.hasError('required')">
+                        Le nom du type de bouteille est requis
+                    </mat-error>
+                    <mat-error *ngIf="nameCtrl.touched && nameCtrl.hasError('minlength')">
+                        Le nom du type de bouteille doit faire au moins 3 caractères
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="code">Code</mat-label>
+                    <input matInput
+                           formControlName="code"
+                           id="code"
+                           placeholder="Code du type de bouteille">
+                    <mat-error *ngIf="codeCtrl.touched && codeCtrl.hasError('required')">
+                        Le code est requis
+                    </mat-error>
+                    <mat-error *ngIf="codeCtrl.touched && codeCtrl.hasError('email')">
+                        Le code doit faire au moins 3 caractères
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="registerPassword">Description</mat-label>
+                    <input matInput
+                           name="description"
+                           formControlName="description"
+                           id="description">
+                    <mat-error *ngIf="descriptionCtrl.touched && descriptionCtrl.hasError('required')">
+                        La description est requise
+                    </mat-error>
+                    <mat-error *ngIf="descriptionCtrl.touched && descriptionCtrl.hasError('minlength')">
+                        La description doit faire au moins 3 caractères
+                    </mat-error>
+                </mat-form-field>
+                <div class="flex-row pt-2">
+                    <button mat-raised-button
+                            color="warn"
+                            class="m-lg-2"
+                            type="button"
+                            routerLink="/bottle"
+                            i18n="BottleAdd.button.cancel">Annuler
+                    </button>
+                    <button mat-raised-button
+                            color="primary"
+                            type="submit"
+                            [disabled]="editBottleForm.invalid"
+                            i18n="BottleAdd.button.submit">Modifier
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
