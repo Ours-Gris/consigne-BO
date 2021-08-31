@@ -8,6 +8,7 @@ import {fromEvent, merge} from "rxjs";
 import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
+import {UserStatus} from "../../models/user.status";
 
 @Component({
     selector: 'app-user-list',
@@ -16,8 +17,9 @@ import Swal from "sweetalert2";
 })
 export class UserListComponent implements OnInit, AfterViewInit {
     users!: UsersDataSource;
-    displayedColumns: string[] = ['company', 'username', 'email', 'tel', 'actions'];
+    displayedColumns: string[] = ['company', 'username', 'email', 'tel', 'status', 'role', 'actions'];
     totalUsers: number = 0;
+    userStatus = UserStatus;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;

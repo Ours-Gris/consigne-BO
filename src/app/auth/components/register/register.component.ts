@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import {User} from '../../../models/User';
 import {MustMatch} from "../../../shared/must-match.validator";
 import {ToastrService} from "ngx-toastr";
-import {openRole} from "../../../models/Role";
+import {OpenRole} from "../../../models/Role";
 
 @Component({
     selector: 'app-register',
@@ -15,7 +15,7 @@ import {openRole} from "../../../models/Role";
 })
 export class RegisterComponent implements OnInit {
     user!: User;
-    roles = Object.values(openRole);
+    roles = Object.values(OpenRole);
     userForm!: FormGroup;
     usernameCtrl!: FormControl;
     emailCtrl!: FormControl;
@@ -83,9 +83,13 @@ export class RegisterComponent implements OnInit {
             },
             error: (error) => {
                 console.error(error);
-                error.map((err: string) => {
-                    this.toastr.error(err, 'Error !');
-                })
+                if (Array.isArray(error)) {
+                    error.map((err: string) => {
+                        this.toastr.error(err, 'Error !');
+                    })
+                } else {
+                    this.toastr.error(error, 'Error !');
+                }
             }
         });
     }

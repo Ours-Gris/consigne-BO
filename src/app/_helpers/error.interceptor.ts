@@ -4,13 +4,11 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {AuthService} from "../shared/services/auth.service";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private authService: AuthService,
-        private toastr: ToastrService,
         public router: Router
     ) {}
 
@@ -21,9 +19,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.authService.logout();
                 this.router.navigateByUrl('auth/login');
             }
-            // this.toastr.error('Il y a eu une erreur.', 'Erreur !');
 
-            const error = err.statusText || err.error.message;
+            const error = err.error.message || err.statusText;
             return throwError(error);
         }))
     }

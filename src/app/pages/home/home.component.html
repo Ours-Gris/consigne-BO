@@ -1,74 +1,31 @@
 <div class="row ">
     <div class="col-md-8 offset-md-2 mt-4">
-        <h1>Le réemploi: une solution plus frugale en eau et en énergie que le recyclage</h1>
-
-        <h2>Le réemploi: une évidence écologique</h2>
-
-        <p>
-            La réduction des déchets, des émissions de CO<sub>2</sub>, de l’énergie consommée et de l’eau utilisée à
-            produire les biens de consommation sont des enjeux clefs de
-            notre société aujourd’hui.
-        </p>
-
-        <p>
-            Le Réemploi, la Réutilisation et la Réparation sont des modes de consommation anciens, rendus obsolètes
-            pendant un temps par l’avènement du tout jetable.
-        </p>
-
-        <p>
-            Aujourd’hui, le monde scientifique relayé par la société civile nous alerte sur les dangers irréparables
-            d’une société du tout jetable. Depuis quelques années, un
-            mouvement citoyen dont la loi « économie circulaire » récente se fait l’écho, remet au gout du
-            jour ces modes de consommation anciens en utilisant les technologies d’aujourd’hui.
-            Oc’Consigne s’inscrit dans ce mouvement.
-        </p>
-
-        <p>
-            Selon l’ADEME, 86% des emballages en verre ont été recyclés en France en 2018. Selon un rapport de l’ADEME
-            de 2018<sup>1</sup>, et dans des conditions optimales<sup>2</sup><b> le lavage et la réutilisation
-            d’emballage de verre nécessiterait un quart de l’énergie et la moitié de l’eau utilisée lors de leur
-            recyclage</b> (transport, refonte, fabrication). Laver et réutiliser le nombre de bouteilles de verre pour
-            mettre sur le marché 1 million de Litre de boisson représenterait une économie de 250 tCO2eq et de 35
-            000 m<sup>3</sup> d’eau<sup>3</sup>.
-        </p>
-        <p style="font-size: 8px;">
-            [1]<a href="https://www.fnb-info.fr/medias/fichiers/etude_ademe_reemploi.pdf">
-            https://www.fnb-info.fr/medias/fichiers/etude_ademe_reemploi.pdf</a>
-        </p>
-        <p style="font-size: 8px;">
-            [2] 20 utilisations d’un emballage, utilisation de laveuses avec recyclage de
-            l’eau de rinçage et transport des emballages vides sur des distances de moins de 100 km ce
-            qui est le cas de la brasserie Météor en Alsace
-        </p>
-        <p style="font-size: 8px;">
-            [3] Calculs personnels faits à partir des données du rapport ci dessus
-        </p>
-        <div class="text-center">
-            <button mat-raised-button
-                    color="primary"
-                    class="m-lg-2"
-                    routerLinkActive="active"
-                    routerLink="/description">
-                En savoir plus
-            </button>
+        <h1>Bienvenue dans votre espace Oc'consigne</h1>
+        <div *ngIf="!logged">
+            Pour afficher votre tableau de bord merci de vous identifier ou de vous inscrire.
+            <div>
+                <button mat-menu-item
+                        *ngIf="!logged"
+                        [routerLink]="['auth/register']">
+                    <mat-icon color="primary">how_to_reg</mat-icon>
+                    <span>Inscription</span>
+                </button>
+                <button mat-menu-item
+                        *ngIf="!logged"
+                        [routerLink]="['auth/login']">
+                    <mat-icon color="accent">login</mat-icon>
+                    <span>Connection</span>
+                </button>
+            </div>
         </div>
-        <h2>L'ambition d'Oc'Consigne</h2>
-        <p>
-            Oc'Consigne est une association de préfiguration d'une Société Coopérative qui fédère les acteurs
-            de la filière des emballages en verre pour réintroduire la pratique du réemploi dans l'est de
-            l'Occitanie, à 150 km autour de Montpellier.
-        </p>
 
-        <p>
-            Oc’Consigne sensibilise les consommateurs et mobilise les professionnels (vignerons, brasseurs,
-            producteurs de jus de fruits...) pour concevoir des emballages et des étiquettes à colle hydrosoluble
-            adaptés au réemploi des emballages en verre.
-        </p>
+        <div *ngIf="roleAdmin">
+            ici des tableaux d'information géneral pour un compte admin
+        </div>
 
-        <p>
-            Nous développons avec ces partenaires et les distributeurs un modèle de collecte volontaire ou avec
-            consigne des contenants en verre. Oc’Consigne offre une prestation de service de lavage avec
-            revente des emballages lavés en utilisant des sources d’énergie renouvelable.
-        </p>
+        <div *ngIf="logged && !roleAdmin">
+            ici des tableaux d'information géneral pour un compte producteur ou revendeur
+        </div>
+
     </div>
 </div>

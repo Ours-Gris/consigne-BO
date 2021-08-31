@@ -14,24 +14,15 @@
     </button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item
-                [routerLink]="['description']">
-            <mat-icon color="accent">help_outline</mat-icon>
-            <span>Comment ça marche ?</span>
-        </button>
-        <button mat-menu-item
-                [routerLink]="['shops-list']">
-            <mat-icon color="accent">place</mat-icon>
-            <span>Magasins points de collecte</span>
-        </button>
-        <button mat-menu-item
-                [routerLink]="['producers-list']">
+                [routerLink]="['']">
             <mat-icon color="accent">group_work</mat-icon>
-            <span>Producteurs engagés</span>
+            <span>Tableau de bord</span>
         </button>
         <button mat-menu-item
-                [routerLink]="['news-list']">
-            <mat-icon color="accent">feed</mat-icon>
-            <span>Actualités</span>
+                *ngIf="logged && !roleAdmin"
+                [routerLink]="['passage']">
+            <mat-icon color="accent">local_shipping</mat-icon>
+            <span>Demande de passage</span>
         </button>
         <button mat-menu-item
                 [routerLink]="['contact']">
@@ -48,6 +39,12 @@
         <mat-icon>settings</mat-icon>
     </button>
     <mat-menu #menuAdmin="matMenu">
+        <button mat-menu-item
+                *ngIf="roleAdmin"
+                [routerLink]="['map']">
+            <mat-icon color="accent">local_shipping</mat-icon>
+            <span>Gestion des passages</span>
+        </button>
         <button mat-menu-item
                 *ngIf="roleAdmin"
                 [routerLink]="['user']">
@@ -80,7 +77,7 @@
                 *ngIf="!logged"
                 [routerLink]="['auth/login']">
             <mat-icon color="accent">login</mat-icon>
-            <span>Connection</span>
+            <span>Connexion</span>
         </button>
         <button mat-menu-item
                 *ngIf="logged"
@@ -90,15 +87,9 @@
         </button>
         <button mat-menu-item
                 *ngIf="logged"
-                [routerLink]="['map']">
-            <mat-icon color="accent">local_shipping</mat-icon>
-            <span>Carte teste</span>
-        </button>
-        <button mat-menu-item
-                *ngIf="logged"
                 (click)="logout()">
             <mat-icon color="warn">logout</mat-icon>
-            <span>Deconnection</span>
+            <span>Déconnexion</span>
         </button>
     </mat-menu>
 </mat-toolbar>

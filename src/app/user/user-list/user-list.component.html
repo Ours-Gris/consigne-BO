@@ -59,6 +59,29 @@
                               *matCellDef="let user"> {{user.tel}} </mat-cell>
                 </ng-container>
 
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.status"> Statut
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user">
+                        <mat-icon *ngIf="user.status === userStatus.ACTIVE" color="primary">done</mat-icon>
+                        <mat-icon *ngIf="user.status === userStatus.PENDING" color="warn">close</mat-icon>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Role Column -->
+                <ng-container matColumnDef="role">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.role"> Rôle
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user">{{user.role}}</mat-cell>
+                </ng-container>
+
                 <!-- Actions Column -->
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef
@@ -71,7 +94,7 @@
                                 title="Détails"
                                 class="m-lg-2"
                                 color="accent">
-                            <mat-icon >visibility</mat-icon>
+                            <mat-icon>visibility</mat-icon>
                         </button>
                         <button mat-mini-fab
                                 (click)="deleteUser(user.id)"

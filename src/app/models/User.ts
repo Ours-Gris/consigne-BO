@@ -1,4 +1,5 @@
 import {Role} from "./Role";
+import {UserStatus} from "./user.status";
 
 export interface User {
     sub: string;
@@ -12,5 +13,6 @@ export interface User {
     city: string;
     tel: string;
     role: Role;
+    status: UserStatus;
     token?: string;
 }

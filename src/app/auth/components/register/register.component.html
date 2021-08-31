@@ -21,6 +21,19 @@
                 </mat-error>
             </mat-form-field>
 
+            <mat-form-field appearance="standard">
+                <mat-label>Rôle</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option *ngFor="let role of roles"
+                                [value]="role">
+                        {{role}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="roleCtrl.touched && roleCtrl.hasError('required')">
+                    Un rôle est requis
+                </mat-error>
+            </mat-form-field>
+
             <mat-form-field appearance="standard"
                             color="accent">
                 <mat-label for="registerEmail">Email*</mat-label>
@@ -127,19 +140,6 @@
                        name="tel"
                        formControlName="tel"
                        id="tel">
-            </mat-form-field>
-
-            <mat-form-field appearance="standard">
-                <mat-label>Rôle</mat-label>
-                <mat-select formControlName="role">
-                    <mat-option *ngFor="let role of roles"
-                                [value]="role">
-                        {{role}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="roleCtrl.touched && roleCtrl.hasError('required')">
-                    Un rôle est requis
-                </mat-error>
             </mat-form-field>
 
 <!--            TODO Changer la clé -->

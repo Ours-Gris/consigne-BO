@@ -4,7 +4,6 @@
 
 export const environment = {
     production: false,
-    // api_base_url: 'https://consigne-api.raphael-vignau.dev:443'
     api_base_url: 'http://localhost:3000'
 };
 

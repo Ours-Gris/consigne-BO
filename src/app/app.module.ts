@@ -24,6 +24,9 @@ import {YouTubePlayerModule} from "@angular/youtube-player";
 import {MatButtonModule} from "@angular/material/button";
 import {ToastrModule} from "ngx-toastr";
 import {MatCardModule} from "@angular/material/card";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
+import {PassageComponent} from './pages/passage/passage.component';
 
 @NgModule({
     declarations: [
@@ -33,28 +36,31 @@ import {MatCardModule} from "@angular/material/card";
         ShopsListComponent,
         ProducersListComponent,
         NewsListComponent,
-        ContactComponent
+        ContactComponent,
+        PassageComponent
     ],
-	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
-		ToastrModule.forRoot({
-			timeOut: 3000,
-			positionClass: 'toast-bottom-right',
-			preventDuplicates: true,
-			countDuplicates: true,
-			resetTimeoutOnDuplicate: true
-		}),
-		AuthModule,
-		SharedModule,
-		RouterModule,
-		HttpClientModule,
-		AppRoutingModule,
-		NgbModule,
-		YouTubePlayerModule,
-		MatButtonModule,
-		MatCardModule
-	],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 3000,
+            positionClass: 'toast-bottom-right',
+            preventDuplicates: true,
+            countDuplicates: true,
+            resetTimeoutOnDuplicate: true
+        }),
+        AuthModule,
+        SharedModule,
+        RouterModule,
+        HttpClientModule,
+        AppRoutingModule,
+        NgbModule,
+        YouTubePlayerModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatMenuModule
+    ],
     providers: [
         {provide: LOCALE_ID, useValue: 'fr-FR'},
         {provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR'},
