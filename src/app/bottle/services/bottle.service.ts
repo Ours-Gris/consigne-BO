@@ -36,7 +36,7 @@ export class BottleService {
             .set('_sort', sortBy ? sortBy : 'name')
             .set('_direction', sortDirection ? sortDirection : 'ASC')
             .set('_start', pageNumber && pageSize ? (pageNumber * pageSize).toString() : '0')
-            .set('_limit', pageSize ? pageSize.toString() : '3');
+            .set('_limit', pageSize ? pageSize.toString() : '10');
         if (filter) {
             params = params.set('name_contains', filter);
         }
@@ -56,7 +56,13 @@ export class BottleService {
     }
 
     addBottle(bottle: Bottle): Observable<Bottle> {
-        return this.http.post(this.authUrl + '/bottles', bottle).pipe(
+        const formData = new FormData();
+        formData.append('name', bottle.name);
+        formData.append('code', bottle.code);
+        formData.append('description', bottle.description);
+        formData.append('img_bottle', bottle.img_bottle);
+
+        return this.http.post(this.authUrl + '/bottles', formData).pipe(
             map((newBottle: any) => newBottle)
         );
     }

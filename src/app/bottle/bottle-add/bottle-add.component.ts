@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {BottleService} from "../services/bottle.service";
+import {FileValidator} from 'ngx-material-file-input';
+import {imageFile} from "../../shared/image-file.validator";
+
 
 @Component({
     selector: 'app-bottle-add',
@@ -11,10 +14,12 @@ import {BottleService} from "../services/bottle.service";
 })
 export class BottleAddComponent implements OnInit {
     addBottleForm: FormGroup;
-
     nameCtrl: FormControl;
     codeCtrl: FormControl;
     descriptionCtrl: FormControl;
+    img_bottleCtrl: FormControl;
+
+    readonly maxSize: number = 104857600;
 
     constructor(
         private fb: FormBuilder,
@@ -25,18 +30,25 @@ export class BottleAddComponent implements OnInit {
         this.nameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.codeCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.descriptionCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
+        this.img_bottleCtrl = fb.control(undefined, [FileValidator.maxContentSize(this.maxSize)]);
 
         this.addBottleForm = fb.group({
             name: this.nameCtrl,
             code: this.codeCtrl,
-            description: this.descriptionCtrl
-        });
+            description: this.descriptionCtrl,
+            img_bottle: this.img_bottleCtrl
+        }, {
+            validator: imageFile('img_bottle')
+        } as AbstractControlOptions);
     }
 
     ngOnInit(): void {
     }
 
     onSubmit(): void {
+        if (this.addBottleForm.value.img_bottle._files) {
+            this.addBottleForm.value.img_bottle = this.addBottleForm.value.img_bottle._files[0]
+        }
         this.bottleService.addBottle(this.addBottleForm.value).subscribe({
             next: () => {
                 this.toastr.success('Le type de bouteille a été ajouté', 'Ajouter');

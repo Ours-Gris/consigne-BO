@@ -49,6 +49,24 @@
                         La description doit faire au moins 3 caractères
                     </mat-error>
                 </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <ngx-mat-file-input formControlName="img_bottle"
+                                        [accept]="'.png, .jpg, .jpeg'"
+                                        placeholder="Image de la bouteille"
+                                        valuePlaceholder="Image de la bouteille ( PNG ou JPG ou JPEG)"></ngx-mat-file-input>
+                    <mat-icon matSuffix>folder</mat-icon>
+                    <mat-error *ngIf="img_bottleCtrl.touched && img_bottleCtrl.hasError('maxContentSize')">
+                        La taille du fichier ne doit pas dépasser {{img_bottleCtrl?.getError('maxContentSize').maxSize | byteFormat}}
+                        ({{img_bottleCtrl?.getError('maxContentSize').actualSize
+                        | byteFormat}}).
+                    </mat-error>
+                    <mat-error *ngIf="img_bottleCtrl.touched && img_bottleCtrl.hasError('imageFile')">
+                        Le type de fichier doit-être : PNG ou JPG ou JPEG.
+                    </mat-error>
+                </mat-form-field>
+
                 <div class="flex-row pt-2">
                     <button mat-raised-button
                             color="warn"

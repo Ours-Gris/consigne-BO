@@ -15,6 +15,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
+import {MaterialFileInputModule} from "ngx-material-file-input";
 
 
 @NgModule({
@@ -23,20 +24,21 @@ import {ReactiveFormsModule} from "@angular/forms";
         BottleAddComponent,
         BottleEditComponent
     ],
-    imports: [
-        CommonModule,
-        BottleRoutingModule,
-        MatTableModule,
-        MatSortModule,
-        MatInputModule,
-        MatIconModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatPaginatorModule,
-        MatProgressBarModule,
-        MatSelectModule,
-        ReactiveFormsModule
-    ],
+	imports: [
+		CommonModule,
+		BottleRoutingModule,
+		MatTableModule,
+		MatSortModule,
+		MatInputModule,
+		MatIconModule,
+		MatMenuModule,
+		MatButtonModule,
+		MatPaginatorModule,
+		MatProgressBarModule,
+		MatSelectModule,
+		ReactiveFormsModule,
+		MaterialFileInputModule
+	],
     providers: [
         BottleService
     ]

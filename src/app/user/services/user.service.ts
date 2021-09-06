@@ -48,7 +48,7 @@ export class UserService {
             .set('_sort', sortBy ? sortBy : 'username')
             .set('_direction', sortDirection ? sortDirection : 'ASC')
             .set('_start', pageNumber && pageSize ? (pageNumber * pageSize).toString() : '0')
-            .set('_limit', pageSize ? pageSize.toString() : '3');
+            .set('_limit', pageSize ? pageSize.toString() : '10');
         if (filter) {
             params = params.set('username_contains', filter);
         }

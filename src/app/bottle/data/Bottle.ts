@@ -3,5 +3,5 @@ export interface Bottle {
     name: string;
     description: string;
     code: string;
-    image: string;
+    img_bottle: File;
 }

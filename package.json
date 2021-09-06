@@ -26,6 +26,7 @@
     "ajv": "^8.6.1",
     "bootstrap": "^5.0.2",
     "ng-recaptcha": "^8.0.0",
+    "ngx-material-file-input": "^2.1.1",
     "ngx-toastr": "^14.0.0",
     "postcss": "^8.3.5",
     "rxjs": "~6.6.0",
