@@ -67,7 +67,13 @@ export class BottleService {
         );
     }
 
-    editBottle(idBottle: string, bottle: Bottle): Observable<Bottle> {
+    editBottle(idBottle: string, bottle: FormData): Observable<Bottle> {
+        // const formData = new FormData();
+        // formData.append('name', bottle.name);
+        // formData.append('code', bottle.code);
+        // formData.append('description', bottle.description);
+        // formData.append('img_bottle', bottle.img_bottle);
+
         return this.http.put(this.authUrl + '/bottles/' + idBottle, bottle).pipe(
             map((newBottle: any) => newBottle)
         );

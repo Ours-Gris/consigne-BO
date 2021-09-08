@@ -119,7 +119,7 @@
                     <button mat-raised-button
                             color="primary"
                             type="submit"
-                            [disabled]="editUserForm.invalid">Edit
+                            [disabled]="editUserForm.invalid || !editUserForm.dirty">Modifier
                     </button>
                 </div>
             </form>

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12 pt-2">
+        <div class="col-md-6 pt-2">
             <h3>Ajouter un type de bouteille</h3>
             <form [formGroup]="editBottleForm"
                   (ngSubmit)="onSubmit()">
@@ -30,7 +30,7 @@
                     <mat-error *ngIf="codeCtrl.touched && codeCtrl.hasError('required')">
                         Le code est requis
                     </mat-error>
-                    <mat-error *ngIf="codeCtrl.touched && codeCtrl.hasError('email')">
+                    <mat-error *ngIf="codeCtrl.touched && codeCtrl.hasError('minlength')">
                         Le code doit faire au moins 3 caractères
                     </mat-error>
                 </mat-form-field>
@@ -49,6 +49,24 @@
                         La description doit faire au moins 3 caractères
                     </mat-error>
                 </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <ngx-mat-file-input formControlName="img_bottle"
+                                        [accept]="'.png, .jpg, .jpeg'"
+                                        placeholder="Image de la bouteille"
+                                        valuePlaceholder="{{this.bottle && this.bottle.img_original_name ? this.bottle.img_original_name : 'Image de la bouteille ( PNG ou JPG ou JPEG)'}}"></ngx-mat-file-input>
+                    <mat-icon matSuffix>folder</mat-icon>
+                    <mat-error *ngIf="img_bottleCtrl.touched && img_bottleCtrl.hasError('maxContentSize')">
+                        La taille du fichier ne doit pas dépasser {{img_bottleCtrl?.getError('maxContentSize').maxSize | byteFormat}}
+                        ({{img_bottleCtrl?.getError('maxContentSize').actualSize
+                        | byteFormat}}).
+                    </mat-error>
+                    <mat-error *ngIf="img_bottleCtrl.touched && img_bottleCtrl.hasError('imageFile')">
+                        Le type de fichier doit-être : PNG ou JPG ou JPEG.
+                    </mat-error>
+                </mat-form-field>
+
                 <div class="flex-row pt-2">
                     <button mat-raised-button
                             color="warn"
@@ -60,11 +78,17 @@
                     <button mat-raised-button
                             color="primary"
                             type="submit"
-                            [disabled]="editBottleForm.invalid"
+                            [disabled]="editBottleForm.invalid || !editBottleForm.dirty"
                             i18n="BottleAdd.button.submit">Modifier
                     </button>
                 </div>
             </form>
+        </div>
+        <div class="col-md-6 pt-2"
+             *ngIf="bottle && bottle.img_name">
+            <img class="img-fluid"
+                 src="{{this.authUrl + '/bottles/img/' + this.bottle.img_name}}"
+                 alt="Image bouteille">
         </div>
     </div>
 </div>

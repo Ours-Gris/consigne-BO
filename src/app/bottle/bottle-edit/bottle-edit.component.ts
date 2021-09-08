@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {environment} from "../../../environments/environment";
 import {BottleService} from "../services/bottle.service";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Bottle} from "../data/Bottle";
+import {FileValidator} from "ngx-material-file-input";
+import {imageFile} from "../../shared/image-file.validator";
 
 @Component({
     selector: 'app-bottle-edit',
@@ -11,12 +14,15 @@ import {Bottle} from "../data/Bottle";
     styleUrls: ['./bottle-edit.component.css']
 })
 export class BottleEditComponent implements OnInit {
+    authUrl = environment.api_base_url;
     editBottleForm: FormGroup;
     bottle!: Bottle;
+    readonly maxSize: number = 104857600;
 
     nameCtrl: FormControl;
     codeCtrl: FormControl;
     descriptionCtrl: FormControl;
+    img_bottleCtrl: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -28,12 +34,16 @@ export class BottleEditComponent implements OnInit {
         this.nameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.codeCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.descriptionCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
+        this.img_bottleCtrl = fb.control('', [FileValidator.maxContentSize(this.maxSize)]);
 
         this.editBottleForm = fb.group({
             name: this.nameCtrl,
             code: this.codeCtrl,
-            description: this.descriptionCtrl
-        });
+            description: this.descriptionCtrl,
+            img_bottle: this.img_bottleCtrl
+        }, {
+            validator: imageFile('img_bottle')
+        } as AbstractControlOptions);
     }
 
     ngOnInit(): void {
@@ -48,7 +58,8 @@ export class BottleEditComponent implements OnInit {
                     this.editBottleForm.setValue({
                         name: this.bottle.name,
                         code: this.bottle.code,
-                        description: this.bottle.description
+                        description: this.bottle.description,
+                        img_bottle: ''
                     });
                 },
                 error: error => {
@@ -60,7 +71,19 @@ export class BottleEditComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.bottleService.editBottle(this.bottle.id, this.editBottleForm.value).subscribe({
+        const formData = new FormData();
+        formData.append('name', this.editBottleForm.value.name);
+        formData.append('code', this.editBottleForm.value.code);
+        formData.append('description', this.editBottleForm.value.description);
+
+        if (this.editBottleForm.value.img_bottle._files) {
+            formData.append('img_bottle', this.editBottleForm.value.img_bottle._files[0]);
+            // For delete old img
+            if (this.bottle.img_name) {
+                formData.append('img_name', this.bottle.img_name)
+            }
+        }
+        this.bottleService.editBottle(this.bottle.id, formData).subscribe({
             next: () => {
                 this.toastr.success('Le type de bouteille a été Modifié', 'Modifier');
                 this.router.navigateByUrl('/bottle').catch(err => console.error(err));

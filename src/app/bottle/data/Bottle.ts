@@ -4,4 +4,6 @@ export interface Bottle {
     description: string;
     code: string;
     img_bottle: File;
+    img_original_name: string;
+    img_name: string;
 }
