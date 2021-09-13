@@ -82,6 +82,32 @@
                               *matCellDef="let user">{{user.role}}</mat-cell>
                 </ng-container>
 
+                <!-- Reseller Column -->
+                <ng-container matColumnDef="reseller">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.reseller"> Revendeur
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user">
+                        <mat-icon *ngIf="user.reseller" color="primary">done</mat-icon>
+<!--                        <mat-icon *ngIf="!user.reseller" color="warn">close</mat-icon>-->
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Producer Column -->
+                <ng-container matColumnDef="producer">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.producer"> Producteur
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user">
+                        <mat-icon *ngIf="user.producer" color="primary">done</mat-icon>
+<!--                        <mat-icon *ngIf="!user.producer" color="warn">close</mat-icon>-->
+                    </mat-cell>
+                </ng-container>
+
                 <!-- Actions Column -->
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef

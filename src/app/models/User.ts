@@ -15,4 +15,6 @@ export interface User {
     role: Role;
     status: UserStatus;
     token?: string;
+    reseller?: boolean;
+    producer?: boolean;
 }

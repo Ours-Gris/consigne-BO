@@ -26,6 +26,9 @@ export class UserAddComponent implements OnInit {
     cityCtrl!: FormControl;
     telCtrl!: FormControl;
     roleCtrl: FormControl;
+    resellerCtrl: FormControl;
+    producerCtrl: FormControl;
+
 
     constructor(
         private fb: FormBuilder,
@@ -43,6 +46,8 @@ export class UserAddComponent implements OnInit {
         this.postal_codeCtrl = fb.control('');
         this.cityCtrl = fb.control('');
         this.telCtrl = fb.control('');
+        this.resellerCtrl = fb.control('');
+        this.producerCtrl = fb.control('');
         this.roleCtrl = fb.control('', [Validators.required]);
 
 
@@ -57,6 +62,8 @@ export class UserAddComponent implements OnInit {
             postal_code: this.postal_codeCtrl,
             city: this.cityCtrl,
             tel: this.telCtrl,
+            reseller: this.resellerCtrl,
+            producer: this.producerCtrl,
             role: this.roleCtrl
 
         }, {

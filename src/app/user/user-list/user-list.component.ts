@@ -17,7 +17,7 @@ import {UserStatus} from "../../models/user.status";
 })
 export class UserListComponent implements OnInit, AfterViewInit {
     users!: UsersDataSource;
-    displayedColumns: string[] = ['company', 'username', 'email', 'tel', 'status', 'role', 'actions'];
+    displayedColumns: string[] = ['company', 'username', 'email', 'tel', 'status', 'reseller', 'producer', 'actions'];
     totalUsers: number = 0;
     userStatus = UserStatus;
 

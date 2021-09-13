@@ -22,6 +22,20 @@
                     </mat-error>
                 </mat-form-field>
 
+                <mat-form-field appearance="standard">
+                    <mat-label>Rôle</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option *ngFor="let role of roles"
+                                    [value]="role">
+                            {{role}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-label>Activitées</mat-label>
+                <mat-slide-toggle formControlName="reseller" color="primary">Revendeur</mat-slide-toggle>
+                <mat-slide-toggle formControlName="producer" color="primary">Producteur</mat-slide-toggle>
+
                 <mat-form-field appearance="standard"
                                 color="accent">
                     <mat-label for="registerEmail">Email*</mat-label>
@@ -99,15 +113,6 @@
                            id="tel">
                 </mat-form-field>
 
-                <mat-form-field appearance="standard">
-                    <mat-label>Rôle</mat-label>
-                    <mat-select formControlName="role">
-                        <mat-option *ngFor="let role of roles"
-                                    [value]="role">
-                            {{role}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
                 <div class="flex-row pt-2">
                     <button mat-raised-button
                             color="warn"

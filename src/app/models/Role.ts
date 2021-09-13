@@ -1,10 +1,4 @@
 export enum Role {
-    SELLER = 'seller',
-    PRODUCER = 'producer',
+    USER = 'user',
     ADMIN = 'admin'
-}
-
-export enum OpenRole {
-    SELLER = 'seller',
-    PRODUCER = 'producer'
 }

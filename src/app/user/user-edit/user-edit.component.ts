@@ -25,6 +25,8 @@ export class UserEditComponent implements OnInit {
     usernameCtrl: FormControl;
     emailCtrl: FormControl;
     roleCtrl: FormControl;
+    resellerCtrl: FormControl;
+    producerCtrl: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -41,6 +43,8 @@ export class UserEditComponent implements OnInit {
         this.postal_codeCtrl = fb.control('');
         this.cityCtrl = fb.control('');
         this.telCtrl = fb.control('');
+        this.resellerCtrl = fb.control(false);
+        this.producerCtrl = fb.control(false);
         this.roleCtrl = fb.control('', [Validators.required]);
 
         this.editUserForm = fb.group({
@@ -52,6 +56,8 @@ export class UserEditComponent implements OnInit {
             postal_code: this.postal_codeCtrl,
             city: this.cityCtrl,
             tel: this.telCtrl,
+            reseller: this.resellerCtrl,
+            producer: this.producerCtrl,
             role: this.roleCtrl
         });
     }
@@ -74,6 +80,8 @@ export class UserEditComponent implements OnInit {
                         postal_code: this.user.postal_code,
                         city: this.user.city,
                         tel: this.user.tel,
+                        reseller: this.user.reseller,
+                        producer: this.user.producer,
                         role: this.user.role
                     });
                 },

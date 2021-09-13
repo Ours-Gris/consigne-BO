@@ -22,6 +22,7 @@ import {UserService} from "./services/user.service";
 import {UserRoutingModule} from "./user-routing.module";
 import {MatSelectModule} from "@angular/material/select";
 import {ProfilComponent} from './profil/profil.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import {ProfilComponent} from './profil/profil.component';
 		MatChipsModule,
 		MatTooltipModule,
 		MatBadgeModule,
-		MatSelectModule
+		MatSelectModule,
+		MatSlideToggleModule
 	],
     providers: [UserService],
     exports: [ProfilComponent]

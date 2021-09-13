@@ -69,12 +69,6 @@
     <mat-menu #menuAccount="matMenu">
         <button mat-menu-item
                 *ngIf="!logged"
-                [routerLink]="['auth/register']">
-            <mat-icon color="primary">how_to_reg</mat-icon>
-            <span>Inscription</span>
-        </button>
-        <button mat-menu-item
-                *ngIf="!logged"
                 [routerLink]="['auth/login']">
             <mat-icon color="accent">login</mat-icon>
             <span>Connexion</span>
