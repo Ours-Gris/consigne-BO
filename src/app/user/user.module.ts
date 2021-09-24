@@ -23,35 +23,39 @@ import {UserRoutingModule} from "./user-routing.module";
 import {MatSelectModule} from "@angular/material/select";
 import {ProfilComponent} from './profil/profil.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatDividerModule} from "@angular/material/divider";
+import {UserFormComponent} from './user-form/user-form.component';
 
 @NgModule({
     declarations: [
         UserAddComponent,
         UserListComponent,
         UserEditComponent,
-        ProfilComponent
+        ProfilComponent,
+        UserFormComponent
     ],
-	imports: [
-		CommonModule,
-		UserRoutingModule,
-		MatTableModule,
-		MatPaginatorModule,
-		MatInputModule,
-		MatProgressSpinnerModule,
-		MatSortModule,
-		MatProgressBarModule,
-		MatButtonModule,
-		ReactiveFormsModule,
-		MatMenuModule,
-		MatIconModule,
-		// NgxMatFileInputModule,
-		MatCardModule,
-		MatChipsModule,
-		MatTooltipModule,
-		MatBadgeModule,
-		MatSelectModule,
-		MatSlideToggleModule
-	],
+    imports: [
+        CommonModule,
+        UserRoutingModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        MatSortModule,
+        MatProgressBarModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatMenuModule,
+        MatIconModule,
+        // NgxMatFileInputModule,
+        MatCardModule,
+        MatChipsModule,
+        MatTooltipModule,
+        MatBadgeModule,
+        MatSelectModule,
+        MatSlideToggleModule,
+        MatDividerModule
+    ],
     providers: [UserService],
     exports: [ProfilComponent]
 })
