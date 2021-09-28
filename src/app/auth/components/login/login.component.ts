@@ -31,35 +31,17 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const token = this.route.snapshot.queryParams.token
-        if (token) {
-            this.confirm(token)
-        }
     }
 
     onSubmit(): void {
         this.authService.login(this.userForm.value).subscribe({
             next: () => {
-                this.router.navigateByUrl('').catch(err => console.error(err));
+                this.router.navigateByUrl('auth/login').catch(err => console.error(err));
                 this.toastr.success('Vous êtes connecté', 'Connection');
             },
             error: error => {
                 console.error(error);
                 this.toastr.error('Identifiant ou mots de passe incorrecte', 'Connection');
-            }
-        });
-    }
-
-    confirm(token: string): void {
-        this.authService.confirm(token).subscribe({
-            next: () => {
-                this.router.navigateByUrl('').catch(err => console.error(err));
-                this.toastr.success('Votre email est confirmé', 'Confirmation');
-                this.toastr.success('Vous êtes connecté', 'Connection');
-            },
-            error: error => {
-                console.error(error);
-                this.toastr.error('Erreur de confirmation de l\'email', 'Confirmation');
             }
         });
     }

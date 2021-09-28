@@ -27,4 +27,5 @@ export interface User {
     forklift: boolean;
     pallet_truck: boolean;
 
+    internal_data: string;
 }

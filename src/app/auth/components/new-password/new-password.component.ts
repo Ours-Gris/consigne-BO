@@ -16,6 +16,7 @@ export class NewPasswordComponent implements OnInit {
     passwordCtrl!: FormControl;
     passwordRepeatCtrl: FormControl;
     resetToken?: string;
+    welcome?: boolean
 
     constructor(
         private fb: FormBuilder,
@@ -39,12 +40,17 @@ export class NewPasswordComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.welcome = this.route.snapshot.queryParams.welcome
+        if (this.welcome && this.resetToken) {
+            this.confirm(this.resetToken)
+        }
     }
 
     onReset(): void {
         if (this.userForm.valid && this.resetToken) {
             this.authService.updatePassword(this.resetToken, this.userForm.value.password).subscribe({
                 next: () => {
+                    this.router.navigateByUrl('').catch(err => console.error(err));
                     this.toastr.success('Votre mots de passe a été mis à jour', 'Modification');
                 },
                 error: (err: HttpErrorResponse) => {
@@ -55,4 +61,14 @@ export class NewPasswordComponent implements OnInit {
         }
     }
 
+    confirm(token: string): void {
+        this.authService.confirm(token).subscribe({
+            next: () => {
+                this.toastr.success('Votre email est confirmé', 'Confirmation');
+            },
+            error: () => {
+                this.toastr.error('Erreur de confirmation de l\'email', 'Confirmation');
+            }
+        });
+    }
 }

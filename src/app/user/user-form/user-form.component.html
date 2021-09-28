@@ -223,6 +223,16 @@
                           id="delivery_data"></textarea>
             </mat-form-field>
 
+            <mat-form-field *ngIf="!profil"
+                            appearance="standard"
+                            color="accent">
+                <mat-label for="internal_data">Informations interne ( visible uniquement pour les admin )</mat-label>
+                <textarea matInput
+                          name="internal_data"
+                          formControlName="internal_data"
+                          id="internal_data"></textarea>
+            </mat-form-field>
+
         </form>
     </div>
 </div>

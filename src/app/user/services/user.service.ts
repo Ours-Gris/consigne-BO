@@ -68,7 +68,7 @@ export class UserService {
     }
 
     addUser(user: User): Observable<User> {
-        return this.http.post(this.authUrl + '/users', user).pipe(
+        return this.http.post(this.authUrl + '/auth/add', user).pipe(
             map((newUser: any) => newUser)
         );
     }

@@ -38,11 +38,14 @@ export class UserFormComponent implements OnInit {
     delivery_cityCtrl: FormControl;
 
     delivery_dataCtrl: FormControl;
+
     delivery_schedulesCtrl: FormControl;
     heavy_truckCtrl: FormControl;
     stackerCtrl: FormControl;
     forkliftCtrl: FormControl;
     pallet_truckCtrl: FormControl;
+
+    internal_dataCtrl: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -71,10 +74,12 @@ export class UserFormComponent implements OnInit {
 
         this.delivery_dataCtrl = fb.control('');
         this.delivery_schedulesCtrl = fb.control('');
-        this.heavy_truckCtrl = fb.control('');
-        this.stackerCtrl = fb.control('');
-        this.forkliftCtrl = fb.control('');
-        this.pallet_truckCtrl = fb.control('');
+        this.heavy_truckCtrl = fb.control(false);
+        this.stackerCtrl = fb.control(false);
+        this.forkliftCtrl = fb.control(false);
+        this.pallet_truckCtrl = fb.control(false);
+
+        this.internal_dataCtrl = fb.control('');
 
         this.userForm = fb.group({
             username: this.usernameCtrl,
@@ -101,7 +106,8 @@ export class UserFormComponent implements OnInit {
             stacker: this.stackerCtrl,
             forklift: this.forkliftCtrl,
             pallet_truck: this.pallet_truckCtrl,
-            role: this.roleCtrl
+            role: this.roleCtrl,
+            internal_data: this.internal_dataCtrl
         });
     }
 
@@ -167,7 +173,8 @@ export class UserFormComponent implements OnInit {
             stacker: this.user.stacker,
             forklift: this.user.forklift,
             pallet_truck: this.user.pallet_truck,
-            role: this.user.role
+            role: this.user.role,
+            internal_data: this.user.internal_data
         });
     }
 
