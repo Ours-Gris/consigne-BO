@@ -23,6 +23,8 @@ export class BottleEditComponent implements OnInit {
     codeCtrl: FormControl;
     descriptionCtrl: FormControl;
     img_bottleCtrl: FormControl;
+    nbr_by_paletteCtrl: FormControl;
+    internal_stockCtrl: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -34,12 +36,17 @@ export class BottleEditComponent implements OnInit {
         this.nameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.codeCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.descriptionCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
-        this.img_bottleCtrl = fb.control('', [FileValidator.maxContentSize(this.maxSize)]);
+        this.img_bottleCtrl = fb.control(null, [FileValidator.maxContentSize(this.maxSize)]);
+        this.nbr_by_paletteCtrl = fb.control('', Validators.required);
+        this.internal_stockCtrl = fb.control('', Validators.required);
+
 
         this.editBottleForm = fb.group({
             name: this.nameCtrl,
             code: this.codeCtrl,
             description: this.descriptionCtrl,
+            nbr_by_palette: this.nbr_by_paletteCtrl,
+            internal_stock: this.internal_stockCtrl,
             img_bottle: this.img_bottleCtrl
         }, {
             validator: imageFile('img_bottle')
@@ -59,6 +66,8 @@ export class BottleEditComponent implements OnInit {
                         name: this.bottle.name,
                         code: this.bottle.code,
                         description: this.bottle.description,
+                        nbr_by_palette: this.bottle.nbr_by_palette,
+                        internal_stock: this.bottle.internal_stock,
                         img_bottle: ''
                     });
                 },
@@ -71,29 +80,22 @@ export class BottleEditComponent implements OnInit {
     }
 
     onSubmit(): void {
-        const formData = new FormData();
-        formData.append('name', this.editBottleForm.value.name);
-        formData.append('code', this.editBottleForm.value.code);
-        formData.append('description', this.editBottleForm.value.description);
-
-        if (this.editBottleForm.value.img_bottle._files) {
-            formData.append('img_bottle', this.editBottleForm.value.img_bottle._files[0]);
+        if (this.editBottleForm.value.img_bottle && this.editBottleForm.value.img_bottle._files) {
+            this.editBottleForm.value.img_bottle = this.editBottleForm.value.img_bottle._files[0]
             // For delete old img
             if (this.bottle.img_name) {
-                formData.append('img_name', this.bottle.img_name)
+                this.editBottleForm.value.img_name = this.bottle.img_name
             }
         }
-        this.bottleService.editBottle(this.bottle.id, formData).subscribe({
+        this.bottleService.editBottle(this.bottle.id, this.editBottleForm.value).subscribe({
             next: () => {
-                this.toastr.success('Le type de bouteille a été Modifié', 'Modifier');
+                this.toastr.success('Le type de bouteille a été modifié', 'Modifier');
                 this.router.navigateByUrl('/bottle').catch(err => console.error(err));
             },
             error: error => {
                 console.error(error);
                 if (Array.isArray(error)) {
-                    error.map((err: string) => {
-                        this.toastr.error(err, 'Error !');
-                    })
+                    error.map((err: string) => {this.toastr.error(err, 'Error !')})
                 } else {
                     this.toastr.error(error, 'Error !');
                 }

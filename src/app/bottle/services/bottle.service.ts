@@ -55,26 +55,29 @@ export class BottleService {
         );
     }
 
-    addBottle(bottle: Bottle): Observable<Bottle> {
+    makeFormData(bottle: Bottle): FormData {
         const formData = new FormData();
         formData.append('name', bottle.name);
         formData.append('code', bottle.code);
         formData.append('description', bottle.description);
+        formData.append('nbr_by_palette', String(bottle.nbr_by_palette));
+        formData.append('internal_stock', String(bottle.internal_stock));
         formData.append('img_bottle', bottle.img_bottle);
+        // For delete old img
+        if (bottle.img_name) {
+            formData.append('img_name', bottle.img_name);
+        }
+        return formData
+    }
 
-        return this.http.post(this.authUrl + '/bottles', formData).pipe(
+    addBottle(bottle: Bottle): Observable<Bottle> {
+        return this.http.post(this.authUrl + '/bottles', this.makeFormData(bottle)).pipe(
             map((newBottle: any) => newBottle)
         );
     }
 
-    editBottle(idBottle: string, bottle: FormData): Observable<Bottle> {
-        // const formData = new FormData();
-        // formData.append('name', bottle.name);
-        // formData.append('code', bottle.code);
-        // formData.append('description', bottle.description);
-        // formData.append('img_bottle', bottle.img_bottle);
-
-        return this.http.put(this.authUrl + '/bottles/' + idBottle, bottle).pipe(
+    editBottle(idBottle: string, bottle: Bottle): Observable<Bottle> {
+        return this.http.put(this.authUrl + '/bottles/' + idBottle, this.makeFormData(bottle)).pipe(
             map((newBottle: any) => newBottle)
         );
     }

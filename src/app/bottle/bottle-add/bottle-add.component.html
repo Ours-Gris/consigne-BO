@@ -52,6 +52,18 @@
 
                 <mat-form-field appearance="standard"
                                 color="accent">
+                    <mat-label for="nbr_by_palette">Nombre par palette</mat-label>
+                    <input matInput
+                           type="number"
+                           formControlName="nbr_by_palette"
+                           id="nbr_by_palette">
+                    <mat-error *ngIf="nbr_by_paletteCtrl.touched && nbr_by_paletteCtrl.hasError('required')">
+                        Le nombre par palette est requis
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
                     <ngx-mat-file-input formControlName="img_bottle"
                                         [accept]="'.png, .jpg, .jpeg'"
                                         placeholder="Image de la bouteille"
@@ -64,6 +76,20 @@
                     </mat-error>
                     <mat-error *ngIf="img_bottleCtrl.touched && img_bottleCtrl.hasError('imageFile')">
                         Le type de fichier doit-être : PNG ou JPG ou JPEG.
+                    </mat-error>
+                </mat-form-field>
+
+                <h3 class="mt-2">État du stock</h3>
+
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <mat-label for="internal_stock">Nombre en stock</mat-label>
+                    <input matInput
+                           type="number"
+                           formControlName="internal_stock"
+                           id="internal_stock">
+                    <mat-error *ngIf="internal_stockCtrl.touched && internal_stockCtrl.hasError('required')">
+                        Le nombre par palette est requis
                     </mat-error>
                 </mat-form-field>
 

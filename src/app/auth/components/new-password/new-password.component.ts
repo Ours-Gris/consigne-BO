@@ -50,7 +50,7 @@ export class NewPasswordComponent implements OnInit {
         if (this.userForm.valid && this.resetToken) {
             this.authService.updatePassword(this.resetToken, this.userForm.value.password).subscribe({
                 next: () => {
-                    this.router.navigateByUrl('').catch(err => console.error(err));
+                    this.router.navigateByUrl('auth/login').catch(err => console.error(err));
                     this.toastr.success('Votre mots de passe a été mis à jour', 'Modification');
                 },
                 error: (err: HttpErrorResponse) => {

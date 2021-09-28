@@ -99,6 +99,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
                     this.userService.deleteUser(idUser).subscribe({
                         next: () => {
                             this.loadUsersPage();
+                            this.countAllUsers();
                             this.toastr.success('L\'utilisateur a été supprimé', 'Supprimer');
                         },
                         error: error => {

@@ -6,7 +6,6 @@ import {BottleService} from "../services/bottle.service";
 import {FileValidator} from 'ngx-material-file-input';
 import {imageFile} from "../../shared/image-file.validator";
 
-
 @Component({
     selector: 'app-bottle-add',
     templateUrl: './bottle-add.component.html',
@@ -18,6 +17,8 @@ export class BottleAddComponent implements OnInit {
     codeCtrl: FormControl;
     descriptionCtrl: FormControl;
     img_bottleCtrl: FormControl;
+    nbr_by_paletteCtrl: FormControl;
+    internal_stockCtrl: FormControl;
 
     readonly maxSize: number = 104857600;
 
@@ -31,11 +32,15 @@ export class BottleAddComponent implements OnInit {
         this.codeCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.descriptionCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.img_bottleCtrl = fb.control(undefined, [FileValidator.maxContentSize(this.maxSize)]);
+        this.nbr_by_paletteCtrl = fb.control('', Validators.required);
+        this.internal_stockCtrl = fb.control('', Validators.required);
 
         this.addBottleForm = fb.group({
             name: this.nameCtrl,
             code: this.codeCtrl,
             description: this.descriptionCtrl,
+            nbr_by_palette: this.nbr_by_paletteCtrl,
+            internal_stock: this.internal_stockCtrl,
             img_bottle: this.img_bottleCtrl
         }, {
             validator: imageFile('img_bottle')
@@ -46,7 +51,7 @@ export class BottleAddComponent implements OnInit {
     }
 
     onSubmit(): void {
-        if (this.addBottleForm.value.img_bottle._files) {
+        if (this.addBottleForm.value.img_bottle && this.addBottleForm.value.img_bottle._files) {
             this.addBottleForm.value.img_bottle = this.addBottleForm.value.img_bottle._files[0]
         }
         this.bottleService.addBottle(this.addBottleForm.value).subscribe({
@@ -57,9 +62,7 @@ export class BottleAddComponent implements OnInit {
             error: error => {
                 console.error(error);
                 if (Array.isArray(error)) {
-                    error.map((err: string) => {
-                        this.toastr.error(err, 'Error !');
-                    })
+                    error.map((err: string) => {this.toastr.error(err, 'Error !')})
                 } else {
                     this.toastr.error(error, 'Error !');
                 }

@@ -97,6 +97,7 @@ export class BottleListComponent implements OnInit, AfterViewInit {
                     this.bottleService.deleteBottle(idBottle).subscribe({
                         next: () => {
                             this.loadBottlesPage();
+                            this.countAllBottles();
                             this.toastr.success('Le type de bouteille a été supprimé', 'Supprimer');
                         },
                         error: error => {
