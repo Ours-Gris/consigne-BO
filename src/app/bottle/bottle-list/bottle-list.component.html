@@ -39,6 +39,17 @@
                               *matCellDef="let bottle"> {{bottle.code}} </mat-cell>
                 </ng-container>
 
+                <!-- Code Column -->
+                <ng-container matColumnDef="internal_stock">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@BottleAttributes.internal_stock"> Stock (bouteille/palette)
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let bottle"> {{bottle.internal_stock}}
+                        / {{makeNbrPalette(bottle)}}</mat-cell>
+                </ng-container>
+
                 <!-- Actions Column -->
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef
@@ -47,11 +58,18 @@
                     </mat-header-cell>
                     <mat-cell *matCellDef="let bottle">
                         <button mat-mini-fab
+                                (click)="addBottles(bottle)"
+                                title="Ajouter"
+                                class="m-lg-2"
+                                color="accent">
+                            <mat-icon>add_circle</mat-icon>
+                        </button>
+                        <button mat-mini-fab
                                 (click)="editBottle(bottle.id)"
                                 title="Détails"
                                 class="m-lg-2"
                                 color="accent">
-                            <mat-icon >visibility</mat-icon>
+                            <mat-icon>visibility</mat-icon>
                         </button>
                         <button mat-mini-fab
                                 (click)="deleteBottle(bottle.id)"
@@ -77,12 +95,20 @@
                  *ngIf="bottles && bottles.loading$ | async">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </div>
-            <button mat-raised-button
-                    class="mt-2"
-                    color="primary"
-                    routerLink="/bottle/add">
-                <span i18n="@@BottleList.button.addBottle">Ajouter un type de bouteille</span>
-            </button>
+            <div class="flex-row pt-2">
+                <button mat-raised-button
+                        class="m-lg-2"
+                        color="primary"
+                        routerLink="/bottle/add">
+                    <span i18n="@@BottleList.button.addBottle">Ajouter un type de bouteille</span>
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        (click)="exportAllBottles()">
+                    <span i18n="@@BottleList.button.exportBottles">Exporter les bouteilles</span>
+                </button>
+            </div>
+
         </div>
     </div>
 </div>

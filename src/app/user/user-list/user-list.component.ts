@@ -9,6 +9,8 @@ import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
 import {UserStatus} from "../../models/user.status";
+import {AngularCsv} from 'angular-csv-ext/dist/Angular-csv';
+import {User} from "../../models/User";
 
 @Component({
     selector: 'app-user-list',
@@ -17,9 +19,23 @@ import {UserStatus} from "../../models/user.status";
 })
 export class UserListComponent implements OnInit, AfterViewInit {
     users!: UsersDataSource;
-    displayedColumns: string[] = ['company', 'username', 'email', 'tel', 'status', 'reseller', 'producer', 'actions'];
+    displayedColumns: string[] = ['company', 'username', 'email', 'tel', 'status', 'reseller', 'producer', 'city', 'actions'];
     totalUsers: number = 0;
     userStatus = UserStatus;
+
+    exportCsvOptions = {
+        // fieldSeparator: ',',
+        // quoteStrings: '"',
+        // decimalseparator: '.',
+        // showLabels: true,
+        // showTitle: true,
+        // title: 'Export des bouteilles',
+        // useBom: true,
+        // noDownload: false,
+        useHeader: true,
+        headers: ['company', 'username', 'email', 'tel', 'status', 'reseller', 'producer', 'address_export', 'delivery_address_export'],
+        // nullToEmptyString: true,
+    }
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -116,5 +132,17 @@ export class UserListComponent implements OnInit, AfterViewInit {
                 }
             }
         )
+    }
+
+    exportAllUsers() {
+        this.userService.getUsersExport().subscribe(
+            (users: User[]) => {
+                users.map(user => {
+                    user.address_export = user.address.address + ' ' + user.address.address_details + ' ' + user.address.postal_code + ' ' + user.address.city;
+                    user.delivery_address_export = user.delivery_address.address + ' ' + user.delivery_address.address_details + ' ' + user.delivery_address.postal_code + ' ' + user.delivery_address.city;
+                })
+                new AngularCsv(users, 'export', this.exportCsvOptions)
+            }
+        );
     }
 }

@@ -49,6 +49,12 @@ export class BottleService {
         );
     }
 
+    getBottlesExport(): Observable<Bottle[]> {
+        return this.http.get(this.authUrl + '/bottles/export').pipe(
+            map((res: any) => res)
+        );
+    }
+
     getOneBottle(idBottle: string): Observable<Bottle> {
         return this.http.get(this.authUrl + '/bottles/' + idBottle).pipe(
             map((res: any) => res)

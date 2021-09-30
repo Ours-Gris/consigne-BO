@@ -15,7 +15,9 @@ export interface User {
     tel: string;
 
     address: Address;
+    address_export: string;
     delivery_address: Address;
+    delivery_address_export: string;
 
     reseller: boolean;
     producer: boolean;

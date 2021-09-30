@@ -50,7 +50,7 @@ export class UserService {
             .set('_start', pageNumber && pageSize ? (pageNumber * pageSize).toString() : '0')
             .set('_limit', pageSize ? pageSize.toString() : '10');
         if (filter) {
-            params = params.set('username_contains', filter);
+            params = params.set('_contains', filter);
         }
         const options = {
             params
@@ -63,6 +63,12 @@ export class UserService {
 
     getOneUser(idUser: string): Observable<User> {
         return this.http.get(this.authUrl + '/users/' + idUser).pipe(
+            map((res: any) => res)
+        );
+    }
+
+    getUsersExport(): Observable<User[]> {
+        return this.http.get(this.authUrl + '/users/export').pipe(
             map((res: any) => res)
         );
     }

@@ -53,11 +53,12 @@
 
                 <mat-form-field appearance="standard"
                                 color="accent">
-                    <mat-label for="nbr_by_palette">Nombre par palette</mat-label>
+                    <mat-label for="nbr_by_palette">Nombre de bouteilles par palette</mat-label>
                     <input matInput
                            type="number"
                            formControlName="nbr_by_palette"
-                           id="nbr_by_palette">
+                           id="nbr_by_palette"
+                           (change)="onChangePalette()">
                     <mat-error *ngIf="nbr_by_paletteCtrl.touched && nbr_by_paletteCtrl.hasError('required')">
                         Le nombre par palette est requis
                     </mat-error>
@@ -71,7 +72,8 @@
                                         valuePlaceholder="{{this.bottle && this.bottle.img_original_name ? this.bottle.img_original_name : 'Image de la bouteille ( PNG ou JPG ou JPEG)'}}"></ngx-mat-file-input>
                     <mat-icon matSuffix>folder</mat-icon>
                     <mat-error *ngIf="img_bottleCtrl.touched && img_bottleCtrl.hasError('maxContentSize')">
-                        La taille du fichier ne doit pas dépasser {{img_bottleCtrl?.getError('maxContentSize').maxSize | byteFormat}}
+                        La taille du fichier ne doit pas
+                        dépasser {{img_bottleCtrl?.getError('maxContentSize').maxSize | byteFormat}}
                         ({{img_bottleCtrl?.getError('maxContentSize').actualSize
                         | byteFormat}}).
                     </mat-error>
@@ -84,15 +86,18 @@
 
                 <mat-form-field appearance="standard"
                                 color="accent">
-                    <mat-label for="internal_stock">Nombre en stock</mat-label>
+                    <mat-label for="internal_stock">Nombre de bouteilles</mat-label>
                     <input matInput
                            type="number"
                            formControlName="internal_stock"
-                           id="internal_stock">
+                           id="internal_stock"
+                           (change)="onChangePalette()">
                     <mat-error *ngIf="internal_stockCtrl.touched && internal_stockCtrl.hasError('required')">
                         Le nombre par palette est requis
                     </mat-error>
                 </mat-form-field>
+
+                <h4>{{nbrPalette}} Palette(s) disponible(s)</h4>
 
                 <div class="flex-row pt-2">
                     <button mat-raised-button

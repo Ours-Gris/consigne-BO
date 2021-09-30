@@ -108,6 +108,17 @@
                     </mat-cell>
                 </ng-container>
 
+                <!-- City Column -->
+                <ng-container matColumnDef="city">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.city"> Ville
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user">{{user.address.city}}
+                    </mat-cell>
+                </ng-container>
+
                 <!-- Actions Column -->
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef
@@ -146,12 +157,20 @@
                  *ngIf="users && users.loading$ | async">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </div>
-            <button mat-raised-button
-                    class="mt-2"
-                    color="primary"
-                    routerLink="/user/add">
-                <span i18n="@@UserList.button.addUser">Ajouter un utilisateur</span>
-            </button>
+            <div class="flex-row pt-2">
+                <button mat-raised-button
+                        class="m-lg-2"
+                        color="primary"
+                        routerLink="/user/add">
+                    <span i18n="@@UserList.button.addUser">Ajouter un utilisateur</span>
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        (click)="exportAllUsers()">
+                    <span i18n="@@BottleList.button.exportBottles">Exporter les Clients</span>
+                </button>
+            </div>
+
         </div>
     </div>
 </div>

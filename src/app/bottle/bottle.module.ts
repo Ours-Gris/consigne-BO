@@ -17,7 +17,6 @@ import {MatSelectModule} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MaterialFileInputModule} from "ngx-material-file-input";
 
-
 @NgModule({
     declarations: [
         BottleListComponent,

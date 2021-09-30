@@ -18,6 +18,7 @@ export class BottleEditComponent implements OnInit {
     editBottleForm: FormGroup;
     bottle!: Bottle;
     readonly maxSize: number = 104857600;
+    nbrPalette: number = 0;
 
     nameCtrl: FormControl;
     codeCtrl: FormControl;
@@ -70,6 +71,8 @@ export class BottleEditComponent implements OnInit {
                         internal_stock: this.bottle.internal_stock,
                         img_bottle: ''
                     });
+                    this.nbrPalette = Math.floor(this.bottle.internal_stock / this.bottle.nbr_by_palette);
+                    this.nbrPalette = isNaN(this.nbrPalette) ? 0 : this.nbrPalette;
                 },
                 error: error => {
                     console.error(error);
@@ -77,6 +80,11 @@ export class BottleEditComponent implements OnInit {
                 }
             });
         }
+    }
+
+    onChangePalette() {
+        this.nbrPalette = Math.floor(this.editBottleForm.value.internal_stock / this.editBottleForm.value.nbr_by_palette);
+        this.nbrPalette = isNaN(this.nbrPalette) ? 0 : this.nbrPalette;
     }
 
     onSubmit(): void {
