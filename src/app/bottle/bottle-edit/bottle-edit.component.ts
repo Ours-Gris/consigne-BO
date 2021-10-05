@@ -18,12 +18,14 @@ export class BottleEditComponent implements OnInit {
     editBottleForm: FormGroup;
     bottle!: Bottle;
     readonly maxSize: number = 104857600;
+    readonly maxSizePdf: number = 104857600;
     nbrPalette: number = 0;
 
     nameCtrl: FormControl;
     codeCtrl: FormControl;
     descriptionCtrl: FormControl;
     img_bottleCtrl: FormControl;
+    pdf_bottleCtrl: FormControl;
     nbr_by_paletteCtrl: FormControl;
     internal_stockCtrl: FormControl;
 
@@ -38,6 +40,7 @@ export class BottleEditComponent implements OnInit {
         this.codeCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.descriptionCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.img_bottleCtrl = fb.control(null, [FileValidator.maxContentSize(this.maxSize)]);
+        this.pdf_bottleCtrl = fb.control(null, [FileValidator.maxContentSize(this.maxSizePdf)]);
         this.nbr_by_paletteCtrl = fb.control('', Validators.required);
         this.internal_stockCtrl = fb.control('', Validators.required);
 
@@ -48,7 +51,8 @@ export class BottleEditComponent implements OnInit {
             description: this.descriptionCtrl,
             nbr_by_palette: this.nbr_by_paletteCtrl,
             internal_stock: this.internal_stockCtrl,
-            img_bottle: this.img_bottleCtrl
+            img_bottle: this.img_bottleCtrl,
+            pdf_bottle: this.pdf_bottleCtrl
         }, {
             validator: imageFile('img_bottle')
         } as AbstractControlOptions);
@@ -69,7 +73,8 @@ export class BottleEditComponent implements OnInit {
                         description: this.bottle.description,
                         nbr_by_palette: this.bottle.nbr_by_palette,
                         internal_stock: this.bottle.internal_stock,
-                        img_bottle: ''
+                        img_bottle: '',
+                        pdf_bottle: ''
                     });
                     this.nbrPalette = Math.floor(this.bottle.internal_stock / this.bottle.nbr_by_palette);
                     this.nbrPalette = isNaN(this.nbrPalette) ? 0 : this.nbrPalette;
@@ -80,6 +85,18 @@ export class BottleEditComponent implements OnInit {
                 }
             });
         }
+    }
+
+    getFile(fileName: string) {
+        this.bottleService.getBottleFile(fileName).subscribe(
+            (data: Blob) => {
+                const blob = new Blob([data], {
+                    type: 'application/pdf'
+                });
+                const url= window.URL.createObjectURL(blob);
+                window.open(url);
+            }
+        )
     }
 
     onChangePalette() {
@@ -93,6 +110,13 @@ export class BottleEditComponent implements OnInit {
             // For delete old img
             if (this.bottle.img_name) {
                 this.editBottleForm.value.img_name = this.bottle.img_name
+            }
+        }
+        if (this.editBottleForm.value.pdf_bottle && this.editBottleForm.value.pdf_bottle._files) {
+            this.editBottleForm.value.pdf_bottle = this.editBottleForm.value.pdf_bottle._files[0]
+            // For delete old pdf
+            if (this.bottle.pdf_name) {
+                this.editBottleForm.value.pdf_name = this.bottle.pdf_name
             }
         }
         this.bottleService.editBottle(this.bottle.id, this.editBottleForm.value).subscribe({

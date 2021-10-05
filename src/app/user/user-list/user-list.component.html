@@ -19,6 +19,19 @@
                        matSortActive="username"
                        matSortDirection="asc">
 
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.status"> Statut
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user">
+                        <mat-icon *ngIf="user.status === userStatus.ACTIVE" color="primary">done</mat-icon>
+                        <mat-icon *ngIf="user.status === userStatus.PENDING" color="warn">close</mat-icon>
+                    </mat-cell>
+                </ng-container>
+
                 <!-- Company Column -->
                 <ng-container matColumnDef="company">
                     <mat-header-cell *matHeaderCellDef
@@ -57,19 +70,6 @@
                     </mat-header-cell>
                     <mat-cell mat-cell
                               *matCellDef="let user"> {{user.tel}} </mat-cell>
-                </ng-container>
-
-                <!-- Status Column -->
-                <ng-container matColumnDef="status">
-                    <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
-                                     i18n="@@UserAttributes.status"> Statut
-                    </mat-header-cell>
-                    <mat-cell mat-cell
-                              *matCellDef="let user">
-                        <mat-icon *ngIf="user.status === userStatus.ACTIVE" color="primary">done</mat-icon>
-                        <mat-icon *ngIf="user.status === userStatus.PENDING" color="warn">close</mat-icon>
-                    </mat-cell>
                 </ng-container>
 
                 <!-- Role Column -->

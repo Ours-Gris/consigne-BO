@@ -3,9 +3,14 @@ export interface Bottle {
     name: string;
     description: string;
     code: string;
+    nbr_by_palette: number;
+    internal_stock: number;
+
     img_bottle: File;
     img_original_name: string;
     img_name: string;
-    nbr_by_palette: number;
-    internal_stock: number;
+
+    pdf_bottle: File;
+    pdf_original_name: string;
+    pdf_name: string;
 }

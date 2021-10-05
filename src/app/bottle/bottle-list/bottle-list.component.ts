@@ -22,17 +22,9 @@ export class BottleListComponent implements OnInit, AfterViewInit {
     totalBottles: number = 0;
 
     exportCsvOptions = {
-        // fieldSeparator: ',',
-        // quoteStrings: '"',
-        // decimalseparator: '.',
-        // showLabels: true,
-        // showTitle: true,
-        // title: 'Export des bouteilles',
-        // useBom: true,
-        // noDownload: false,
+        fieldSeparator: ';',
         useHeader: true,
-        headers: ['name', 'description', 'code', 'nbr_by_palette', 'internal_stock'],
-        // nullToEmptyString: true,
+        headers: ['name', 'description', 'code', 'nbr_by_palette', 'internal_stock']
     }
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -112,9 +104,7 @@ export class BottleListComponent implements OnInit, AfterViewInit {
             inputLabel: 'Combient de bouteilles voulez vous ajouter ?',
             showCancelButton: true
         }).then(response => {
-            console.log(response)
             if (response.isConfirmed && response.value && response.value != 0) {
-                console.log(response.value)
                 bottle.internal_stock = Number(bottle.internal_stock) + parseInt(response.value)
                 this.bottleService.editBottle(bottle.id, bottle).subscribe({
                     next: () => {this.toastr.success('Le nombre de bouteilles a été modifié', 'Modifier')},

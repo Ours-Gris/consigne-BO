@@ -19,7 +19,7 @@ import {User} from "../../models/User";
 })
 export class UserListComponent implements OnInit, AfterViewInit {
     users!: UsersDataSource;
-    displayedColumns: string[] = ['company', 'username', 'email', 'tel', 'status', 'reseller', 'producer', 'city', 'actions'];
+    displayedColumns: string[] = ['status', 'company', 'username', 'email', 'tel', 'reseller', 'producer', 'city', 'actions'];
     totalUsers: number = 0;
     userStatus = UserStatus;
 

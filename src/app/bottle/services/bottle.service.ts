@@ -73,6 +73,11 @@ export class BottleService {
         if (bottle.img_name) {
             formData.append('img_name', bottle.img_name);
         }
+        formData.append('pdf_bottle', bottle.pdf_bottle);
+        // For delete old img
+        if (bottle.pdf_name) {
+            formData.append('pdf_name', bottle.pdf_name);
+        }
         return formData
     }
 
@@ -93,6 +98,10 @@ export class BottleService {
             map(() => {
                 console.log('Type de bouteille supprimé');
             })
-        );
+        )
+    }
+
+    getBottleFile(fileName: string) {
+        return this.http.get(this.authUrl + '/bottles/file/' + fileName,{ responseType: 'blob' })
     }
 }

@@ -27,6 +27,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {PassageComponent} from './pages/passage/passage.component';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
     declarations: [
@@ -49,6 +50,7 @@ import {PassageComponent} from './pages/passage/passage.component';
             countDuplicates: true,
             resetTimeoutOnDuplicate: true
         }),
+        SweetAlert2Module.forRoot(),
         AuthModule,
         SharedModule,
         RouterModule,

@@ -82,6 +82,32 @@
                     </mat-error>
                 </mat-form-field>
 
+                <mat-form-field appearance="standard"
+                                color="accent">
+                    <ngx-mat-file-input formControlName="pdf_bottle"
+                                        [accept]="'.pdf'"
+                                        placeholder="PDF de la bouteille"
+                                        valuePlaceholder="{{this.bottle && this.bottle.pdf_original_name ? this.bottle.pdf_original_name : 'PDF de la bouteille'}}"></ngx-mat-file-input>
+                    <mat-icon matSuffix>folder</mat-icon>
+                    <mat-error *ngIf="pdf_bottleCtrl.touched && pdf_bottleCtrl.hasError('maxContentSize')">
+                        La taille du fichier ne doit pas
+                        dépasser {{pdf_bottleCtrl?.getError('maxContentSize').maxSizePDF | byteFormat}}
+                        ({{pdf_bottleCtrl?.getError('maxContentSize').actualSize
+                        | byteFormat}}).
+                    </mat-error>
+                    <mat-error *ngIf="pdf_bottleCtrl.touched && pdf_bottleCtrl.hasError('imageFile')">
+                        Le type de fichier doit-être : PDF.
+                    </mat-error>
+                </mat-form-field>
+
+                <button *ngIf="this.bottle && this.bottle.pdf_original_name"
+                        mat-raised-button
+                        title="voir le PDF"
+                        type="button"
+                        (click)="getFile(bottle.pdf_name)"
+                        i18n="BottleEdit.button.pdf">voir le PDF
+                </button>
+
                 <h3 class="mt-2">État du stock</h3>
 
                 <mat-form-field appearance="standard"
@@ -119,7 +145,7 @@
         <div class="col-md-6 pt-2"
              *ngIf="bottle && bottle.img_name">
             <img class="img-fluid"
-                 src="{{this.authUrl + '/bottles/img/' + this.bottle.img_name}}"
+                 src="{{this.authUrl + '/bottles/file/' + this.bottle.img_name}}"
                  alt="Image bouteille">
         </div>
     </div>
