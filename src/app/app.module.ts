@@ -29,6 +29,10 @@ import {MatMenuModule} from "@angular/material/menu";
 import {PassageComponent} from './pages/passage/passage.component';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
+import {registerLocaleData} from "@angular/common";
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
+
 @NgModule({
     declarations: [
         AppComponent,

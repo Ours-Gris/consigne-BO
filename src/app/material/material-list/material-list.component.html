@@ -1,0 +1,116 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <h3 i18n="@@MaterialList.title">Liste du matériels</h3>
+
+            <div>
+                <label for="searchInput">
+                    <input matInput
+                           id="searchInput"
+                           i18n-placeholder="@@MaterialList.findMaterial.placeholder"
+                           placeholder="Rechercher un type de matériel"
+                           #input>
+                </label>
+            </div>
+
+            <mat-table class="lessons-table mat-elevation-z8"
+                       [dataSource]="materials"
+                       matSort
+                       matSortActive="name"
+                       matSortDirection="asc">
+
+                <!-- name Column -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@MaterialAttributes.name"> Nom
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let material"> {{material.name}} </mat-cell>
+                </ng-container>
+
+                <!-- Code Column -->
+                <ng-container matColumnDef="code">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@MaterialAttributes.code"> Code
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let material"> {{material.code}} </mat-cell>
+                </ng-container>
+
+                <!-- Price Column -->
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@MaterialAttributes.price"> Prix
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let material"> {{material.price | currency:'EUR':true}} </mat-cell>
+                </ng-container>
+
+                <!-- Stock Column -->
+                <ng-container matColumnDef="internal_stock">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@MaterialAttributes.internal_stock"> Stock
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let material"> {{material.internal_stock}}
+                        </mat-cell>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@MaterialAttributes.actions"> Actions
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let material">
+                        <button mat-mini-fab
+                                (click)="editMaterial(material.id)"
+                                title="Détails"
+                                class="m-lg-2"
+                                color="accent">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-mini-fab
+                                (click)="deleteMaterial(material.id)"
+                                title="Supprimer"
+                                class="m-lg-2"
+                                color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator [pageIndex]="0"
+                           [length]="totalMaterials"
+                           [pageSize]="10"
+                           [pageSizeOptions]="[10, 20, 50]"
+                           [showFirstLastButtons]="true"></mat-paginator>
+
+            <div class="spinner-container"
+                 *ngIf="materials && materials.loading$ | async">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <div class="flex-row pt-2">
+                <button mat-raised-button
+                        class="m-lg-2"
+                        color="primary"
+                        routerLink="/material/add">
+                    <span i18n="@@MaterialList.button.addMaterial">Ajouter un type de matériel</span>
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        (click)="exportAllMaterials()">
+                    <span i18n="@@MaterialList.button.exportMaterials">Exporter le matériel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

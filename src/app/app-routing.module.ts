@@ -35,6 +35,12 @@ const routes: Routes = [
         data: { roles: [Role.ADMIN] }
     },
     {
+        path: 'material',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./material/material.module').then(m => m.MaterialModule),
+        data: { roles: [Role.ADMIN] }
+    },
+    {
         path: 'me',
         canActivate: [LoggedInGuardService],
         component: ProfilComponent
