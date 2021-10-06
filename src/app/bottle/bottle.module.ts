@@ -16,12 +16,14 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MaterialFileInputModule} from "ngx-material-file-input";
+import { BottleFormComponent } from './bottle-form/bottle-form.component';
 
 @NgModule({
     declarations: [
         BottleListComponent,
         BottleAddComponent,
-        BottleEditComponent
+        BottleEditComponent,
+        BottleFormComponent
     ],
 	imports: [
 		CommonModule,

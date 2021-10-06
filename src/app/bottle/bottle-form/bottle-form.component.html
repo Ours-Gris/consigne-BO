@@ -1,0 +1,151 @@
+<div class="row">
+    <h2>Ajouter un type de bouteille</h2>
+    <div class="pt-2" [ngClass]="classBottle">
+        <h3>Informations générales</h3>
+        <form [formGroup]="bottleForm"
+              (ngSubmit)="onSubmit()">
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="name">Nom du type de bouteille</mat-label>
+                <input matInput
+                       formControlName="name"
+                       id="name"
+                       placeholder="nom">
+                <mat-error *ngIf="nameCtrl.touched && nameCtrl.hasError('required')">
+                    Le nom du type de bouteille est requis
+                </mat-error>
+                <mat-error *ngIf="nameCtrl.touched && nameCtrl.hasError('minlength')">
+                    Le nom du type de bouteille doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="code">Code</mat-label>
+                <input matInput
+                       formControlName="code"
+                       id="code"
+                       placeholder="Code du type de bouteille">
+                <mat-error *ngIf="codeCtrl.touched && codeCtrl.hasError('required')">
+                    Le code est requis
+                </mat-error>
+                <mat-error *ngIf="codeCtrl.touched && codeCtrl.hasError('minlength')">
+                    Le code doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="registerPassword">Description</mat-label>
+                <input matInput
+                       name="description"
+                       formControlName="description"
+                       id="description">
+                <mat-error *ngIf="descriptionCtrl.touched && descriptionCtrl.hasError('required')">
+                    La description est requise
+                </mat-error>
+                <mat-error *ngIf="descriptionCtrl.touched && descriptionCtrl.hasError('minlength')">
+                    La description doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="nbr_by_palette">Nombre de bouteilles par palette</mat-label>
+                <input matInput
+                       type="number"
+                       formControlName="nbr_by_palette"
+                       id="nbr_by_palette"
+                       (change)="onChangePalette()">
+                <mat-error *ngIf="nbr_by_paletteCtrl.touched && nbr_by_paletteCtrl.hasError('required')">
+                    Le nombre par palette est requis
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <ngx-mat-file-input formControlName="img_bottle"
+                                    [accept]="'.png, .jpg, .jpeg'"
+                                    placeholder="Image de la bouteille"
+                                    valuePlaceholder="{{this.bottle && this.bottle.img_original_name ? this.bottle.img_original_name : 'Image de la bouteille ( PNG ou JPG ou JPEG)'}}"></ngx-mat-file-input>
+                <mat-icon matSuffix>folder</mat-icon>
+                <mat-error *ngIf="img_bottleCtrl.touched && img_bottleCtrl.hasError('maxContentSize')">
+                    La taille du fichier ne doit pas
+                    dépasser {{img_bottleCtrl?.getError('maxContentSize').maxSize | byteFormat}}
+                    ({{img_bottleCtrl?.getError('maxContentSize').actualSize
+                    | byteFormat}}).
+                </mat-error>
+                <mat-error *ngIf="img_bottleCtrl.touched && img_bottleCtrl.hasError('imageFile')">
+                    Le type de fichier doit-être : PNG ou JPG ou JPEG.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <ngx-mat-file-input formControlName="pdf_bottle"
+                                    [accept]="'.pdf'"
+                                    placeholder="PDF de la bouteille"
+                                    valuePlaceholder="{{this.bottle && this.bottle.pdf_original_name ? this.bottle.pdf_original_name : 'PDF de la bouteille'}}"></ngx-mat-file-input>
+                <mat-icon matSuffix>folder</mat-icon>
+                <mat-error *ngIf="pdf_bottleCtrl.touched && pdf_bottleCtrl.hasError('maxContentSize')">
+                    La taille du fichier ne doit pas
+                    dépasser {{pdf_bottleCtrl?.getError('maxContentSize').maxSizePDF | byteFormat}}
+                    ({{pdf_bottleCtrl?.getError('maxContentSize').actualSize
+                    | byteFormat}}).
+                </mat-error>
+                <mat-error *ngIf="pdf_bottleCtrl.touched && pdf_bottleCtrl.hasError('imageFile')">
+                    Le type de fichier doit-être : PDF.
+                </mat-error>
+            </mat-form-field>
+
+            <button *ngIf="this.bottle && this.bottle.pdf_original_name"
+                    mat-raised-button
+                    title="voir le PDF"
+                    type="button"
+                    (click)="getFile(bottle.pdf_name)"
+                    i18n="BottleEdit.button.pdf">voir le PDF
+            </button>
+
+            <h3 class="mt-2">État du stock</h3>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="internal_stock">Nombre de bouteilles</mat-label>
+                <input matInput
+                       type="number"
+                       formControlName="internal_stock"
+                       id="internal_stock"
+                       (change)="onChangePalette()">
+                <mat-error *ngIf="internal_stockCtrl.touched && internal_stockCtrl.hasError('required')">
+                    Le nombre par palette est requis
+                </mat-error>
+            </mat-form-field>
+
+            <h4>{{nbrPalette}} Palette(s) disponible(s)</h4>
+
+            <div class="flex-row pt-2">
+                <button mat-raised-button
+                        color="warn"
+                        class="m-lg-2"
+                        type="button"
+                        routerLink="/bottle"
+                        i18n="BottleAdd.button.cancel">Annuler
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="bottleForm.invalid || !bottleForm.dirty"
+                        i18n="BottleAdd.button.submit">Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 pt-2"
+         *ngIf="bottle && bottle.img_name">
+        <img class="img-fluid"
+             src="{{this.authUrl + '/bottles/file/' + this.bottle.img_name}}"
+             alt="Image bouteille">
+    </div>
+</div>
+
