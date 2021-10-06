@@ -13,12 +13,14 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MaterialFileInputModule} from "ngx-material-file-input";
+import { MaterialFormComponent } from './material-form/material-form.component';
 
 @NgModule({
     declarations: [
         MaterialAddComponent,
         MaterialEditComponent,
-        MaterialListComponent
+        MaterialListComponent,
+        MaterialFormComponent
     ],
     imports: [
         CommonModule,

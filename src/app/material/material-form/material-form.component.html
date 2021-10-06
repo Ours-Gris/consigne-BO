@@ -1,0 +1,121 @@
+<div class="row">
+    <h2>Ajouter un type de matériel</h2>
+    <div class="pt-2" [ngClass]="classMaterial">
+        <h3>Informations générales</h3>
+        <form [formGroup]="materialForm"
+              (ngSubmit)="onSubmit()">
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="name">Nom du type de matériel</mat-label>
+                <input matInput
+                       formControlName="name"
+                       id="name"
+                       placeholder="nom">
+                <mat-error *ngIf="nameCtrl.touched && nameCtrl.hasError('required')">
+                    Le nom du type de matériel est requis
+                </mat-error>
+                <mat-error *ngIf="nameCtrl.touched && nameCtrl.hasError('minlength')">
+                    Le nom du type de matériel doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="code">Code</mat-label>
+                <input matInput
+                       formControlName="code"
+                       id="code"
+                       placeholder="Code du type de matériel">
+                <mat-error *ngIf="codeCtrl.touched && codeCtrl.hasError('required')">
+                    Le code est requis
+                </mat-error>
+                <mat-error *ngIf="codeCtrl.touched && codeCtrl.hasError('minlength')">
+                    Le code doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="registerPassword">Description</mat-label>
+                <input matInput
+                       name="description"
+                       formControlName="description"
+                       id="description">
+                <mat-error *ngIf="descriptionCtrl.touched && descriptionCtrl.hasError('required')">
+                    La description est requise
+                </mat-error>
+                <mat-error *ngIf="descriptionCtrl.touched && descriptionCtrl.hasError('minlength')">
+                    La description doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="price">Prix</mat-label>
+                <input matInput
+                       type="number"
+                       formControlName="price"
+                       id="price">
+                <mat-error *ngIf="priceCtrl.touched && priceCtrl.hasError('required')">
+                    Le prix est requis
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <ngx-mat-file-input formControlName="img_material"
+                                    [accept]="'.png, .jpg, .jpeg'"
+                                    placeholder="Image de la matériel"
+                                    valuePlaceholder="{{this.material && this.material.img_original_name ? this.material.img_original_name : 'Image de la matériel ( PNG ou JPG ou JPEG)'}}"></ngx-mat-file-input>
+                <mat-icon matSuffix>folder</mat-icon>
+                <mat-error *ngIf="img_materialCtrl.touched && img_materialCtrl.hasError('maxContentSize')">
+                    La taille du fichier ne doit pas
+                    dépasser {{img_materialCtrl?.getError('maxContentSize').maxSize | byteFormat}}
+                    ({{img_materialCtrl?.getError('maxContentSize').actualSize
+                    | byteFormat}}).
+                </mat-error>
+                <mat-error *ngIf="img_materialCtrl.touched && img_materialCtrl.hasError('imageFile')">
+                    Le type de fichier doit-être : PNG ou JPG ou JPEG.
+                </mat-error>
+            </mat-form-field>
+
+            <h3 class="mt-2">État du stock</h3>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="internal_stock">Nombre en stock</mat-label>
+                <input matInput
+                       type="number"
+                       formControlName="internal_stock"
+                       id="internal_stock">
+                <mat-error *ngIf="internal_stockCtrl.touched && internal_stockCtrl.hasError('required')">
+                    Le nombre en stock est requis
+                </mat-error>
+            </mat-form-field>
+
+            <div class="flex-row pt-2">
+                <button mat-raised-button
+                        color="warn"
+                        class="m-lg-2"
+                        type="button"
+                        routerLink="/material"
+                        i18n="MaterialAdd.button.cancel">Annuler
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="materialForm.invalid || !materialForm.dirty"
+                        i18n="MaterialAdd.button.submit">Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 pt-2"
+         *ngIf="material && material.img_name">
+        <img class="img-fluid"
+             src="{{this.authUrl + '/materials/file/' + this.material.img_name}}"
+             alt="Image matériel">
+    </div>
+</div>
+
