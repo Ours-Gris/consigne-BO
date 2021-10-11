@@ -18,13 +18,13 @@ import {AngularCsv} from 'angular-csv-ext/dist/Angular-csv';
 })
 export class BottleListComponent implements OnInit, AfterViewInit {
     bottles!: BottlesDataSource;
-    displayedColumns: string[] = ['name', 'code', 'internal_stock', 'actions'];
+    displayedColumns: string[] = ['name', 'code', 'price', 'internal_stock', 'actions'];
     totalBottles: number = 0;
 
     exportCsvOptions = {
         fieldSeparator: ';',
         useHeader: true,
-        headers: ['name', 'description', 'code', 'nbr_by_palette', 'internal_stock']
+        headers: ['name', 'description', 'code', 'price', 'nbr_by_palette', 'internal_stock']
     }
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;

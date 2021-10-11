@@ -66,6 +66,7 @@ export class BottleService {
         formData.append('name', bottle.name);
         formData.append('code', bottle.code);
         formData.append('description', bottle.description);
+        formData.append('price', String(bottle.price));
         formData.append('nbr_by_palette', String(bottle.nbr_by_palette));
         formData.append('internal_stock', String(bottle.internal_stock));
         formData.append('img_bottle', bottle.img_bottle);

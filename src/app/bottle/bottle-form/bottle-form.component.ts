@@ -26,6 +26,7 @@ export class BottleFormComponent implements OnInit {
     nameCtrl: FormControl;
     codeCtrl: FormControl;
     descriptionCtrl: FormControl;
+    priceCtrl: FormControl;
     img_bottleCtrl: FormControl;
     pdf_bottleCtrl: FormControl;
     nbr_by_paletteCtrl: FormControl;
@@ -41,6 +42,7 @@ export class BottleFormComponent implements OnInit {
         this.nameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.codeCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.descriptionCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
+        this.priceCtrl = fb.control('', [Validators.required]);
         this.img_bottleCtrl = fb.control(null, [FileValidator.maxContentSize(this.maxSize)]);
         this.pdf_bottleCtrl = fb.control(null, [FileValidator.maxContentSize(this.maxSizePdf)]);
         this.nbr_by_paletteCtrl = fb.control('', Validators.required);
@@ -50,6 +52,7 @@ export class BottleFormComponent implements OnInit {
             name: this.nameCtrl,
             code: this.codeCtrl,
             description: this.descriptionCtrl,
+            price: this.priceCtrl,
             nbr_by_palette: this.nbr_by_paletteCtrl,
             internal_stock: this.internal_stockCtrl,
             img_bottle: this.img_bottleCtrl,
@@ -85,6 +88,7 @@ export class BottleFormComponent implements OnInit {
             name: this.bottle.name,
             code: this.bottle.code,
             description: this.bottle.description,
+            price: this.bottle.price,
             nbr_by_palette: this.bottle.nbr_by_palette,
             internal_stock: this.bottle.internal_stock,
             img_bottle: '',

@@ -2,6 +2,7 @@ export interface Bottle {
     id: string;
     name: string;
     description: string;
+    price: number;
     code: string;
     nbr_by_palette: number;
     internal_stock: number;

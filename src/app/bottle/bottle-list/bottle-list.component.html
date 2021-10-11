@@ -40,6 +40,16 @@
                 </ng-container>
 
                 <!-- Code Column -->
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@BottleAttributes.price"> Prix
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let bottle"> {{bottle.price | currency:'EUR':true}} </mat-cell>
+                </ng-container>
+
+                <!-- Code Column -->
                 <ng-container matColumnDef="internal_stock">
                     <mat-header-cell *matHeaderCellDef
                                      mat-sort-header

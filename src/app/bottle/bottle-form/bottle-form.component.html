@@ -52,6 +52,18 @@
 
             <mat-form-field appearance="standard"
                             color="accent">
+                <mat-label for="price">Prix</mat-label>
+                <input matInput
+                       type="number"
+                       formControlName="price"
+                       id="price">
+                <mat-error *ngIf="priceCtrl.touched && priceCtrl.hasError('required')">
+                    Le prix est requis
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
                 <mat-label for="nbr_by_palette">Nombre de bouteilles par palette</mat-label>
                 <input matInput
                        type="number"
