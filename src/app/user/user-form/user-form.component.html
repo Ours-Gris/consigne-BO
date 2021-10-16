@@ -112,6 +112,7 @@
             <mat-form-field appearance="standard" *ngIf="!profil">
                 <mat-label>Rôle</mat-label>
                 <mat-select formControlName="role"
+                            (selectionChange)="onChangeRole($event)"
                             required>
                     <mat-option *ngFor="let role of roles"
                                 [value]="role">
@@ -122,7 +123,6 @@
                     Un rôle est requis
                 </mat-error>
             </mat-form-field>
-
 
             <div class="flex-row pt-2">
                 <button mat-raised-button

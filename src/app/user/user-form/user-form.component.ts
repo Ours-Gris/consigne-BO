@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import {Role} from "../data/Role";
 import {ToastrService} from "ngx-toastr";
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-user-form',
@@ -14,7 +15,6 @@ import {ToastrService} from "ngx-toastr";
 export class UserFormComponent implements OnInit {
     @Input() idUser!: string | null;
     @Input() profil!: boolean;
-
     user!: User;
     userForm: FormGroup;
     roles = Object.values(Role);
@@ -26,25 +26,20 @@ export class UserFormComponent implements OnInit {
     roleCtrl: FormControl;
     resellerCtrl: FormControl;
     producerCtrl: FormControl;
-
     addressCtrl!: FormControl;
     address_detailsCtrl!: FormControl;
     postal_codeCtrl!: FormControl;
     cityCtrl!: FormControl;
-
     delivery_addressCtrl: FormControl;
     delivery_address_detailsCtrl: FormControl;
     delivery_postal_codeCtrl: FormControl;
     delivery_cityCtrl: FormControl;
-
     delivery_dataCtrl: FormControl;
-
     delivery_schedulesCtrl: FormControl;
     heavy_truckCtrl: FormControl;
     stackerCtrl: FormControl;
     forkliftCtrl: FormControl;
     pallet_truckCtrl: FormControl;
-
     internal_dataCtrl: FormControl;
 
     constructor(
@@ -176,6 +171,26 @@ export class UserFormComponent implements OnInit {
             role: this.user.role,
             internal_data: this.user.internal_data
         });
+    }
+
+    onChangeRole(event: any) {
+        if (event.value === Role.ADMIN) {
+            Swal.fire({
+                title: `Changement de rôle`,
+                icon: 'warning',
+                text: 'Êtes-vous sûr de vouloir donner des droits administrateur à cet utilisateur ?',
+                showConfirmButton: true,
+                confirmButtonText: 'Changer',
+                showCancelButton: true,
+                cancelButtonText: 'Annuler'
+            }).then(
+                (result) => {
+                    if (!result.isConfirmed) {
+                        this.roleCtrl.setValue(this.user ? this.user.role : Role.USER)
+                    }
+                }
+            )
+        }
     }
 
     onSubmit(): void {
