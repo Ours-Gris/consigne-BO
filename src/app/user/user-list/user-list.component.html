@@ -115,7 +115,7 @@
                                      i18n="@@UserAttributes.city"> Ville
                     </mat-header-cell>
                     <mat-cell mat-cell
-                              *matCellDef="let user">{{user.address.city}}
+                              *matCellDef="let user">{{user.address ? user.address.city : '-'}}
                     </mat-cell>
                 </ng-container>
 

@@ -1,6 +1,6 @@
 import {CollectionViewer, DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {MaterialService} from '../services/material.service';
+import {MaterialService} from '../material.service';
 import {catchError, finalize} from 'rxjs/operators';
 import {Material} from "./Material";
 

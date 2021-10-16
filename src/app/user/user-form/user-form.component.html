@@ -4,7 +4,7 @@
               (ngSubmit)="onSubmit()">
             <h3>Informations générales</h3>
 
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row pb-4">
                 <mat-slide-toggle formControlName="reseller"
                                   class="p-2"
                                   color="primary">Revendeur
@@ -107,9 +107,9 @@
                        id="tel">
             </mat-form-field>
 
-            <h3>Informations de connexion</h3>
+            <h3 *ngIf="!profil">Informations de connexion</h3>
 
-            <mat-form-field appearance="standard">
+            <mat-form-field appearance="standard" *ngIf="!profil">
                 <mat-label>Rôle</mat-label>
                 <mat-select formControlName="role"
                             required>
@@ -122,6 +122,7 @@
                     Un rôle est requis
                 </mat-error>
             </mat-form-field>
+
 
             <div class="flex-row pt-2">
                 <button mat-raised-button

@@ -63,6 +63,12 @@
             <mat-icon color="accent">inventory</mat-icon>
             <span>Matériels</span>
         </button>
+        <button mat-menu-item
+                *ngIf="roleAdmin"
+                [routerLink]="['collecte']">
+            <mat-icon color="accent">local_shipping</mat-icon>
+            <span>Collectes en attente</span>
+        </button>
     </mat-menu>
 
     <button mat-fab

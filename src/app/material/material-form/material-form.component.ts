@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Material} from "../data/Material";
-import {MaterialService} from "../services/material.service";
+import {MaterialService} from "../material.service";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FileValidator} from "ngx-material-file-input";

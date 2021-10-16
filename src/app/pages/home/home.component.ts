@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../shared/services/auth.service";
 import {Router} from "@angular/router";
-import {Role} from "../../models/Role";
+import {Role} from "../../user/data/Role";
 
 @Component({
     selector: 'app-home',
@@ -11,7 +11,7 @@ import {Role} from "../../models/Role";
 export class HomeComponent implements OnInit {
     logged = false;
     roleAdmin: boolean = false;
-    idCurrentUser: string | undefined;
+    idCurrentUser!: string | null;
 
     constructor(
         private _authService: AuthService,
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
             this._authService.currentUser.subscribe(user => {
                 this.logged = !!user;
                 this.roleAdmin = user?.role === Role.ADMIN;
-                this.idCurrentUser = user?.sub;
+                this.idCurrentUser = user && user.sub ? user.sub : null;
             });
         }
     }

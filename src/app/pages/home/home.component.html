@@ -1,5 +1,5 @@
 <div class="row ">
-    <div class="col-md-8 offset-md-2 mt-4">
+    <div class="col-md-12 mt-4">
         <h1>Bienvenue dans votre espace Oc'consigne</h1>
         <div *ngIf="!logged">
             Pour afficher votre tableau de bord merci de vous identifier ou de nous contacter pour vous inscrire.
@@ -24,8 +24,9 @@
         </div>
 
         <div *ngIf="logged && !roleAdmin">
-            ici des tableaux d'information géneral pour un compte producteur ou revendeur
+            <div class="container">
+                <app-collecte-history [idUser]="idCurrentUser"></app-collecte-history>
+            </div>
         </div>
-
     </div>
 </div>

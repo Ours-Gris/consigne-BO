@@ -31,6 +31,7 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 import {registerLocaleData} from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
+import {CollecteModule} from "./collecte/collecte.module";
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -65,7 +66,8 @@ registerLocaleData(localeFr);
         MatButtonModule,
         MatCardModule,
         MatIconModule,
-        MatMenuModule
+        MatMenuModule,
+        CollecteModule
     ],
     providers: [
         {provide: LOCALE_ID, useValue: 'fr-FR'},

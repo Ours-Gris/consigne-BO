@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
-import {Role} from "../../../models/Role";
+import {Role} from "../../../user/data/Role";
 import {ToastrService} from "ngx-toastr";
 
 @Component({

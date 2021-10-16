@@ -25,6 +25,7 @@ import {ProfilComponent} from './profil/profil.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDividerModule} from "@angular/material/divider";
 import {UserFormComponent} from './user-form/user-form.component';
+import {CollecteModule} from "../collecte/collecte.module";
 
 @NgModule({
     declarations: [
@@ -34,28 +35,29 @@ import {UserFormComponent} from './user-form/user-form.component';
         ProfilComponent,
         UserFormComponent
     ],
-    imports: [
-        CommonModule,
-        UserRoutingModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        MatSortModule,
-        MatProgressBarModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        MatMenuModule,
-        MatIconModule,
-        // NgxMatFileInputModule,
-        MatCardModule,
-        MatChipsModule,
-        MatTooltipModule,
-        MatBadgeModule,
-        MatSelectModule,
-        MatSlideToggleModule,
-        MatDividerModule
-    ],
+	imports: [
+		CommonModule,
+		UserRoutingModule,
+		MatTableModule,
+		MatPaginatorModule,
+		MatInputModule,
+		MatProgressSpinnerModule,
+		MatSortModule,
+		MatProgressBarModule,
+		MatButtonModule,
+		ReactiveFormsModule,
+		MatMenuModule,
+		MatIconModule,
+		// NgxMatFileInputModule,
+		MatCardModule,
+		MatChipsModule,
+		MatTooltipModule,
+		MatBadgeModule,
+		MatSelectModule,
+		MatSlideToggleModule,
+		MatDividerModule,
+		CollecteModule
+	],
     providers: [UserService],
     exports: [ProfilComponent]
 })

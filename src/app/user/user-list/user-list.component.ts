@@ -8,9 +8,9 @@ import {fromEvent, merge} from "rxjs";
 import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
-import {UserStatus} from "../../models/user.status";
+import {UserStatus} from "../data/user.status";
 import {AngularCsv} from 'angular-csv-ext/dist/Angular-csv';
-import {User} from "../../models/User";
+import {User} from "../data/User";
 
 @Component({
     selector: 'app-user-list',

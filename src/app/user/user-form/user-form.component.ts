@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from "../../models/User";
+import {User} from "../data/User";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
-import {Role} from "../../models/Role";
+import {Role} from "../data/Role";
 import {ToastrService} from "ngx-toastr";
 
 @Component({

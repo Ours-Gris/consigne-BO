@@ -3,7 +3,7 @@ import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators}
 import {AuthService} from '../../../shared/services/auth.service';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
-import {User} from '../../../models/User';
+import {User} from '../../../user/data/User';
 import {MustMatch} from "../../../shared/must-match.validator";
 import {ToastrService} from "ngx-toastr";
 

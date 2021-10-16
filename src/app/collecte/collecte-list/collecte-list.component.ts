@@ -1,25 +1,27 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MaterialsDataSource} from "../data/materials-data-source";
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {CollectesDataSource} from "../data/collectes-data-source";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {MaterialService} from "../material.service";
+import {CollecteService} from "../collecte.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {fromEvent, merge} from "rxjs";
 import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
-import {Material} from "../data/Material";
-import Swal from "sweetalert2";
+import {Collecte} from "../data/Collecte";
 import {AngularCsv} from 'angular-csv-ext/dist/Angular-csv';
+import {CollecteStatus} from "../data/collecte.status";
+import Swal from "sweetalert2";
 
 @Component({
-    selector: 'app-material-list',
-    templateUrl: './material-list.component.html',
-    styleUrls: ['./material-list.component.css']
+    selector: 'app-collecte-list',
+    templateUrl: './collecte-list.component.html',
+    styleUrls: ['./collecte-list.component.css']
 })
-export class MaterialListComponent implements OnInit {
-    materials!: MaterialsDataSource;
-    displayedColumns: string[] = ['name', 'code', 'price', 'internal_stock', 'actions'];
-    totalMaterials: number = 0;
+export class CollecteListComponent implements OnInit, AfterViewInit {
+    collectes!: CollectesDataSource;
+    displayedColumns: string[] = ['company', 'status', 'actions'];
+    totalCollectes: number = 0;
+    collecteStatus = CollecteStatus;
 
     exportCsvOptions = {
         fieldSeparator: ';',
@@ -32,19 +34,19 @@ export class MaterialListComponent implements OnInit {
     @ViewChild('input') input!: ElementRef;
 
     constructor(
-        private materialService: MaterialService,
+        private collecteService: CollecteService,
         private toastr: ToastrService,
         public router: Router
     ) {
     }
 
     ngOnInit(): void {
-        this.materials = new MaterialsDataSource(this.materialService);
-        this.materials.loadMaterials();
+        this.collectes = new CollectesDataSource(this.collecteService);
+        this.collectes.loadWaitingCollectes();
     }
 
     ngAfterViewInit(): void {
-        this.countAllMaterials();
+        this.countWaitingCollectes();
 
         // server-side search
         fromEvent(this.input.nativeElement, 'keyup').pipe(
@@ -52,8 +54,8 @@ export class MaterialListComponent implements OnInit {
             distinctUntilChanged(),
             tap(() => {
                 this.paginator.pageIndex = 0;
-                this.loadMaterialsPage();
-                this.countAllMaterials();
+                this.loadCollectesPage();
+                this.countWaitingCollectes();
             })
         ).subscribe();
 
@@ -62,13 +64,13 @@ export class MaterialListComponent implements OnInit {
 
         merge(this.sort.sortChange, this.paginator.page).pipe(
             tap(() => {
-                this.loadMaterialsPage();
+                this.loadCollectesPage();
             })
         ).subscribe();
     }
 
-    loadMaterialsPage(): void {
-        this.materials.loadMaterials(
+    loadCollectesPage(): void {
+        this.collectes.loadWaitingCollectes(
             this.input.nativeElement.value,
             this.sort.active,
             this.sort.direction,
@@ -76,33 +78,34 @@ export class MaterialListComponent implements OnInit {
             this.paginator.pageSize);
     }
 
-    countAllMaterials(): void {
-        this.materialService.countAllMaterials(
+    countWaitingCollectes(): void {
+        this.collecteService.countWaitingCollectes(
             this.input.nativeElement.value
         ).subscribe(
-            (totalMaterials: number) => {
-                this.totalMaterials = totalMaterials;
+            (totalCollectes: number) => {
+                this.totalCollectes = totalCollectes;
             }
         );
     }
 
-    editMaterial(idMaterial: string): void {
-        this.router.navigate(['material', 'edit', idMaterial]).then();
+    editCollecte(idCollecte: string): void {
+        //TODO modifier pour adapter
+        this.router.navigate(['collecte', 'edit', idCollecte]).then();
     }
 
-    exportAllMaterials() {
-        this.materialService.getMaterialsExport().subscribe(
-            (materials: Material[]) => {
-                new AngularCsv(materials, 'export', this.exportCsvOptions)
+    exportAllCollectes() {
+        this.collecteService.getCollectesExport().subscribe(
+            (collectes: Collecte[]) => {
+                new AngularCsv(collectes, 'export', this.exportCsvOptions)
             }
         );
     }
 
-    deleteMaterial(idMaterial: string): void {
+    deleteCollecte(idCollecte: string): void {
         Swal.fire({
-            title: `Supprimer ce matériel`,
+            title: `Supprimer cette collecte`,
             icon: 'warning',
-            text: 'Êtes-vous sûr de vouloir supprimer ce type de matériel ?',
+            text: 'Êtes-vous sûr de vouloir supprimer cette collecte ?',
             showConfirmButton: true,
             confirmButtonText: 'Supprimer',
             showCancelButton: true,
@@ -110,11 +113,11 @@ export class MaterialListComponent implements OnInit {
         }).then(
             (result) => {
                 if (result.isConfirmed) {
-                    this.materialService.deleteMaterial(idMaterial).subscribe({
+                    this.collecteService.deleteCollecte(idCollecte).subscribe({
                         next: () => {
-                            this.loadMaterialsPage();
-                            this.countAllMaterials();
-                            this.toastr.success('Le type de matériel a été supprimé', 'Supprimer');
+                            this.loadCollectesPage();
+                            this.countWaitingCollectes();
+                            this.toastr.success('La collecte a été supprimé', 'Supprimer');
                         },
                         error: this.errorSubmit
                     })

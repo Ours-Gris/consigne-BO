@@ -5,7 +5,7 @@ import {LoggedInGuardService} from './shared/services/logged-in-guard.service';
 import {NotFoundComponent} from './shared/components/not-found/not-found.component';
 import {ContactComponent} from "./pages/contact/contact.component";
 import {AuthGuard} from "./_helpers/auth.guard";
-import {Role} from "./models/Role";
+import {Role} from "./user/data/Role";
 import {ProfilComponent} from "./user/profil/profil.component";
 import {PassageComponent} from "./pages/passage/passage.component";
 
@@ -38,6 +38,12 @@ const routes: Routes = [
         path: 'material',
         canActivate: [AuthGuard],
         loadChildren: () => import('./material/material.module').then(m => m.MaterialModule),
+        data: { roles: [Role.ADMIN] }
+    },
+    {
+        path: 'collecte',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./collecte/collecte.module').then(m => m.CollecteModule),
         data: { roles: [Role.ADMIN] }
     },
     {
