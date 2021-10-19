@@ -6,6 +6,7 @@ import {UserService} from "../services/user.service";
 import {Role} from "../data/Role";
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
+import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
     selector: 'app-user-form',
@@ -13,9 +14,8 @@ import Swal from "sweetalert2";
     styleUrls: ['./user-form.component.css']
 })
 export class UserFormComponent implements OnInit {
-    @Input() idUser!: string | null;
+    @Input() user!: User | null;
     @Input() profil!: boolean;
-    user!: User;
     userForm: FormGroup;
     roles = Object.values(Role);
 
@@ -26,6 +26,7 @@ export class UserFormComponent implements OnInit {
     roleCtrl: FormControl;
     resellerCtrl: FormControl;
     producerCtrl: FormControl;
+    collecte_pointCtrl: FormControl;
     addressCtrl!: FormControl;
     address_detailsCtrl!: FormControl;
     postal_codeCtrl!: FormControl;
@@ -45,6 +46,7 @@ export class UserFormComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private userService: UserService,
+        private authService: AuthService,
         private toastr: ToastrService,
         public router: Router,
         public route: ActivatedRoute
@@ -55,7 +57,8 @@ export class UserFormComponent implements OnInit {
         this.telCtrl = fb.control('');
         this.resellerCtrl = fb.control(false);
         this.producerCtrl = fb.control(false);
-        this.roleCtrl = fb.control('', [Validators.required]);
+        this.collecte_pointCtrl = fb.control(false);
+        this.roleCtrl = fb.control('user', [Validators.required]);
 
         this.addressCtrl = fb.control('');
         this.address_detailsCtrl = fb.control('');
@@ -95,6 +98,7 @@ export class UserFormComponent implements OnInit {
             tel: this.telCtrl,
             reseller: this.resellerCtrl,
             producer: this.producerCtrl,
+            collecte_point: this.collecte_pointCtrl,
             heavy_truck: this.heavy_truckCtrl,
             delivery_data: this.delivery_dataCtrl,
             delivery_schedules: this.delivery_schedulesCtrl,
@@ -107,70 +111,41 @@ export class UserFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.idUser) {
-             this.getOneUser(this.idUser)
-        } else if (this.profil) {
-             this.getMe()
-        }
-    }
-
-    getOneUser(idUser: string | null): void {
-        if (idUser) {
-            this.userService.getOneUser(idUser).subscribe({
-                next: (user: User) => {
-                    this.user = user;
-                    this.setFormValue();
-                },
-                error: error => {
-                    console.error(error);
-                    this.router.navigate(['/not-found']).then();
-                }
-            });
-        }
-    }
-
-    getMe(): void {
-        this.userService.getMe().subscribe({
-            next: (user: User) => {
-                this.user = user;
-                this.setFormValue();
-            },
-            error: error => {
-                console.error(error);
-                this.router.navigate(['/not-found']).then();
-            }
-        });
+        this.setFormValue()
     }
 
     setFormValue() {
-        this.userForm.setValue({
-            username: this.user.username,
-            email: this.user.email,
-            company: this.user.company,
-            address: {
-                address: this.user.address ? this.user.address.address : '',
-                address_details: this.user.address ? this.user.address.address_details : '',
-                postal_code: this.user.address ? this.user.address.postal_code : '',
-                city: this.user.address ? this.user.address.city : ''
-            },
-            delivery_address: {
-                address: this.user.delivery_address ? this.user.delivery_address.address : '',
-                address_details: this.user.delivery_address ? this.user.delivery_address.address_details : '',
-                postal_code: this.user.delivery_address ? this.user.delivery_address.postal_code : '',
-                city: this.user.delivery_address ? this.user.delivery_address.city : ''
-            },
-            tel: this.user.tel,
-            reseller: this.user.reseller,
-            producer: this.user.producer,
-            heavy_truck: this.user.heavy_truck,
-            delivery_data: this.user.delivery_data,
-            delivery_schedules: this.user.delivery_schedules,
-            stacker: this.user.stacker,
-            forklift: this.user.forklift,
-            pallet_truck: this.user.pallet_truck,
-            role: this.user.role,
-            internal_data: this.user.internal_data
-        });
+        if (this.user) {
+            this.userForm.setValue({
+                username: this.user.username,
+                email: this.user.email,
+                company: this.user.company,
+                address: {
+                    address: this.user.address ? this.user.address.address : '',
+                    address_details: this.user.address ? this.user.address.address_details : '',
+                    postal_code: this.user.address ? this.user.address.postal_code : '',
+                    city: this.user.address ? this.user.address.city : ''
+                },
+                delivery_address: {
+                    address: this.user.delivery_address ? this.user.delivery_address.address : '',
+                    address_details: this.user.delivery_address ? this.user.delivery_address.address_details : '',
+                    postal_code: this.user.delivery_address ? this.user.delivery_address.postal_code : '',
+                    city: this.user.delivery_address ? this.user.delivery_address.city : ''
+                },
+                tel: this.user.tel,
+                reseller: this.user.reseller,
+                producer: this.user.producer,
+                collecte_point: this.user.collecte_point,
+                heavy_truck: this.user.heavy_truck,
+                delivery_data: this.user.delivery_data,
+                delivery_schedules: this.user.delivery_schedules,
+                stacker: this.user.stacker,
+                forklift: this.user.forklift,
+                pallet_truck: this.user.pallet_truck,
+                role: this.user.role,
+                internal_data: this.user.internal_data
+            })
+        }
     }
 
     onChangeRole(event: any) {
@@ -194,23 +169,21 @@ export class UserFormComponent implements OnInit {
     }
 
     onSubmit(): void {
-        if (this.idUser) {
+        if (this.profil && this.user) {
+            this.userService.editMe(this.userForm.value).subscribe({
+                next: () => {
+                    this.toastr.success('Votre profil a été Modifié', 'Modifier');
+                },
+                error: this.errorSubmit
+            })
+        } else if (this.user) {
             this.userService.editUser(this.user.id, this.userForm.value).subscribe({
                 next: () => {
                     this.toastr.success('L\'utilisateur a été Modifié', 'Modifier');
                     this.router.navigateByUrl('/user').catch(err => console.error(err));
                 },
                 error: this.errorSubmit
-            });
-
-        } else if (this.profil) {
-            this.userService.editMe(this.userForm.value).subscribe({
-                next: () => {
-                    this.toastr.success('Votre profil a été Modifié', 'Modifier');
-                },
-                error: this.errorSubmit
-            });
-
+            })
         } else {
             this.userService.addUser(this.userForm.value).subscribe({
                 next: () => {
@@ -218,7 +191,7 @@ export class UserFormComponent implements OnInit {
                     this.router.navigateByUrl('/user').catch(err => console.error(err));
                 },
                 error: this.errorSubmit
-            });
+            })
         }
     }
 

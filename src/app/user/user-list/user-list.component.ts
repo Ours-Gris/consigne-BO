@@ -19,22 +19,13 @@ import {User} from "../data/User";
 })
 export class UserListComponent implements OnInit, AfterViewInit {
     users!: UsersDataSource;
-    displayedColumns: string[] = ['status', 'company', 'username', 'email', 'tel', 'reseller', 'producer', 'city', 'actions'];
+    displayedColumns: string[] = ['status', 'company', 'username', 'email', 'tel', 'reseller', 'city', 'actions'];
     totalUsers: number = 0;
     userStatus = UserStatus;
 
     exportCsvOptions = {
-        // fieldSeparator: ',',
-        // quoteStrings: '"',
-        // decimalseparator: '.',
-        // showLabels: true,
-        // showTitle: true,
-        // title: 'Export des bouteilles',
-        // useBom: true,
-        // noDownload: false,
         useHeader: true,
         headers: ['company', 'username', 'email', 'tel', 'status', 'reseller', 'producer', 'address_export', 'delivery_address_export'],
-        // nullToEmptyString: true,
     }
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;

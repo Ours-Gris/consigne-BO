@@ -18,8 +18,7 @@ import {User} from "../../user/data/User";
     styleUrls: ['./passage-user-history.component.css']
 })
 export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
-
-    @Input() user!: User | null;
+    @Input() user!: User;
     @Input() home: boolean = false;
     collecteStatus = CollecteStatus;
     passages!: PassagesDataSource;
@@ -58,13 +57,21 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
     }
 
     editCollecteStatus(newCollecteStatus: CollecteStatus) {
-        if (this.user) {
-            this.userService.editMe({ collecte_status: newCollecteStatus }).subscribe(
+        if (this.home) {
+            this.userService.editMe({collecte_status: newCollecteStatus}).subscribe(
                 () => {
-                    this.loadPassagesPage();
-                    this.countUserPassages();
+                    this.user.collecte_status = newCollecteStatus;
+                    this.toastr.success('La collecte a changé de statut', 'Collecte');
                 }
             )
+        } else {
+            this.userService.editUser(this.user.id, {collecte_status: newCollecteStatus}).subscribe({
+                next: () => {
+                    this.user.collecte_status = newCollecteStatus;
+                    this.toastr.success('La collecte a changé de statut', 'Collecte');
+                },
+                error: this.errorSubmit
+            })
         }
     }
 

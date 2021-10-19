@@ -1,5 +1,6 @@
 <div class="container">
     <h2>Modifier l'utilisateur</h2>
-    <app-user-form [idUser]="idUser"
+    <app-user-form *ngIf="user" [user]="user"
                    [profil]="false"></app-user-form>
+    <app-passage-user-history *ngIf="user" [user]="user" [home]="false"></app-passage-user-history>
 </div>

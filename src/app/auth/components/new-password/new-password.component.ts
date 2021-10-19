@@ -29,6 +29,7 @@ export class NewPasswordComponent implements OnInit {
         if (!this.resetToken) {
             this.router.navigateByUrl('').catch(err => console.error(err));
         }
+        this.authService.logout()
         this.passwordCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.passwordRepeatCtrl = fb.control('', Validators.required);
         this.userForm = fb.group({

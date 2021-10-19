@@ -23,6 +23,7 @@ export interface User {
 
     reseller: boolean;
     producer: boolean;
+    collecte_point: boolean;
 
     delivery_data: string;
     delivery_schedules: string;

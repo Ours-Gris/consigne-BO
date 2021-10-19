@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../shared/services/auth.service";
 import {Router} from "@angular/router";
-import {Role} from "../../user/data/Role";
-import {User} from "../../user/data/User";
 
 @Component({
     selector: 'app-home',
@@ -11,9 +9,6 @@ import {User} from "../../user/data/User";
 })
 export class HomeComponent implements OnInit {
     logged = false;
-    roleAdmin: boolean = false;
-    currentUser!: User | null;
-    idCurrentUser!: string | null;
 
     constructor(
         private _authService: AuthService,
@@ -24,12 +19,11 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
         if (this._authService.currentUser) {
             this._authService.currentUser.subscribe(user => {
-                this.currentUser = user;
                 this.logged = !!user;
-                this.roleAdmin = user?.role === Role.ADMIN;
-                this.idCurrentUser = user && user.sub ? user.sub : null;
+                if (this.logged) {
+                    this.router.navigateByUrl('dashboard').catch(err => console.error(err));
+                }
             });
         }
     }
-
 }

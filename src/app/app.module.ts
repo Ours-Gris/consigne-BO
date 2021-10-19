@@ -15,10 +15,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptor";
-import {DescriptionComponent} from './pages/description/description.component';
-import {ShopsListComponent} from './pages/shops-list/shops-list.component';
-import {ProducersListComponent} from './pages/producers-list/producers-list.component';
-import {NewsListComponent} from './pages/news-list/news-list.component';
 import {ContactComponent} from './pages/contact/contact.component';
 import {YouTubePlayerModule} from "@angular/youtube-player";
 import {MatButtonModule} from "@angular/material/button";
@@ -26,24 +22,19 @@ import {ToastrModule} from "ngx-toastr";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
-import {PassageComponent} from './pages/passage/passage.component';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
-
 import {registerLocaleData} from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
 import {PassageModule} from "./passage/passage.module";
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 registerLocaleData(localeFr);
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
-        DescriptionComponent,
-        ShopsListComponent,
-        ProducersListComponent,
-        NewsListComponent,
         ContactComponent,
-        PassageComponent
+        DashboardComponent
     ],
     imports: [
         BrowserModule,

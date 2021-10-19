@@ -5,27 +5,15 @@
             Pour afficher votre tableau de bord merci de vous identifier ou de nous contacter pour vous inscrire.
             <div>
                 <button mat-menu-item
-                        *ngIf="!logged"
                         [routerLink]="['auth/login']">
                     <mat-icon color="accent">login</mat-icon>
                     <span>Connexion</span>
                 </button>
                 <button mat-menu-item
-                        *ngIf="!logged"
                         [routerLink]="['contact']">
                     <mat-icon color="primary">mail</mat-icon>
                     <span>Nous contacter</span>
                 </button>
-            </div>
-        </div>
-
-        <div *ngIf="roleAdmin">
-            ici des tableaux d'information géneral pour un compte admin
-        </div>
-
-        <div *ngIf="logged && !roleAdmin">
-            <div class="container">
-<!--                <app-passage-user-history [idUser]="idCurrentUser"></app-passage-user-history>-->
             </div>
         </div>
     </div>

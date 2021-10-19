@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Mon Profil</h2>
-    <app-user-form [idUser]="null"
+    <app-user-form *ngIf="user" [user]="user"
                    [profil]="true"></app-user-form>
 </div>
 

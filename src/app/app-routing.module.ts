@@ -7,12 +7,16 @@ import {ContactComponent} from "./pages/contact/contact.component";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {Role} from "./user/data/Role";
 import {ProfilComponent} from "./user/profil/profil.component";
-import {PassageComponent} from "./pages/passage/passage.component";
+import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 
 const routes: Routes = [
     {
         path: '',
         component: HomeComponent
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent
     },
     {
         path: 'contact',
@@ -26,19 +30,19 @@ const routes: Routes = [
         path: 'user',
         canActivate: [AuthGuard],
         loadChildren: () => import('./user/user.module').then(m => m.UserModule),
-        data: { roles: [Role.ADMIN] }
+        data: {roles: [Role.ADMIN]}
     },
     {
         path: 'bottle',
         canActivate: [AuthGuard],
         loadChildren: () => import('./bottle/bottle.module').then(m => m.BottleModule),
-        data: { roles: [Role.ADMIN] }
+        data: {roles: [Role.ADMIN]}
     },
     {
         path: 'material',
         canActivate: [AuthGuard],
         loadChildren: () => import('./material/material.module').then(m => m.MaterialModule),
-        data: { roles: [Role.ADMIN] }
+        data: {roles: [Role.ADMIN]}
     },
     {
         path: 'me',
@@ -49,11 +53,6 @@ const routes: Routes = [
         path: 'map',
         canActivate: [LoggedInGuardService],
         loadChildren: () => import('./map/map.module').then(m => m.MapModule)
-    },
-    {
-        path: 'passage',
-        canActivate: [LoggedInGuardService],
-        component: PassageComponent
     },
     {
         path: 'not-found',

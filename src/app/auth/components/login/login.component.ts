@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     onSubmit(): void {
         this.authService.login(this.userForm.value).subscribe({
             next: () => {
-                this.router.navigateByUrl('').catch(err => console.error(err));
+                this.router.navigateByUrl('dashboard').catch(err => console.error(err));
                 this.toastr.success('Vous êtes connecté', 'Connection');
             },
             error: error => {
