@@ -24,7 +24,7 @@ export class UserService {
         );
     }
 
-    editMe(user: User): Observable<User> {
+    editMe(user: Partial<User>): Observable<User> {
         return this.http.put(this.authUrl + '/users/me', user).pipe(
             map((newUser: any) => newUser)
         );

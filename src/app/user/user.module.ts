@@ -15,7 +15,6 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatCardModule} from "@angular/material/card";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatChipsModule} from "@angular/material/chips";
-// import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatButtonModule} from "@angular/material/button";
 import {UserService} from "./services/user.service";
@@ -25,7 +24,7 @@ import {ProfilComponent} from './profil/profil.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDividerModule} from "@angular/material/divider";
 import {UserFormComponent} from './user-form/user-form.component';
-import {CollecteModule} from "../collecte/collecte.module";
+import {PassageModule} from "../passage/passage.module";
 
 @NgModule({
     declarations: [
@@ -35,29 +34,28 @@ import {CollecteModule} from "../collecte/collecte.module";
         ProfilComponent,
         UserFormComponent
     ],
-	imports: [
-		CommonModule,
-		UserRoutingModule,
-		MatTableModule,
-		MatPaginatorModule,
-		MatInputModule,
-		MatProgressSpinnerModule,
-		MatSortModule,
-		MatProgressBarModule,
-		MatButtonModule,
-		ReactiveFormsModule,
-		MatMenuModule,
-		MatIconModule,
-		// NgxMatFileInputModule,
-		MatCardModule,
-		MatChipsModule,
-		MatTooltipModule,
-		MatBadgeModule,
-		MatSelectModule,
-		MatSlideToggleModule,
-		MatDividerModule,
-		CollecteModule
-	],
+    imports: [
+        CommonModule,
+        UserRoutingModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        MatSortModule,
+        MatProgressBarModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatMenuModule,
+        MatIconModule,
+        MatCardModule,
+        MatChipsModule,
+        MatTooltipModule,
+        MatBadgeModule,
+        MatSelectModule,
+        MatSlideToggleModule,
+        MatDividerModule,
+        PassageModule
+    ],
     providers: [UserService],
     exports: [ProfilComponent]
 })

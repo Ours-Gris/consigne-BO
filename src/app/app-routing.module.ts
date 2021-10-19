@@ -41,12 +41,6 @@ const routes: Routes = [
         data: { roles: [Role.ADMIN] }
     },
     {
-        path: 'collecte',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('./collecte/collecte.module').then(m => m.CollecteModule),
-        data: { roles: [Role.ADMIN] }
-    },
-    {
         path: 'me',
         canActivate: [LoggedInGuardService],
         component: ProfilComponent

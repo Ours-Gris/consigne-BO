@@ -1,12 +1,14 @@
 import {Role} from "./Role";
 import {UserStatus} from "./user.status";
 import {Address} from "./Address";
+import {CollecteStatus} from "./collecte.status";
 
 export interface User {
     sub: string;
     id: string;
     role: Role;
     status: UserStatus;
+    collecte_status: CollecteStatus;
     token?: string;
 
     username: string;
