@@ -26,7 +26,8 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {registerLocaleData} from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
 import {PassageModule} from "./passage/passage.module";
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
+
 registerLocaleData(localeFr);
 
 @NgModule({

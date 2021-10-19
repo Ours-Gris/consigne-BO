@@ -3,7 +3,7 @@
         <div class="mat-card p-4">
             <div class="mat-card-title">
 <!--                todo faire un PIPE pour les statut de collecte-->
-                Collecte de bouteilles : {{ user ? user.collecte_status : '-' }}
+                Collecte de bouteilles : {{ user.collecte_status | collecteStatus}}
             </div>
             <div class="mat-card-subtitle">
                 <p>details du status</p>
@@ -11,12 +11,22 @@
             <div class="mat-card-actions">
                 <button mat-raised-button
                         color="primary"
+                        class="m-lg-2"
+                        *ngIf="user.collecte_status !== collecteStatus.IN_FILLING"
+                        (click)="editCollecteStatus(collecteStatus.IN_FILLING)">
+                    <span i18n="@@CollecteList.button.AlmustFull">Signaler une collecte en cours</span>
+                </button>
+                <button mat-raised-button
+                        color="accent"
+                        class="m-lg-2"
+                        *ngIf="user.collecte_status !== collecteStatus.ALMOST_FULL"
                         (click)="editCollecteStatus(collecteStatus.ALMOST_FULL)">
                     <span i18n="@@CollecteList.button.AlmustFull">Signaler un remplissage à 80%</span>
                 </button>
                 <button mat-raised-button
                         color="accent"
                         class="m-lg-2"
+                        *ngIf="user.collecte_status !== collecteStatus.FULL"
                         (click)="editCollecteStatus(collecteStatus.FULL)">
                     <span i18n="@@CollecteList.button.AlmustFull">Signaler un remplissage à 100%</span>
                 </button>

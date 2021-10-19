@@ -5,8 +5,6 @@ import {MatSort} from "@angular/material/sort";
 import {PassageService} from "../passage.service";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
-import {merge} from "rxjs";
-import {tap} from "rxjs/operators";
 import Swal from "sweetalert2";
 import {CollecteStatus} from "../../user/data/collecte.status";
 import {UserService} from "../../user/services/user.service";
@@ -39,21 +37,21 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         if (this.user) {
-            this.passages = new PassagesDataSource(this.passageService);
-            this.passages.loadUserPassages(this.user.id);
+            // this.passages = new PassagesDataSource(this.passageService);
+            // this.passages.loadUserPassages(this.user.id);
         }
     }
 
     ngAfterViewInit(): void {
-        this.countUserPassages();
-
-        // reset the paginator after sorting
-        this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-        merge(this.sort.sortChange, this.paginator.page).pipe(
-            tap(() => {
-                this.loadPassagesPage();
-            })
-        ).subscribe()
+        // this.countUserPassages();
+        //
+        // // reset the paginator after sorting
+        // this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+        // merge(this.sort.sortChange, this.paginator.page).pipe(
+        //     tap(() => {
+        //         this.loadPassagesPage();
+        //     })
+        // ).subscribe()
     }
 
     editCollecteStatus(newCollecteStatus: CollecteStatus) {
