@@ -18,6 +18,7 @@ export class UserFormComponent implements OnInit {
     @Input() profil!: boolean;
     userForm: FormGroup;
     roles = Object.values(Role);
+    isAdmin = false;
 
     usernameCtrl: FormControl;
     companyCtrl!: FormControl;
@@ -116,6 +117,7 @@ export class UserFormComponent implements OnInit {
 
     setFormValue() {
         if (this.user) {
+            this.isAdmin = this.user.role === Role.ADMIN;
             this.userForm.setValue({
                 username: this.user.username,
                 email: this.user.email,
