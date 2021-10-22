@@ -31,6 +31,5 @@ export interface User {
     stacker: boolean;
     forklift: boolean;
     pallet_truck: boolean;
-
     internal_data: string;
 }

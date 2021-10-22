@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AuthService} from "../../../shared/services/auth.service";
 import {ToastrService} from "ngx-toastr";
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-reset-password',
@@ -31,6 +32,12 @@ export class ResetPasswordComponent implements OnInit {
 
     onSubmit(): void {
         if (this.userForm.valid) {
+            Swal.fire({
+                title: `Validation du mail`,
+                icon: 'info',
+                text: 'Si votre mail est enregistré, vous allez recevoir un mail !',
+                showConfirmButton: true
+            }).then();
             this.authService.reset(this.userForm.value.email).subscribe({
                 next: () => {
                     this.toastr.info('Vous allez recevoir un mail !', 'Information');

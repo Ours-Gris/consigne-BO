@@ -32,6 +32,15 @@ export class PassagesDataSource implements DataSource<Passage> {
             ).subscribe((passages: Passage[]) => this.passagesSubject.next(passages));
     }
 
+    loadMyPassages(sortBy?: string, sortDirection?: string, pageIndex?: number, pageSize?: number): void {
+        this.loadingSubject.next(true);
+        this.passageService.getMyPassages(sortBy, sortDirection, pageIndex, pageSize)
+            .pipe(
+                catchError(() => of([])),
+                finalize(() => this.loadingSubject.next(false))
+            ).subscribe((passages: Passage[]) => this.passagesSubject.next(passages));
+    }
+
     loadWaitingPassages(filter?: string, sortBy?: string, sortDirection?: string, pageIndex?: number, pageSize?: number): void {
         this.loadingSubject.next(true);
         this.passageService.getWaitingPassages(filter, sortBy, sortDirection, pageIndex, pageSize)

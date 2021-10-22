@@ -25,6 +25,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDividerModule} from "@angular/material/divider";
 import {UserFormComponent} from './user-form/user-form.component';
 import {PassageModule} from "../passage/passage.module";
+import { UserWaitingPassageComponent } from './user-waiting-passage/user-waiting-passage.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import {PassageModule} from "../passage/passage.module";
         UserListComponent,
         UserEditComponent,
         ProfilComponent,
-        UserFormComponent
+        UserFormComponent,
+        UserWaitingPassageComponent
     ],
     imports: [
         CommonModule,

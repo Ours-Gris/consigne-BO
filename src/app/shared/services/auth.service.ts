@@ -20,7 +20,7 @@ export class AuthService {
         private _http: HttpClient
     ) {
         this.token = localStorage.getItem(this.tokenKey) || '';
-        let user = null
+        let user = null;
         if (this.token) {
             user = this.decodePayloadToken(this.token);
 
@@ -30,11 +30,11 @@ export class AuthService {
     }
 
     public get currentUserValue(): User | null {
-        return this.currentUserSubject.value;
+        return this.currentUserSubject.value
     }
 
     isLoggedIn(): boolean {
-        return this.currentUserValue?.token !== null;
+        return this.currentUserValue?.token !== null
     }
 
     login(model: any): Observable<any> {
@@ -43,13 +43,13 @@ export class AuthService {
                 (response: any) => {
                     if (response.access_token) {
                         this.token = response.access_token;
-                        const payload = this.decodePayloadToken(this.token)
+                        const payload = this.decodePayloadToken(this.token);
                         localStorage.setItem(this.tokenKey, this.token);
-                        this.currentUserSubject.next(payload);
+                        this.currentUserSubject.next(payload)
                     }
                 }
             )
-        );
+        )
     }
 
     register(model: any): Observable<any> {
@@ -58,19 +58,19 @@ export class AuthService {
                 (response: any) => {
                     if (response.access_token) {
                         this.token = response.access_token;
-                        const payload = this.decodePayloadToken(this.token)
+                        const payload = this.decodePayloadToken(this.token);
                         localStorage.setItem(this.tokenKey, this.token);
-                        this.currentUserSubject.next(payload);
+                        this.currentUserSubject.next(payload)
                     }
                 }
             )
-        );
+        )
     }
 
     // remove user from local storage and set current user to null
     logout(): void {
         localStorage.removeItem(this.tokenKey);
-        this.currentUserSubject.next(null);
+        this.currentUserSubject.next(null)
     }
 
     reset(email: string): Observable<any> {
@@ -80,7 +80,7 @@ export class AuthService {
                     console.log(response)
                 }
             )
-        );
+        )
     }
 
     updatePassword(token: string, password: string) {
@@ -97,11 +97,11 @@ export class AuthService {
                     console.log(response)
                 }
             )
-        );
+        )
     }
 
     decodePayloadToken(token: string) {
-        return JSON.parse(atob(token.split('.')[1]));
+        return JSON.parse(atob(token.split('.')[1]))
     }
 
     get isAdmin() {
@@ -109,7 +109,7 @@ export class AuthService {
             return false
         }
         const payload = this.decodePayloadToken(this.token);
-        return payload.role === Role.ADMIN;
+        return payload.role === Role.ADMIN
     }
 
     confirm(token: string): Observable<any> {

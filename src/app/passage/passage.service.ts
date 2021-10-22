@@ -31,6 +31,12 @@ export class PassageService {
         );
     }
 
+    countMyPassages(): Observable<number> {
+        return this.http.get(this.authUrl + '/passages/count/me').pipe(
+            map((res: any) => res)
+        );
+    }
+
     getUserPassages(idUser: string, sortBy?: string, sortDirection?: string, pageNumber?: number, pageSize?: number): Observable<Passage[]> {
         let params = new HttpParams()
             .set('_sort', sortBy ? sortBy : 'createdAt')
@@ -42,6 +48,21 @@ export class PassageService {
         };
 
         return this.http.get(this.authUrl + '/passages/user/' + idUser, options).pipe(
+            map((res: any) => res)
+        );
+    }
+
+    getMyPassages(sortBy?: string, sortDirection?: string, pageNumber?: number, pageSize?: number): Observable<Passage[]> {
+        let params = new HttpParams()
+            .set('_sort', sortBy ? sortBy : 'createdAt')
+            .set('_direction', sortDirection ? sortDirection : 'DESC')
+            .set('_start', pageNumber && pageSize ? (pageNumber * pageSize).toString() : '0')
+            .set('_limit', pageSize ? pageSize.toString() : '5');
+        const options = {
+            params
+        };
+
+        return this.http.get(this.authUrl + '/passages/me', options).pipe(
             map((res: any) => res)
         );
     }
@@ -77,12 +98,12 @@ export class PassageService {
     }
 
     addPassage(passage: Passage): Observable<Passage> {
-        return this.http.post(this.authUrl + '/passages/me', passage).pipe(
+        return this.http.post(this.authUrl + '/passages', passage).pipe(
             map((newPassage: any) => newPassage)
         );
     }
 
-    editPassage(idPassage: string, passage: Passage): Observable<Passage> {
+    editPassage(idPassage: string, passage: Partial<Passage>): Observable<Passage> {
         return this.http.put(this.authUrl + '/passages/' + idPassage, passage).pipe(
             map((newPassage: any) => newPassage)
         );

@@ -16,19 +16,19 @@
             <mat-table class="lessons-table mat-elevation-z8"
                        [dataSource]="users"
                        matSort
-                       matSortActive="username"
+                       matSortActive="collecte_status"
                        matSortDirection="asc">
 
-                <!-- Status Column -->
-                <ng-container matColumnDef="status">
+                <!-- collecte_status Column -->
+                <ng-container matColumnDef="collecte_status">
                     <mat-header-cell *matHeaderCellDef
                                      mat-sort-header
-                                     i18n="@@UserAttributes.status"> Statut
+                                     i18n="@@UserAttributes.collecte_status"> Statut de la collecte
                     </mat-header-cell>
                     <mat-cell mat-cell
                               *matCellDef="let user">
-                        <mat-icon *ngIf="user.status === userStatus.ACTIVE" color="primary">done</mat-icon>
-                        <mat-icon *ngIf="user.status === userStatus.PENDING" color="warn">close</mat-icon>
+                        <mat-icon [color]="user.collecte_status === CollecteStatus.FULL ? 'warn' : 'primary'">liquor</mat-icon>
+                         {{user.collecte_status | collecteStatus}}
                     </mat-cell>
                 </ng-container>
 
@@ -52,16 +52,6 @@
                               *matCellDef="let user"> {{user.username}} </mat-cell>
                 </ng-container>
 
-                <!-- Email Column -->
-                <ng-container matColumnDef="email">
-                    <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
-                                     i18n="@@UserAttributes.email"> Email
-                    </mat-header-cell>
-                    <mat-cell mat-cell
-                              *matCellDef="let user"> {{user.email}} </mat-cell>
-                </ng-container>
-
                 <!-- Tel Column -->
                 <ng-container matColumnDef="tel">
                     <mat-header-cell *matHeaderCellDef
@@ -70,20 +60,6 @@
                     </mat-header-cell>
                     <mat-cell mat-cell
                               *matCellDef="let user"> {{user.tel}} </mat-cell>
-                </ng-container>
-
-                <!-- Reseller Column -->
-                <ng-container matColumnDef="reseller">
-                    <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
-                                     i18n="@@UserAttributes.reseller"> Revendeur / Producteur / Point de passage
-                    </mat-header-cell>
-                    <mat-cell mat-cell
-                              *matCellDef="let user">
-                        <mat-icon color="primary">{{user.reseller ? 'done' : 'close'}}</mat-icon> /
-                        <mat-icon color="primary">{{user.producer ? 'done' : 'close'}}</mat-icon> /
-                        <mat-icon color="primary">{{user.collecte_point ? 'done' : 'close'}}</mat-icon>
-                    </mat-cell>
                 </ng-container>
 
                 <!-- City Column -->
@@ -104,18 +80,11 @@
                     </mat-header-cell>
                     <mat-cell *matCellDef="let user">
                         <button mat-mini-fab
-                                (click)="editUser(user.id)"
-                                title="Détails"
+                                (click)="addPassage(user.id)"
+                                title="Valider le passage"
                                 class="m-lg-2"
                                 color="accent">
-                            <mat-icon>visibility</mat-icon>
-                        </button>
-                        <button mat-mini-fab
-                                (click)="deleteUser(user.id)"
-                                title="Supprimer"
-                                class="m-lg-2"
-                                color="warn">
-                            <mat-icon>delete</mat-icon>
+                            <mat-icon>local_shipping</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>
@@ -133,19 +102,6 @@
             <div class="spinner-container"
                  *ngIf="users && users.loading$ | async">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </div>
-            <div class="flex-row pt-2">
-                <button mat-raised-button
-                        class="m-lg-2"
-                        color="primary"
-                        routerLink="/user/add">
-                    <span i18n="@@UserList.button.addUser">Ajouter un utilisateur</span>
-                </button>
-                <button mat-raised-button
-                        color="primary"
-                        (click)="exportAllUsers()">
-                    <span i18n="@@BottleList.button.exportBottles">Exporter les Clients</span>
-                </button>
             </div>
         </div>
     </div>

@@ -43,6 +43,19 @@ export class UserService {
         );
     }
 
+    countUsersWaitingPassage(filter?: string): Observable<number> {
+        let params = new HttpParams();
+        if (filter) {
+            params = params.set('Nom_contains', filter);
+        }
+        const options = {
+            params
+        };
+        return this.http.get(this.authUrl + '/users/waiting/count', options).pipe(
+            map((res: any) => res)
+        );
+    }
+
     getUsers(filter?: string, sortBy?: string, sortDirection?: string, pageNumber?: number, pageSize?: number): Observable<User[]> {
         let params = new HttpParams()
             .set('_sort', sortBy ? sortBy : 'username')
@@ -57,6 +70,24 @@ export class UserService {
         };
 
         return this.http.get(this.authUrl + '/users', options).pipe(
+            map((res: any) => res)
+        );
+    }
+
+    getUsersWaitingPassage(filter?: string, sortBy?: string, sortDirection?: string, pageNumber?: number, pageSize?: number): Observable<User[]> {
+        let params = new HttpParams()
+            .set('_sort', sortBy ? sortBy : 'collecte_status')
+            .set('_direction', sortDirection ? sortDirection : 'DESC')
+            .set('_start', pageNumber && pageSize ? (pageNumber * pageSize).toString() : '0')
+            .set('_limit', pageSize ? pageSize.toString() : '10');
+        if (filter) {
+            params = params.set('_contains', filter);
+        }
+        const options = {
+            params
+        };
+
+        return this.http.get(this.authUrl + '/users/waiting', options).pipe(
             map((res: any) => res)
         );
     }

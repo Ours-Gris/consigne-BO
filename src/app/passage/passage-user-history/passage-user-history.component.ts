@@ -9,6 +9,8 @@ import Swal from "sweetalert2";
 import {CollecteStatus} from "../../user/data/collecte.status";
 import {UserService} from "../../user/services/user.service";
 import {User} from "../../user/data/User";
+import {merge} from "rxjs";
+import {tap} from "rxjs/operators";
 
 @Component({
     selector: 'app-passage-user-history',
@@ -20,7 +22,8 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
     @Input() home: boolean = false;
     collecteStatus = CollecteStatus;
     passages!: PassagesDataSource;
-    displayedColumns: string[] = ['createdAt', 'status', 'actions'];
+    userDisplayedColumns: string[] = ['createdAt', 'bottles_collected'];
+    adminDisplayedColumns: string[] = ['createdAt', 'bottles_collected', 'actions'];
     totalPassages: number = 0;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -37,31 +40,36 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         if (this.user) {
-            // this.passages = new PassagesDataSource(this.passageService);
-            // this.passages.loadUserPassages(this.user.id);
+            this.passages = new PassagesDataSource(this.passageService);
+            if (this.home) {
+                this.passages.loadMyPassages()
+            } else {
+                this.passages.loadUserPassages(this.user.id)
+            }
         }
     }
 
     ngAfterViewInit(): void {
-        // this.countUserPassages();
-        //
-        // // reset the paginator after sorting
-        // this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-        // merge(this.sort.sortChange, this.paginator.page).pipe(
-        //     tap(() => {
-        //         this.loadPassagesPage();
-        //     })
-        // ).subscribe()
+        this.countUserPassages();
+
+        // reset the paginator after sorting
+        this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+        merge(this.sort.sortChange, this.paginator.page).pipe(
+            tap(() => {
+                this.loadPassagesPage()
+            })
+        ).subscribe()
     }
 
     editCollecteStatus(newCollecteStatus: CollecteStatus) {
         if (this.home) {
-            this.userService.editMe({collecte_status: newCollecteStatus}).subscribe(
-                () => {
+            this.userService.editMe({collecte_status: newCollecteStatus}).subscribe({
+                next: () => {
                     this.user.collecte_status = newCollecteStatus;
                     this.toastr.success('La collecte a changé de statut', 'Collecte');
-                }
-            )
+                },
+                error: this.errorSubmit
+            })
         } else {
             this.userService.editUser(this.user.id, {collecte_status: newCollecteStatus}).subscribe({
                 next: () => {
@@ -74,7 +82,13 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
     }
 
     loadPassagesPage(): void {
-        if (this.user) {
+        if (this.home) {
+            this.passages.loadMyPassages(
+                this.sort.active,
+                this.sort.direction,
+                this.paginator.pageIndex,
+                this.paginator.pageSize);
+        } else {
             this.passages.loadUserPassages(
                 this.user.id,
                 this.sort.active,
@@ -85,7 +99,13 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
     }
 
     countUserPassages(): void {
-        if (this.user) {
+        if (this.home) {
+            this.passageService.countMyPassages().subscribe(
+                (totalPassages: number) => {
+                    this.totalPassages = totalPassages;
+                }
+            )
+        } else {
             this.passageService.countUserPassages(this.user.id).subscribe(
                 (totalPassages: number) => {
                     this.totalPassages = totalPassages;
@@ -95,16 +115,62 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
     }
 
     editPassage(idPassage: string): void {
-        //TODO modifier pour adapter
-        this.router.navigate(['passage', 'edit', idPassage]).then();
+        Swal.fire({
+            title: `Modifier le passage`,
+            icon: 'question',
+            input: 'number',
+            inputLabel: 'Combient de bouteilles ont été collectées ?',
+            showConfirmButton: true,
+            cancelButtonText: 'Annuler'
+        }).then(
+            response => {
+                if (response.isConfirmed && response.value && response.value != 0) {
+                    this.passageService.editPassage(idPassage, {
+                        bottles_collected: Math.abs(response.value)
+                    }).subscribe({
+                        next: () => {
+                            this.countUserPassages();
+                            this.passages.loadUserPassages(this.user.id);
+                            this.toastr.success('Le passage a été modifié', 'Modifier');
+                        },
+                        error: this.errorSubmit
+                    })
+                }
+            }
+        )
+    }
+
+    addPassage() {
+        Swal.fire({
+            title: `Ajouter un passage`,
+            icon: 'question',
+            input: 'number',
+            inputLabel: 'Combient de bouteilles ont été collectées ?',
+            showConfirmButton: true,
+            cancelButtonText: 'Annuler'
+        }).then(response => {
+            if (response.isConfirmed && response.value && response.value != 0) {
+                this.passageService.addPassage({
+                    bottles_collected: Math.abs(response.value),
+                    user: this.user.id
+                }).subscribe({
+                    next: () => {
+                        this.countUserPassages();
+                        this.passages.loadUserPassages(this.user.id);
+                        this.toastr.success('Le passage a été ajouté', 'Ajouter');
+                    },
+                    error: this.errorSubmit
+                })
+            }
+        })
     }
 
     deletePassage(idPassage: string): void {
         // TODO Uniquement pour un admin
         Swal.fire({
-            title: `Supprimer cette passage`,
+            title: `Supprimer ce passage`,
             icon: 'warning',
-            text: 'Êtes-vous sûr de vouloir supprimer cette passage ?',
+            text: 'Êtes-vous sûr de vouloir supprimer ce passage ?',
             showConfirmButton: true,
             confirmButtonText: 'Supprimer',
             showCancelButton: true,
@@ -114,9 +180,9 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
                 if (result.isConfirmed) {
                     this.passageService.deletePassage(idPassage).subscribe({
                         next: () => {
-                            this.loadPassagesPage();
                             this.countUserPassages();
-                            this.toastr.success('La passage a été supprimé', 'Supprimer');
+                            this.passages.loadUserPassages(this.user.id);
+                            this.toastr.success('Le passage a été supprimé', 'Supprimer');
                         },
                         error: this.errorSubmit
                     })
