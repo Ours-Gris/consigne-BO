@@ -9,15 +9,20 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {CollecteStatusPipe} from "../_helpers/collecte-status.pipe";
 import {MatDividerModule} from "@angular/material/divider";
+import { BottleCollectedChartComponent } from './bottle-collected-chart/bottle-collected-chart.component';
+import { ChartModule } from 'angular-highcharts';
+
 
 @NgModule({
     declarations: [
         PassageUserHistoryComponent,
-        CollecteStatusPipe
+        CollecteStatusPipe,
+        BottleCollectedChartComponent
     ],
     exports: [
         PassageUserHistoryComponent,
-        CollecteStatusPipe
+        CollecteStatusPipe,
+        BottleCollectedChartComponent
     ],
     imports: [
         CommonModule,
@@ -27,7 +32,8 @@ import {MatDividerModule} from "@angular/material/divider";
         MatButtonModule,
         MatPaginatorModule,
         MatProgressBarModule,
-        MatDividerModule
+        MatDividerModule,
+        ChartModule
     ]
 })
 export class PassageModule {

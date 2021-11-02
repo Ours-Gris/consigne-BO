@@ -85,6 +85,12 @@ export class PassageService {
         );
     }
 
+    getAllPassages(): Observable<Passage[]> {
+        return this.http.get(this.authUrl + '/passages').pipe(
+            map((res: any) => res)
+        );
+    }
+
     getPassagesExport(): Observable<Passage[]> {
         return this.http.get(this.authUrl + '/passages/export').pipe(
             map((res: any) => res)
@@ -97,7 +103,7 @@ export class PassageService {
         );
     }
 
-    addPassage(passage: Passage): Observable<Passage> {
+    addPassage(passage: Partial<Passage>): Observable<Passage> {
         return this.http.post(this.authUrl + '/passages', passage).pipe(
             map((newPassage: any) => newPassage)
         );
