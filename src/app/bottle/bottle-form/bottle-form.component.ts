@@ -22,6 +22,7 @@ export class BottleFormComponent implements OnInit {
     readonly maxSize: number = 104857600;
     readonly maxSizePdf: number = 104857600;
     nbrPalette: number = 0;
+    nbrPaletteDirty: number = 0;
 
     nameCtrl: FormControl;
     codeCtrl: FormControl;
@@ -31,6 +32,7 @@ export class BottleFormComponent implements OnInit {
     pdf_bottleCtrl: FormControl;
     nbr_by_paletteCtrl: FormControl;
     internal_stockCtrl: FormControl;
+    internal_stock_dirtyCtrl: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -47,6 +49,7 @@ export class BottleFormComponent implements OnInit {
         this.pdf_bottleCtrl = fb.control(null, [FileValidator.maxContentSize(this.maxSizePdf)]);
         this.nbr_by_paletteCtrl = fb.control('', Validators.required);
         this.internal_stockCtrl = fb.control('', Validators.required);
+        this.internal_stock_dirtyCtrl = fb.control('', Validators.required);
 
         this.bottleForm = fb.group({
             name: this.nameCtrl,
@@ -55,6 +58,7 @@ export class BottleFormComponent implements OnInit {
             price: this.priceCtrl,
             nbr_by_palette: this.nbr_by_paletteCtrl,
             internal_stock: this.internal_stockCtrl,
+            internal_stock_dirty: this.internal_stock_dirtyCtrl,
             img_bottle: this.img_bottleCtrl,
             pdf_bottle: this.pdf_bottleCtrl
         }, {
@@ -74,8 +78,7 @@ export class BottleFormComponent implements OnInit {
             next: (bottle: Bottle) => {
                 this.bottle = bottle;
                 this.setFormValue();
-                this.nbrPalette = Math.floor(this.bottle.internal_stock / this.bottle.nbr_by_palette);
-                this.nbrPalette = isNaN(this.nbrPalette) ? 0 : this.nbrPalette;
+                this.getPalettes()
             },
             error: () => {
                 this.router.navigate(['/not-found']).then()
@@ -91,6 +94,7 @@ export class BottleFormComponent implements OnInit {
             price: this.bottle.price,
             nbr_by_palette: this.bottle.nbr_by_palette,
             internal_stock: this.bottle.internal_stock,
+            internal_stock_dirty: this.bottle.internal_stock_dirty,
             img_bottle: '',
             pdf_bottle: ''
         })
@@ -108,9 +112,20 @@ export class BottleFormComponent implements OnInit {
         )
     }
 
-    onChangePalette() {
+    getPalettes() {
+        this.nbrPalette = Math.floor(this.bottle.internal_stock / this.bottle.nbr_by_palette);
+        this.nbrPalette = isNaN(this.nbrPalette) ? 0 : this.nbrPalette;
+
+        this.nbrPaletteDirty = Math.floor(this.bottle.internal_stock_dirty / this.bottle.nbr_by_palette);
+        this.nbrPaletteDirty = isNaN(this.nbrPaletteDirty) ? 0 : this.nbrPaletteDirty;
+    }
+
+    onChangePalettes() {
         this.nbrPalette = Math.floor(this.bottleForm.value.internal_stock / this.bottleForm.value.nbr_by_palette);
         this.nbrPalette = isNaN(this.nbrPalette) ? 0 : this.nbrPalette;
+
+        this.nbrPaletteDirty = Math.floor(this.bottleForm.value.internal_stock_dirty / this.bottleForm.value.nbr_by_palette);
+        this.nbrPaletteDirty = isNaN(this.nbrPaletteDirty) ? 0 : this.nbrPaletteDirty;
     }
 
     onSubmit(): void {
@@ -134,7 +149,9 @@ export class BottleFormComponent implements OnInit {
                     this.toastr.success('Le type de bouteille a été modifié', 'Modifier');
                     this.router.navigateByUrl('/bottle').catch(err => console.error(err));
                 },
-                error: this.errorSubmit
+                error: (err) => {
+                    this.errorSubmit(err)
+                }
             })
         } else {
             this.bottleService.addBottle(this.bottleForm.value).subscribe({
@@ -142,7 +159,9 @@ export class BottleFormComponent implements OnInit {
                     this.toastr.success('Le type de bouteille a été ajouté', 'Ajouter');
                     this.router.navigateByUrl('/bottle').catch(err => console.error(err));
                 },
-                error: this.errorSubmit
+                error: (err) => {
+                    this.errorSubmit(err)
+                }
             })
         }
     }

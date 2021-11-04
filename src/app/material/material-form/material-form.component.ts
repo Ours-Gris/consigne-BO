@@ -100,7 +100,9 @@ export class MaterialFormComponent implements OnInit {
                     this.toastr.success('Le type de bouteille a été modifié', 'Modifier');
                     this.router.navigateByUrl('/material').catch(err => console.error(err));
                 },
-                error: this.errorSubmit
+                error: (err) => {
+                    this.errorSubmit(err)
+                }
             })
         } else {
             this.materialService.addMaterial(this.materialForm.value).subscribe({
@@ -108,7 +110,9 @@ export class MaterialFormComponent implements OnInit {
                     this.toastr.success('Le type de matériel a été ajouté', 'Ajouter');
                     this.router.navigateByUrl('/material').catch(err => console.error(err));
                 },
-                error: this.errorSubmit
+                error: (err) => {
+                    this.errorSubmit(err)
+                }
             })
         }
 

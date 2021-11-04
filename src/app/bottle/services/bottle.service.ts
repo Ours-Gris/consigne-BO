@@ -69,6 +69,7 @@ export class BottleService {
         formData.append('price', String(bottle.price));
         formData.append('nbr_by_palette', String(bottle.nbr_by_palette));
         formData.append('internal_stock', String(bottle.internal_stock));
+        formData.append('internal_stock_dirty', String(bottle.internal_stock_dirty));
         formData.append('img_bottle', bottle.img_bottle);
         // For delete old img
         if (bottle.img_name) {

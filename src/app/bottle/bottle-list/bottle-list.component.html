@@ -49,15 +49,26 @@
                               *matCellDef="let bottle"> {{bottle.price | currency:'EUR':true}} </mat-cell>
                 </ng-container>
 
-                <!-- Code Column -->
+                <!-- internal_stock Column -->
                 <ng-container matColumnDef="internal_stock">
                     <mat-header-cell *matHeaderCellDef
                                      mat-sort-header
-                                     i18n="@@BottleAttributes.internal_stock"> Stock (bouteille/palette)
+                                     i18n="@@BottleAttributes.internal_stock"> Propre (bouteille/palette)
                     </mat-header-cell>
                     <mat-cell mat-cell
                               *matCellDef="let bottle"> {{bottle.internal_stock}}
                         / {{makeNbrPalette(bottle)}}</mat-cell>
+                </ng-container>
+
+                <!-- internal_stock_dirty Column -->
+                <ng-container matColumnDef="internal_stock_dirty">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@BottleAttributes.internal_stock_dirty"> Sale (bouteille/palette)
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let bottle"> {{bottle.internal_stock_dirty}}
+                        / {{makeNbrPalette(bottle, true)}}</mat-cell>
                 </ng-container>
 
                 <!-- Actions Column -->
@@ -69,7 +80,14 @@
                     <mat-cell *matCellDef="let bottle">
                         <button mat-mini-fab
                                 (click)="addBottles(bottle)"
-                                title="Ajouter"
+                                title="Ajouter des bouteilles propres"
+                                class="m-lg-2"
+                                color="primary">
+                            <mat-icon>add_circle</mat-icon>
+                        </button>
+                        <button mat-mini-fab
+                                (click)="addDirtyBottles(bottle)"
+                                title="Ajouter des bouteilles sales"
                                 class="m-lg-2"
                                 color="accent">
                             <mat-icon>add_circle</mat-icon>

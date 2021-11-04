@@ -101,7 +101,9 @@ export class UserWaitingPassageComponent implements OnInit, AfterViewInit {
                         this.editCollecteStatus(idUser);
                         this.toastr.success('Le passage a été ajouté', 'Ajouter');
                     },
-                    error: this.errorSubmit
+                    error: (err) => {
+                        this.errorSubmit(err)
+                    }
                 })
             }
         })
@@ -114,7 +116,9 @@ export class UserWaitingPassageComponent implements OnInit, AfterViewInit {
                     this.countUsersWaitingPassage();
                     this.toastr.success('L\'état de la collecte a été modifier', 'Modification');
                 },
-                error: this.errorSubmit
+            error: (err) => {
+                this.errorSubmit(err)
+            }
             }
         )
     }

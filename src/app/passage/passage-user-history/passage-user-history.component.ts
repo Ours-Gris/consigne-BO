@@ -68,7 +68,9 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
                     this.user.collecte_status = newCollecteStatus;
                     this.toastr.success('La collecte a changé de statut', 'Collecte');
                 },
-                error: this.errorSubmit
+                error: (err) => {
+                    this.errorSubmit(err)
+                }
             })
         } else {
             this.userService.editUser(this.user.id, {collecte_status: newCollecteStatus}).subscribe({
@@ -76,7 +78,9 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
                     this.user.collecte_status = newCollecteStatus;
                     this.toastr.success('La collecte a changé de statut', 'Collecte');
                 },
-                error: this.errorSubmit
+                error: (err) => {
+                    this.errorSubmit(err)
+                }
             })
         }
     }
@@ -133,7 +137,9 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
                             this.passages.loadUserPassages(this.user.id);
                             this.toastr.success('Le passage a été modifié', 'Modifier');
                         },
-                        error: this.errorSubmit
+                        error: (err) => {
+                            this.errorSubmit(err)
+                        }
                     })
                 }
             }
@@ -159,7 +165,9 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
                         this.passages.loadUserPassages(this.user.id);
                         this.toastr.success('Le passage a été ajouté', 'Ajouter');
                     },
-                    error: this.errorSubmit
+                    error: (err) => {
+                        this.errorSubmit(err)
+                    }
                 })
             }
         })
@@ -184,7 +192,9 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
                             this.passages.loadUserPassages(this.user.id);
                             this.toastr.success('Le passage a été supprimé', 'Supprimer');
                         },
-                        error: this.errorSubmit
+                        error: (err) => {
+                            this.errorSubmit(err)
+                        }
                     })
                 }
             }

@@ -113,7 +113,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
                             this.countAllUsers();
                             this.toastr.success('L\'utilisateur a été supprimé', 'Supprimer');
                         },
-                        error: this.errorSubmit
+                        error: (err) => {
+                            this.errorSubmit(err)
+                        }
                     })
                 }
             }
@@ -136,7 +138,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
                         next: () => {
                             this.toastr.info('L\'utilisateur va recevoir un mail !', 'Information');
                         },
-                        error: this.errorSubmit
+                        error: (err) => {
+                            this.errorSubmit(err)
+                        }
                     })
                 }
             }

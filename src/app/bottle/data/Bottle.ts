@@ -6,6 +6,7 @@ export interface Bottle {
     code: string;
     nbr_by_palette: number;
     internal_stock: number;
+    internal_stock_dirty: number;
 
     img_bottle: File;
     img_original_name: string;

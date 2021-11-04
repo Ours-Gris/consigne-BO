@@ -176,7 +176,9 @@ export class UserFormComponent implements OnInit {
                 next: () => {
                     this.toastr.success('Votre profil a été Modifié', 'Modifier');
                 },
-                error: this.errorSubmit
+                error: (err) => {
+                    this.errorSubmit(err)
+                }
             })
         } else if (this.user) {
             this.userService.editUser(this.user.id, this.userForm.value).subscribe({
@@ -184,7 +186,9 @@ export class UserFormComponent implements OnInit {
                     this.toastr.success('L\'utilisateur a été Modifié', 'Modifier');
                     this.router.navigateByUrl('/user').catch(err => console.error(err));
                 },
-                error: this.errorSubmit
+                error: (err) => {
+                    this.errorSubmit(err)
+                }
             })
         } else {
             this.userService.addUser(this.userForm.value).subscribe({
@@ -192,7 +196,9 @@ export class UserFormComponent implements OnInit {
                     this.toastr.success('L\'utilisateur a été ajouté', 'Ajouter');
                     this.router.navigateByUrl('/user').catch(err => console.error(err));
                 },
-                error: this.errorSubmit
+                error: (err) => {
+                    this.errorSubmit(err)
+                }
             })
         }
     }

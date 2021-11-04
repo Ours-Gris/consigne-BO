@@ -4,7 +4,37 @@
 
         <div *ngIf="user && user.role === Role.ADMIN">
             ici des tableaux d'information géneral pour un compte admin
-            <app-bottle-collected-chart></app-bottle-collected-chart>
+            <div class="row ">
+                <div class="col-md-3 d-flex flex-column align-items-center justify-content-around">
+                    <button mat-raised-button
+                            color="primary"
+                            [routerLink]="'/user/waiting-passage'">
+                        <mat-icon>local_shipping</mat-icon>
+                        <span> Point de collecte en attente</span>
+                    </button>
+                    <button mat-raised-button
+                            color="primary"
+                            [routerLink]="'/user'">
+                        <mat-icon>people</mat-icon>
+                        <span> Utilisateurs</span>
+                    </button>
+                    <button mat-raised-button
+                            color="primary"
+                            [routerLink]="'/bottle'">
+                        <mat-icon>liquor</mat-icon>
+                        <span> Bouteilles</span>
+                    </button>
+                    <button mat-raised-button
+                            color="primary"
+                            [routerLink]="'/material'">
+                        <mat-icon>inventory</mat-icon>
+                        <span> Matériels</span>
+                    </button>
+                </div>
+                <div class="col-md-9">
+                    <app-bottle-collected-chart></app-bottle-collected-chart>
+                </div>
+            </div>
         </div>
 
         <div *ngIf="user && user.role === Role.USER">

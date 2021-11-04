@@ -116,7 +116,9 @@ export class MaterialListComponent implements OnInit {
                             this.countAllMaterials();
                             this.toastr.success('Le type de matériel a été supprimé', 'Supprimer');
                         },
-                        error: this.errorSubmit
+                        error: (err) => {
+                            this.errorSubmit(err)
+                        }
                     })
                 }
             }

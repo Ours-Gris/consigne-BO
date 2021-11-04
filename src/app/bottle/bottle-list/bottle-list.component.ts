@@ -18,13 +18,13 @@ import {AngularCsv} from 'angular-csv-ext/dist/Angular-csv';
 })
 export class BottleListComponent implements OnInit, AfterViewInit {
     bottles!: BottlesDataSource;
-    displayedColumns: string[] = ['name', 'code', 'price', 'internal_stock', 'actions'];
+    displayedColumns: string[] = ['name', 'code', 'price', 'internal_stock', 'internal_stock_dirty', 'actions'];
     totalBottles: number = 0;
 
     exportCsvOptions = {
         fieldSeparator: ';',
         useHeader: true,
-        headers: ['name', 'description', 'code', 'price', 'nbr_by_palette', 'internal_stock']
+        headers: ['name', 'description', 'code', 'price', 'nbr_by_palette', 'internal_stock', 'internal_stock_dirty']
     }
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -76,8 +76,9 @@ export class BottleListComponent implements OnInit, AfterViewInit {
             this.paginator.pageSize);
     }
 
-    makeNbrPalette(bottle: Bottle): number {
-        let nbrPalette = Math.floor(bottle.internal_stock / bottle.nbr_by_palette);
+    makeNbrPalette(bottle: Bottle, dirty: boolean = false): number {
+        const nbrBottle = dirty ? bottle.internal_stock_dirty : bottle.internal_stock;
+        let nbrPalette = Math.floor(nbrBottle / bottle.nbr_by_palette);
         nbrPalette = isNaN(nbrPalette) ? 0 : nbrPalette;
         return nbrPalette
     }
@@ -98,17 +99,39 @@ export class BottleListComponent implements OnInit, AfterViewInit {
 
     addBottles(bottle: Bottle): void {
         Swal.fire({
-            title: `Ajouter des bouteilles`,
+            title: `Ajouter des bouteilles propres`,
             icon: 'question',
             input: 'number',
-            inputLabel: 'Combient de bouteilles voulez vous ajouter ?',
+            inputLabel: 'Combient de bouteilles propres voulez vous ajouter ?',
             showCancelButton: true
         }).then(response => {
             if (response.isConfirmed && response.value && response.value != 0) {
                 bottle.internal_stock = Number(bottle.internal_stock) + parseInt(response.value)
                 this.bottleService.editBottle(bottle.id, bottle).subscribe({
-                    next: () => {this.toastr.success('Le nombre de bouteilles a été modifié', 'Modifier')},
-                    error: this.errorSubmit
+                    next: () => {this.toastr.success('Le nombre de bouteilles propres a été modifié', 'Modifier')},
+                    error: (err) => {
+                        this.errorSubmit(err)
+                    }
+                })
+            }
+        })
+    }
+
+    addDirtyBottles(bottle: Bottle): void {
+        Swal.fire({
+            title: `Ajouter des bouteilles sales`,
+            icon: 'question',
+            input: 'number',
+            inputLabel: 'Combient de bouteilles sales voulez vous ajouter ?',
+            showCancelButton: true
+        }).then(response => {
+            if (response.isConfirmed && response.value && response.value != 0) {
+                bottle.internal_stock_dirty = Number(bottle.internal_stock_dirty) + parseInt(response.value)
+                this.bottleService.editBottle(bottle.id, bottle).subscribe({
+                    next: () => {this.toastr.success('Le nombre de bouteilles sales a été modifié', 'Modifier')},
+                    error: (err) => {
+                        this.errorSubmit(err)
+                    }
                 })
             }
         })
@@ -140,7 +163,9 @@ export class BottleListComponent implements OnInit, AfterViewInit {
                             this.countAllBottles();
                             this.toastr.success('Le type de bouteille a été supprimé', 'Supprimer');
                         },
-                        error: this.errorSubmit
+                        error: (err) => {
+                            this.errorSubmit(err)
+                        }
                     })
                 }
             }
