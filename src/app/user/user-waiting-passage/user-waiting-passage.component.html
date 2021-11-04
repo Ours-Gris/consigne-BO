@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 pt-2">
-            <h3 i18n="@@UserList.title">Liste des utilisateurs</h3>
+            <h3 i18n="@@UserList.title">Liste des points de collecte en attente </h3>
 
             <div>
                 <label for="searchInput">
@@ -60,6 +60,26 @@
                     </mat-header-cell>
                     <mat-cell mat-cell
                               *matCellDef="let user"> {{user.tel}} </mat-cell>
+                </ng-container>
+
+                <!-- delivery_schedules Column -->
+                <ng-container matColumnDef="delivery_schedules">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.delivery_schedules"> Horaires livraison
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user"> {{user.delivery_schedules}} </mat-cell>
+                </ng-container>
+
+                <!-- delivery_data Column -->
+                <ng-container matColumnDef="delivery_data">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header
+                                     i18n="@@UserAttributes.delivery_data"> Informations livraison
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let user"> {{user.delivery_data}} </mat-cell>
                 </ng-container>
 
                 <!-- City Column -->

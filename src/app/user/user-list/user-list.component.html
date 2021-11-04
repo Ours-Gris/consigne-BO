@@ -76,7 +76,7 @@
                 <ng-container matColumnDef="reseller">
                     <mat-header-cell *matHeaderCellDef
                                      mat-sort-header
-                                     i18n="@@UserAttributes.reseller"> Revendeur / Producteur / Point de passage
+                                     i18n="@@UserAttributes.reseller"> Magasin / Producteur / Point de collecte
                     </mat-header-cell>
                     <mat-cell mat-cell
                               *matCellDef="let user">
@@ -104,6 +104,14 @@
                     </mat-header-cell>
                     <mat-cell *matCellDef="let user">
                         <button mat-mini-fab
+                                *ngIf="user.status === userStatus.PENDING"
+                                (click)="sendWelcome(user.id)"
+                                title="Envoyer le mail d'activation"
+                                class="m-lg-2"
+                                color="accent">
+                            <mat-icon>mail</mat-icon>
+                        </button>
+                        <button mat-mini-fab
                                 (click)="editUser(user.id)"
                                 title="Détails"
                                 class="m-lg-2"
@@ -121,7 +129,7 @@
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" [class.user-admin]='row.role === Role.ADMIN'></mat-row>
             </mat-table>
 
             <mat-paginator [pageIndex]="0"

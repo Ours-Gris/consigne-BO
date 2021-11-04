@@ -12,7 +12,7 @@
                         <div class="d-flex flex-row pb-4" *ngIf="!isAdmin">
                             <mat-slide-toggle formControlName="reseller"
                                               class="p-2"
-                                              color="primary">Revendeur
+                                              color="primary">Magasin
                             </mat-slide-toggle>
                             <mat-slide-toggle formControlName="producer"
                                               class="p-2"
@@ -20,7 +20,7 @@
                             </mat-slide-toggle>
                             <mat-slide-toggle formControlName="collecte_point"
                                               class="p-2"
-                                              color="primary">Point de passage
+                                              color="primary">Point de collecte
                             </mat-slide-toggle>
                         </div>
 
@@ -65,6 +65,10 @@
                                 L'email n'est pas valide
                             </mat-error>
                         </mat-form-field>
+
+                        <div class="mat-card-subtitle">
+                            <h3>Adresse de facturation</h3>
+                        </div>
 
                         <fieldset formGroupName="address">
                             <mat-form-field appearance="standard"

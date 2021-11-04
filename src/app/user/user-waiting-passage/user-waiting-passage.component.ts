@@ -19,7 +19,7 @@ import {CollecteStatus} from "../data/collecte.status";
 export class UserWaitingPassageComponent implements OnInit, AfterViewInit {
     CollecteStatus = CollecteStatus;
     users!: UsersDataSource;
-    displayedColumns: string[] = ['collecte_status', 'company', 'username', 'tel', 'city', 'actions'];
+    displayedColumns: string[] = ['collecte_status', 'company', 'username', 'tel', 'delivery_schedules', 'delivery_data', 'city', 'actions'];
     totalUsers: number = 0;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;

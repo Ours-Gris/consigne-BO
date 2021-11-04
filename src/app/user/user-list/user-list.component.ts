@@ -11,6 +11,8 @@ import Swal from "sweetalert2";
 import {UserStatus} from "../data/user.status";
 import {AngularCsv} from 'angular-csv-ext/dist/Angular-csv';
 import {User} from "../data/User";
+import {Role} from "../data/Role";
+import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
     selector: 'app-user-list',
@@ -22,6 +24,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
     displayedColumns: string[] = ['status', 'company', 'username', 'email', 'tel', 'reseller', 'city', 'actions'];
     totalUsers: number = 0;
     userStatus = UserStatus;
+    Role = Role;
 
     exportCsvOptions = {
         useHeader: true,
@@ -34,6 +37,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
     constructor(
         private userService: UserService,
+        private authService: AuthService,
         private toastr: ToastrService,
         public router: Router
     ) {
@@ -109,16 +113,30 @@ export class UserListComponent implements OnInit, AfterViewInit {
                             this.countAllUsers();
                             this.toastr.success('L\'utilisateur a été supprimé', 'Supprimer');
                         },
-                        error: error => {
-                            console.error(error);
-                            if (Array.isArray(error)) {
-                                error.map((err: string) => {
-                                    this.toastr.error(err, 'Error !');
-                                })
-                            } else {
-                                this.toastr.error(error, 'Error !');
-                            }
-                        }
+                        error: this.errorSubmit
+                    })
+                }
+            }
+        )
+    }
+
+    sendWelcome(idUser: string): void {
+        Swal.fire({
+            title: `Envoyer le mail d'activation`,
+            icon: 'warning',
+            text: 'Êtes-vous sûr de vouloir envoyer le mail d\'activation cet utilisateur ?',
+            showConfirmButton: true,
+            confirmButtonText: 'Envoyer',
+            showCancelButton: true,
+            cancelButtonText: 'Annuler'
+        }).then(
+            (result) => {
+                if (result.isConfirmed) {
+                    this.authService.sendWelcome(idUser).subscribe({
+                        next: () => {
+                            this.toastr.info('L\'utilisateur va recevoir un mail !', 'Information');
+                        },
+                        error: this.errorSubmit
                     })
                 }
             }
@@ -134,6 +152,17 @@ export class UserListComponent implements OnInit, AfterViewInit {
                 })
                 new AngularCsv(users, 'export', this.exportCsvOptions)
             }
-        );
+        )
+    }
+
+    errorSubmit(error: string[] | string) {
+        console.error(error);
+        if (Array.isArray(error)) {
+            error.map((err: string) => {
+                this.toastr.error(err, 'Error !');
+            })
+        } else {
+            this.toastr.error(error, 'Error !');
+        }
     }
 }

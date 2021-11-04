@@ -112,6 +112,16 @@ export class AuthService {
         return payload.role === Role.ADMIN
     }
 
+    sendWelcome(idUser: string): Observable<any> {
+        return this._http.get(this.authUrl + '/auth/welcome/' + idUser).pipe(
+            map(
+                (response: any) => {
+                    console.log(response)
+                }
+            )
+        );
+    }
+
     confirm(token: string): Observable<any> {
         return this._http.post(this.authUrl + '/auth/confirm', {token}).pipe(
             map(
