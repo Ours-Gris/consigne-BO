@@ -5,6 +5,9 @@ import {ViewComponent} from './view/view.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MapService} from './services/map.service';
+import {MarkerService} from "./services/marker.service";
+import {PopupService} from "./services/popup.service";
+import {StatistiqueService} from "./services/statistique.service";
 
 
 @NgModule({
@@ -17,7 +20,7 @@ import {MapService} from './services/map.service';
         MatSidenavModule,
         MatButtonModule
     ],
-    providers: [MapService]
+    providers: [MapService, MarkerService, PopupService, StatistiqueService]
 })
 export class MapModule {
 }

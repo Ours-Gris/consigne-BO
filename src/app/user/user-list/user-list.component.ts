@@ -126,7 +126,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
         Swal.fire({
             title: `Envoyer le mail d'activation`,
             icon: 'warning',
-            text: 'Êtes-vous sûr de vouloir envoyer le mail d\'activation cet utilisateur ?',
+            text: 'Êtes-vous sûr de vouloir envoyer le mail d\'activation à cet utilisateur ?',
             showConfirmButton: true,
             confirmButtonText: 'Envoyer',
             showCancelButton: true,
