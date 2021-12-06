@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^13.0.3",
     "@angular/platform-browser-dynamic": "^13.0.3",
     "@angular/router": "^13.0.3",
-    "@angular/youtube-player": "^12.1.1",
+    "@angular/youtube-player": "^13.0.3",
     "@asymmetrik/ngx-leaflet": "^8.1.0",
     "@sweetalert2/ngx-sweetalert2": "^10.0.0",
     "@types/leaflet-routing-machine": "^3.2.3",
