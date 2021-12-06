@@ -27,6 +27,8 @@ import {registerLocaleData} from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
 import {PassageModule} from "./passage/passage.module";
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
+import {MaterialModule} from "./material/material.module";
+import {OrderModule} from "./order/order.module";
 
 registerLocaleData(localeFr);
 
@@ -59,7 +61,9 @@ registerLocaleData(localeFr);
         MatCardModule,
         MatIconModule,
         MatMenuModule,
-        PassageModule
+        PassageModule,
+        MaterialModule,
+        OrderModule
     ],
     providers: [
         {provide: LOCALE_ID, useValue: 'fr-FR'},

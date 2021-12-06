@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {StockChart} from 'angular-highcharts';
 import {PassageService} from "../passage.service";
 import {Passage} from "../data/Passage";
-
 import * as Highcharts from 'highcharts/highstock';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -63,7 +62,8 @@ export class BottleCollectedChartComponent implements OnInit {
                 title: {
                     text: null
                 },
-                type: "datetime"
+                type: "datetime",
+                tickPixelInterval: 200
             },
             yAxis: {
                 title: {

@@ -8,22 +8,19 @@
     <button mat-fab
             color="primary"
             class="m-lg-2"
-            [matMenuTriggerFor]="menu"
+            [routerLink]="['']"
             aria-label="icon-button">
-        <mat-icon>menu</mat-icon>
+        <mat-icon>home</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item
-                [routerLink]="['']">
-            <mat-icon color="accent">group_work</mat-icon>
-            <span>Tableau de bord</span>
-        </button>
-        <button mat-menu-item
-                [routerLink]="['contact']">
-            <mat-icon color="accent">mail</mat-icon>
-            <span>Contactez-nous</span>
-        </button>
-    </mat-menu>
+
+    <button mat-fab
+            color="primary"
+            class="m-lg-2"
+            [routerLink]="['contact']"
+            *ngIf="!roleAdmin"
+            aria-label="icon-button">
+        <mat-icon>mail</mat-icon>
+    </button>
 
     <button mat-fab
             color="primary"

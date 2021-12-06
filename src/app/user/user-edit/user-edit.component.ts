@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../data/User";
 import {UserService} from "../services/user.service";
+import {Role} from "../data/Role";
 
 @Component({
     selector: 'app-user-edit',
@@ -10,6 +11,7 @@ import {UserService} from "../services/user.service";
 })
 export class UserEditComponent implements OnInit {
     user!: User;
+    Role = Role;
 
     constructor(
         public router: Router,

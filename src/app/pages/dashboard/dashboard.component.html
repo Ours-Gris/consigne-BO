@@ -3,29 +3,32 @@
         <h1>Bienvenue dans votre espace Oc'Consigne</h1>
 
         <div *ngIf="user && user.role === Role.ADMIN">
-            ici des tableaux d'information géneral pour un compte admin
             <div class="row ">
-                <div class="col-md-3 d-flex flex-column align-items-center justify-content-around">
+                <div class="col-md-3 d-flex flex-column">
                     <button mat-raised-button
                             color="primary"
+                            class="mt-2"
                             [routerLink]="'/user/waiting-passage'">
                         <mat-icon>local_shipping</mat-icon>
                         <span> Point de collecte en attente</span>
                     </button>
                     <button mat-raised-button
                             color="primary"
+                            class="mt-2"
                             [routerLink]="'/user'">
                         <mat-icon>people</mat-icon>
                         <span> Utilisateurs</span>
                     </button>
                     <button mat-raised-button
                             color="primary"
+                            class="mt-2"
                             [routerLink]="'/bottle'">
                         <mat-icon>liquor</mat-icon>
                         <span> Bouteilles</span>
                     </button>
                     <button mat-raised-button
                             color="primary"
+                            class="mt-2"
                             [routerLink]="'/material'">
                         <mat-icon>inventory</mat-icon>
                         <span> Matériels</span>
@@ -39,7 +42,12 @@
 
         <div *ngIf="user && user.role === Role.USER">
             <div class="container">
-                <app-passage-user-history [user]="user" [home]="true"></app-passage-user-history>
+                <div class="row">
+                    <app-passage-user-history [user]="user" [home]="true"
+                                              class="col-md-6 pt-2"></app-passage-user-history>
+                    <app-user-order [user]="user"
+                                             class="col-md-6 pt-2"></app-user-order>
+                </div>
             </div>
         </div>
     </div>

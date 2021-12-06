@@ -25,7 +25,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDividerModule} from "@angular/material/divider";
 import {UserFormComponent} from './user-form/user-form.component';
 import {PassageModule} from "../passage/passage.module";
-import { UserWaitingPassageComponent } from './user-waiting-passage/user-waiting-passage.component';
+import {UserWaitingPassageComponent} from './user-waiting-passage/user-waiting-passage.component';
+import {MaterialModule} from "../material/material.module";
+import {OrderModule} from "../order/order.module";
 
 @NgModule({
     declarations: [
@@ -56,7 +58,9 @@ import { UserWaitingPassageComponent } from './user-waiting-passage/user-waiting
         MatSelectModule,
         MatSlideToggleModule,
         MatDividerModule,
-        PassageModule
+        PassageModule,
+        MaterialModule,
+        OrderModule
     ],
     providers: [UserService],
     exports: [ProfilComponent]

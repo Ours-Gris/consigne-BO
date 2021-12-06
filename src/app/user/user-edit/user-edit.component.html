@@ -1,6 +1,16 @@
 <div class="container">
-    <h2>Modifier l'utilisateur</h2>
-    <app-user-form *ngIf="user" [user]="user"
+    <h2>Informations de l'utilisateur</h2>
+    <app-user-form *ngIf="user"
+                   [user]="user"
                    [profil]="false"></app-user-form>
-    <app-passage-user-history *ngIf="user" [user]="user" [home]="false"></app-passage-user-history>
+
+    <div class="row">
+        <app-passage-user-history *ngIf="user && user.role !== Role.ADMIN"
+                                  [user]="user"
+                                  [home]="false"
+                                  class="col-md-6 pt-2"></app-passage-user-history>
+        <app-user-order [user]="user"
+                                 [isAdmin]="true"
+                                 class="col-md-6 pt-2"></app-user-order>
+    </div>
 </div>

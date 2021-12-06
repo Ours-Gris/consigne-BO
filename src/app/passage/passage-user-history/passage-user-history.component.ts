@@ -25,6 +25,7 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
     userDisplayedColumns: string[] = ['createdAt', 'bottles_collected'];
     adminDisplayedColumns: string[] = ['createdAt', 'bottles_collected', 'actions'];
     totalPassages: number = 0;
+
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild('input') input!: ElementRef;
@@ -174,7 +175,6 @@ export class PassageUserHistoryComponent implements OnInit, AfterViewInit {
     }
 
     deletePassage(idPassage: string): void {
-        // TODO Uniquement pour un admin
         Swal.fire({
             title: `Supprimer ce passage`,
             icon: 'warning',

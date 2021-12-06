@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {AuthService} from "../shared/services/auth.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
@@ -7,7 +7,7 @@ import {map} from "rxjs/operators";
 import {Material} from "./data/Material";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class MaterialService {
 
@@ -98,6 +98,6 @@ export class MaterialService {
     }
 
     getMaterialFile(fileName: string) {
-        return this.http.get(this.authUrl + '/materials/file/' + fileName,{ responseType: 'blob' })
+        return this.http.get(this.authUrl + '/materials/file/' + fileName, {responseType: 'blob'})
     }
 }
