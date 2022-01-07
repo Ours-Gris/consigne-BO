@@ -8,6 +8,8 @@
 .list-button-flex-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
+
 }
 
 mat-toolbar {

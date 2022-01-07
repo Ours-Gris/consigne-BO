@@ -4,6 +4,7 @@ import {UserListComponent} from "./user-list/user-list.component";
 import {UserAddComponent} from "./user-add/user-add.component";
 import {UserEditComponent} from "./user-edit/user-edit.component";
 import {UserWaitingPassageComponent} from "./user-waiting-passage/user-waiting-passage.component";
+import {UserPresentationComponent} from "./user-presentation/user-presentation.component";
 
 const routes: Routes = [
     {
@@ -21,6 +22,10 @@ const routes: Routes = [
     {
         path: 'waiting-passage',
         component: UserWaitingPassageComponent
+    },
+    {
+        path: ':idUser/presentation',
+        component: UserPresentationComponent
     }
 ];
 

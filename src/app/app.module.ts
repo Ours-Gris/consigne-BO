@@ -10,9 +10,9 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from "./pages/home/home.component";
 import {AuthService} from "./shared/services/auth.service";
 import {LoggedInGuardService} from "./shared/services/logged-in-guard.service";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptor";
 import {ContactComponent} from './pages/contact/contact.component';
@@ -29,6 +29,19 @@ import {PassageModule} from "./passage/passage.module";
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {MaterialModule} from "./material/material.module";
 import {OrderModule} from "./order/order.module";
+import {ConsommateurComponent} from './pages/consommateur/consommateur.component';
+import {ProducerListComponent} from './pages/producer-list/producer-list.component';
+import {ProducerEngagementComponent} from './pages/producer-engagement/producer-engagement.component';
+import {ResellerEngagementComponent} from './pages/reseller-engagement/reseller-engagement.component';
+import {ResellerListComponent} from './pages/reseller-list/reseller-list.component';
+import {ReemploiComponent} from './pages/reemploi/reemploi.component';
+import {PresentationComponent} from './pages/presentation/presentation.component';
+import {PartnersComponent} from './pages/partners/partners.component';
+import {NewsComponent} from './pages/news/news.component';
+import {MapComponent} from './pages/map/map.component';
+import {MapModule} from "./map/map.module";
+import {FaqComponent} from './pages/faq/faq.component';
+import {MatInputModule} from "@angular/material/input";
 
 registerLocaleData(localeFr);
 
@@ -37,7 +50,18 @@ registerLocaleData(localeFr);
         AppComponent,
         HomeComponent,
         ContactComponent,
-        DashboardComponent
+        DashboardComponent,
+        ConsommateurComponent,
+        ProducerListComponent,
+        ProducerEngagementComponent,
+        ResellerEngagementComponent,
+        ResellerListComponent,
+        ReemploiComponent,
+        PresentationComponent,
+        PartnersComponent,
+        NewsComponent,
+        MapComponent,
+        FaqComponent
     ],
     imports: [
         BrowserModule,
@@ -55,7 +79,7 @@ registerLocaleData(localeFr);
         RouterModule,
         HttpClientModule,
         AppRoutingModule,
-        NgbModule,
+        // NgbModule,
         YouTubePlayerModule,
         MatButtonModule,
         MatCardModule,
@@ -63,7 +87,10 @@ registerLocaleData(localeFr);
         MatMenuModule,
         PassageModule,
         MaterialModule,
-        OrderModule
+        OrderModule,
+        MapModule,
+        MatInputModule,
+        ReactiveFormsModule
     ],
     providers: [
         {provide: LOCALE_ID, useValue: 'fr-FR'},

@@ -3,90 +3,173 @@
          src="assets/img/logo.png"
          alt="Logo Oc'Consigne">
 
+    <div class="list-button-flex-container">
+        <button mat-raised-button
+                color="primary"
+                class="m-lg-2"
+                [routerLink]="['map']">
+            <span>La Carte</span>
+        </button>
+
+        <button mat-raised-button
+                color="primary"
+                class="m-lg-2"
+                [routerLink]="['consommateur']">
+            <span>Consommateur</span>
+        </button>
+
+        <button mat-raised-button
+                color="primary"
+                class="m-lg-2"
+                [matMenuTriggerFor]="menuProducteur">
+            <span>Producteur</span>
+        </button>
+        <mat-menu #menuProducteur="matMenu">
+            <button mat-menu-item
+                    [routerLink]="['producer-engagement']">
+                <span>S’engager</span>
+            </button>
+            <button mat-menu-item
+                    [routerLink]="['producer-list']">
+                <span>Producteurs déjà engagés</span>
+            </button>
+        </mat-menu>
+
+        <button mat-raised-button
+                color="primary"
+                class="m-lg-2"
+                [matMenuTriggerFor]="menuReseller">
+            <span>Distributeur</span>
+        </button>
+        <mat-menu #menuReseller="matMenu">
+            <button mat-menu-item
+                    [routerLink]="['reseller-engagement']">
+                <span>S’engager</span>
+            </button>
+            <button mat-menu-item
+                    [routerLink]="['reseller-list']">
+                <span>Distributeur déjà engagés</span>
+            </button>
+        </mat-menu>
+
+        <button mat-raised-button
+                color="primary"
+                class="m-lg-2"
+                [routerLink]="['reemploi']">
+            <span>Le Réemploi</span>
+        </button>
+
+        <button mat-raised-button
+                color="primary"
+                class="m-lg-2"
+                [matMenuTriggerFor]="menuOcconsigne">
+            <span>Oc’consigne & partenaires</span>
+        </button>
+        <mat-menu #menuOcconsigne="matMenu">
+            <button mat-menu-item
+                    [routerLink]="['presentation']">
+                <span>Qui sommes nous</span>
+            </button>
+            <button mat-menu-item
+                    [routerLink]="['partners']">
+                <span>Nos partenaires</span>
+            </button>
+            <button mat-menu-item
+                    [routerLink]="['news']">
+                <span>Actualités</span>
+            </button>
+        </mat-menu>
+    </div>
+
+
     <span class="spacer"></span>
 
-    <button mat-fab
-            color="primary"
-            class="m-lg-2"
-            [routerLink]="['']"
-            aria-label="icon-button">
-        <mat-icon>home</mat-icon>
-    </button>
-
-    <button mat-fab
-            color="primary"
-            class="m-lg-2"
-            [routerLink]="['contact']"
-            *ngIf="!roleAdmin"
-            aria-label="icon-button">
-        <mat-icon>mail</mat-icon>
-    </button>
-
-    <button mat-fab
-            color="primary"
-            *ngIf="roleAdmin"
-            [matMenuTriggerFor]="menuAdmin"
-            aria-label="icon-button">
-        <mat-icon>settings</mat-icon>
-    </button>
-    <mat-menu #menuAdmin="matMenu">
-        <button mat-menu-item
-                *ngIf="roleAdmin"
-                [routerLink]="['map']">
-            <mat-icon color="accent">local_shipping</mat-icon>
-            <span>Gestion des passages</span>
-        </button>
-        <button mat-menu-item
-                *ngIf="roleAdmin"
-                [routerLink]="['user/waiting-passage']">
-            <mat-icon color="accent">local_shipping</mat-icon>
-            <span>Point de collecte en attente</span>
-        </button>
-        <button mat-menu-item
-                *ngIf="roleAdmin"
-                [routerLink]="['user']">
-            <mat-icon color="accent">people</mat-icon>
-            <span>Utilisateurs</span>
-        </button>
-        <button mat-menu-item
-                *ngIf="roleAdmin"
-                [routerLink]="['bottle']">
-            <mat-icon color="accent">liquor</mat-icon>
-            <span>Bouteilles</span>
-        </button>
-        <button mat-menu-item
-                *ngIf="roleAdmin"
-                [routerLink]="['material']">
-            <mat-icon color="accent">inventory</mat-icon>
-            <span>Matériels</span>
-        </button>
-    </mat-menu>
-
-    <button mat-fab
-            color="primary"
-            class="m-lg-2"
-            [matMenuTriggerFor]="menuAccount"
-            aria-label="icon-button">
-        <mat-icon>perm_identity</mat-icon>
-    </button>
-    <mat-menu #menuAccount="matMenu">
-        <button mat-menu-item
-                *ngIf="!logged"
-                [routerLink]="['auth/login']">
-            <mat-icon color="accent">login</mat-icon>
-            <span>Connexion</span>
-        </button>
-        <button mat-menu-item
+    <div class="list-button-flex-container">
+        <button mat-fab
+                color="primary"
+                class="m-lg-2"
                 *ngIf="logged"
-                [routerLink]="['me']">
-            <mat-icon color="accent">manage_accounts</mat-icon>
-            <span>Profil</span>
+                [routerLink]="['dashboard']"
+                aria-label="icon-button">
+            <mat-icon>home</mat-icon>
         </button>
-        <button mat-menu-item
-                *ngIf="logged"
-                (click)="logout()">
-            <mat-icon color="warn">logout</mat-icon>
-            <span>Déconnexion</span>
+
+        <button mat-fab
+                color="primary"
+                class="m-lg-2"
+                [routerLink]="['contact']"
+                *ngIf="!roleAdmin"
+                aria-label="icon-button">
+            <mat-icon>mail</mat-icon>
         </button>
-    </mat-menu>
+
+        <button mat-fab
+                color="primary"
+                *ngIf="roleAdmin"
+                class="m-lg-2"
+                [matMenuTriggerFor]="menuAdmin"
+                aria-label="icon-button">
+            <mat-icon>settings</mat-icon>
+        </button>
+        <mat-menu #menuAdmin="matMenu">
+            <button mat-menu-item
+                    *ngIf="roleAdmin"
+                    [routerLink]="['map']">
+                <mat-icon color="accent">local_shipping</mat-icon>
+                <span>Gestion des passages</span>
+            </button>
+            <button mat-menu-item
+                    *ngIf="roleAdmin"
+                    [routerLink]="['user/waiting-passage']">
+                <mat-icon color="accent">local_shipping</mat-icon>
+                <span>Point de collecte en attente</span>
+            </button>
+            <button mat-menu-item
+                    *ngIf="roleAdmin"
+                    [routerLink]="['user']">
+                <mat-icon color="accent">people</mat-icon>
+                <span>Utilisateurs</span>
+            </button>
+            <button mat-menu-item
+                    *ngIf="roleAdmin"
+                    [routerLink]="['bottle']">
+                <mat-icon color="accent">liquor</mat-icon>
+                <span>Bouteilles</span>
+            </button>
+            <button mat-menu-item
+                    *ngIf="roleAdmin"
+                    [routerLink]="['material']">
+                <mat-icon color="accent">inventory</mat-icon>
+                <span>Matériels</span>
+            </button>
+        </mat-menu>
+
+        <button mat-fab
+                color="primary"
+                class="m-lg-2"
+                [matMenuTriggerFor]="menuAccount"
+                aria-label="icon-button">
+            <mat-icon>perm_identity</mat-icon>
+        </button>
+        <mat-menu #menuAccount="matMenu">
+            <button mat-menu-item
+                    *ngIf="!logged"
+                    [routerLink]="['auth/login']">
+                <mat-icon color="accent">login</mat-icon>
+                <span>Connexion</span>
+            </button>
+            <button mat-menu-item
+                    *ngIf="logged"
+                    [routerLink]="['me']">
+                <mat-icon color="accent">manage_accounts</mat-icon>
+                <span>Profil</span>
+            </button>
+            <button mat-menu-item
+                    *ngIf="logged"
+                    (click)="logout()">
+                <mat-icon color="warn">logout</mat-icon>
+                <span>Déconnexion</span>
+            </button>
+        </mat-menu>
+    </div>
 </mat-toolbar>

@@ -14,6 +14,7 @@ export interface User {
     username: string;
     email: string;
     company: string;
+    description: string;
     tel: string;
 
     address: Address;
@@ -32,4 +33,8 @@ export interface User {
     forklift: boolean;
     pallet_truck: boolean;
     internal_data: string;
+
+    img_user: File;
+    img_original_name: string;
+    img_name: string;
 }

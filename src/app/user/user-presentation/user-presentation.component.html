@@ -1,0 +1,23 @@
+<div class="row mt-4" *ngIf="user">
+    <div class="col-md-6">
+        <mat-card>
+            <img mat-card-image
+                 *ngIf="user.img_name"
+                 src="{{this.authUrl + '/users/file/' + this.user.img_name}}"
+                 alt="Image user">
+            <mat-icon *ngIf="!user.img_name">add_circle_outline</mat-icon>
+            <mat-card-actions>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <div class="col-md-6">
+        <mat-card>
+            <mat-card-title>{{user.company}}</mat-card-title>
+            <mat-card-content>
+                <p>{{user.description}}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+

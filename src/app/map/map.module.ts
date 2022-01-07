@@ -20,6 +20,9 @@ import {StatistiqueService} from "./services/statistique.service";
         MatSidenavModule,
         MatButtonModule
     ],
+    exports: [
+        ViewComponent
+    ],
     providers: [MapService, MarkerService, PopupService, StatistiqueService]
 })
 export class MapModule {

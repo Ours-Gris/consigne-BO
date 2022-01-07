@@ -28,6 +28,8 @@ import {PassageModule} from "../passage/passage.module";
 import {UserWaitingPassageComponent} from './user-waiting-passage/user-waiting-passage.component';
 import {MaterialModule} from "../material/material.module";
 import {OrderModule} from "../order/order.module";
+import {MaterialFileInputModule} from "ngx-material-file-input";
+import {UserPresentationComponent} from './user-presentation/user-presentation.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +38,8 @@ import {OrderModule} from "../order/order.module";
         UserEditComponent,
         ProfilComponent,
         UserFormComponent,
-        UserWaitingPassageComponent
+        UserWaitingPassageComponent,
+        UserPresentationComponent
     ],
     imports: [
         CommonModule,
@@ -60,7 +63,8 @@ import {OrderModule} from "../order/order.module";
         MatDividerModule,
         PassageModule,
         MaterialModule,
-        OrderModule
+        OrderModule,
+        MaterialFileInputModule
     ],
     providers: [UserService],
     exports: [ProfilComponent]

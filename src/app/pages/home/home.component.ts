@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../shared/services/auth.service";
-import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-home',
@@ -8,22 +6,14 @@ import {Router} from "@angular/router";
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    logged = false;
+    bottleWashed: number = 0;
+    co2Economy: number = 0;
 
     constructor(
-        private _authService: AuthService,
-        public router: Router
     ) {
     }
 
-    ngOnInit(): void {
-        if (this._authService.currentUser) {
-            this._authService.currentUser.subscribe(user => {
-                this.logged = !!user;
-                if (this.logged) {
-                    this.router.navigateByUrl('dashboard').catch(err => console.error(err));
-                }
-            });
-        }
-    }
+    // TODO rechercher bottleWashed et co2Economy
+    // TODO rechercher les 3 dernières actu
+    ngOnInit(): void {}
 }

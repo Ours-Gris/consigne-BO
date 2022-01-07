@@ -5,7 +5,7 @@
                 <div class="pt-2" [ngClass]="isAdmin ? 'col-md-12' : 'col-md-6'">
                     <form [formGroup]="userForm"
                           (ngSubmit)="onSubmit()">
-                        <div class="mat-card-subtitle">
+                        <div class="mat-card-title">
                             <h3>Informations générales</h3>
                         </div>
 
@@ -66,7 +66,7 @@
                             </mat-error>
                         </mat-form-field>
 
-                        <div class="mat-card-subtitle">
+                        <div class="mat-card-title">
                             <h3>Adresse de facturation</h3>
                         </div>
 
@@ -120,7 +120,7 @@
                                    id="tel">
                         </mat-form-field>
 
-                        <div *ngIf="!profil" class="mat-card-subtitle">
+                        <div *ngIf="!profil" class="mat-card-title">
                             <h3>Informations de connexion</h3>
                         </div>
                         <mat-form-field appearance="standard" *ngIf="!profil">
@@ -144,7 +144,7 @@
                           (ngSubmit)="onSubmit()">
 
                         <fieldset formGroupName="delivery_address">
-                            <div class="mat-card-subtitle">
+                            <div class="mat-card-title">
                                 <h3>Adresse de livraison / collecte</h3>
                             </div>
                             <mat-form-field appearance="standard"
@@ -185,7 +185,7 @@
                             </mat-form-field>
                         </fieldset>
 
-                        <div class="mat-card-subtitle">
+                        <div class="mat-card-title">
                             <h3>Informations logistique</h3>
                         </div>
                         <mat-slide-toggle formControlName="heavy_truck"
@@ -234,6 +234,37 @@
                                       formControlName="internal_data"
                                       id="internal_data"></textarea>
                         </mat-form-field>
+
+                        <div class="mat-card-title">
+                            <h3>Informations pour la liste les partenaires</h3>
+                        </div>
+
+                        <mat-form-field appearance="outline" class="mt-2">
+                            <mat-label>Logo de la société</mat-label>
+                            <ngx-mat-file-input formControlName="img_user"
+                                                [accept]="'.png, .jpg, .jpeg'"
+                                                valuePlaceholder="{{this.user && this.user.img_original_name ? this.user.img_original_name : null}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix color="accent">folder</mat-icon>
+                            <mat-hint>PNG ou JPG ou JPEG</mat-hint>
+                            <mat-error *ngIf="img_userCtrl.touched && img_userCtrl.hasError('maxContentSize')">
+                                La taille du fichier ne doit pas
+                                dépasser {{img_userCtrl?.getError('maxContentSize').maxSize | byteFormat}}
+                                ({{img_userCtrl?.getError('maxContentSize').actualSize
+                                | byteFormat}}).
+                            </mat-error>
+                            <mat-error *ngIf="img_userCtrl.touched && img_userCtrl.hasError('imageFile')">
+                                Le type de fichier doit-être : PNG ou JPG ou JPEG.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="standard"
+                                        color="accent">
+                            <mat-label for="description">Description de la société</mat-label>
+                            <textarea matInput
+                                      formControlName="description"></textarea>
+                        </mat-form-field>
+
                     </form>
                 </div>
             </div>

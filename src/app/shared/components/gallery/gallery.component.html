@@ -1,0 +1,35 @@
+<div class="grid-container">
+    <mat-form-field appearance="outline">
+        <mat-label for="searchInput"><mat-icon>search</mat-icon> Recherche par société</mat-label>
+            <input matInput
+                   id="searchInput"
+                   placeholder="Société"
+                   #searchInput>
+    </mat-form-field>
+    <div class="search-results"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         (scrolled)="onScroll()"
+         [scrollWindow]="true">
+
+        <ngx-masonry [options]="masonryOptions">
+            <div class="grid-sizer"></div>
+            <div ngxMasonryItem class="masonry-item" *ngFor="let user of users">
+                <mat-card routerLink="/user/{{user.id}}/presentation">
+                                        <img mat-card-image *ngIf="user.img_name"
+                                             src="{{this.authUrl + '/users/file/' + user.img_name}}"
+                                             alt="Logo of {{user.company}}">
+                    <mat-icon *ngIf="!user.img_name">add_circle_outline</mat-icon>
+                    <mat-card-title>{{user.company}}</mat-card-title>
+                    <mat-card-content>
+                        {{user.description}}
+                    </mat-card-content>
+                </mat-card>
+                <div class="onHoverUIBottom">
+
+                </div>
+            </div>
+        </ngx-masonry>
+    </div>
+</div>

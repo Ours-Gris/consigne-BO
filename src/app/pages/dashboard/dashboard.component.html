@@ -43,10 +43,10 @@
         <div *ngIf="user && user.role === Role.USER">
             <div class="container">
                 <div class="row">
-                    <app-passage-user-history [user]="user" [home]="true"
+                    <app-passage-user-history *ngIf="user.collecte_point" [user]="user" [home]="true"
                                               class="col-md-6 pt-2"></app-passage-user-history>
                     <app-user-order [user]="user"
-                                             class="col-md-6 pt-2"></app-user-order>
+                                    class="col-md-6 pt-2"></app-user-order>
                 </div>
             </div>
         </div>

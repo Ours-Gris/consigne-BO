@@ -34,6 +34,8 @@
     "leaflet-routing-machine": "^3.2.12",
     "lrm-mapbox": "^1.0.4",
     "ng-recaptcha": "^8.0.0",
+    "ngx-infinite-scroll": "^10.0.1",
+    "ngx-masonry": "^13.0.0",
     "ngx-material-file-input": "3.0.0",
     "ngx-toastr": "^14.0.0",
     "postcss": "^8.3.5",

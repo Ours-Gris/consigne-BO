@@ -1,20 +1,85 @@
 <div class="row ">
     <div class="col-md-8 offset-md-2 mt-4">
-        <h1>Bienvenue dans votre espace Oc'Consigne</h1>
-        <div *ngIf="!logged">
-            Pour afficher votre tableau de bord merci de vous identifier ou de nous contacter pour vous inscrire.
-            <div>
-                <button mat-menu-item
-                        [routerLink]="['auth/login']">
-                    <mat-icon color="accent">login</mat-icon>
-                    <span>Connexion</span>
+
+        <h1>“Oc’Consigne donne une nouvelle vie à vos bouteilles en verre en Occitanie” ou “Oc’Consigne les bouteilles
+            ont plusieurs vies”</h1>
+
+        <mat-card class="mt-2">
+            <mat-card-title>Le réemploi c’est quoi ?</mat-card-title>
+            <mat-card-subtitle></mat-card-subtitle>
+            <img mat-card-image src="assets/img/filiere.png" alt="schéma qui explique le réemploi">
+            <mat-card-actions>
+                <button mat-raised-button
+                        [routerLink]="['reemploi']">
+                    <span>En savoir plus</span>
                 </button>
-                <button mat-menu-item
-                        [routerLink]="['contact']">
-                    <mat-icon color="primary">mail</mat-icon>
-                    <span>Nous contacter</span>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="mt-2">
+            <mat-card-title>En chiffre</mat-card-title>
+            <mat-card-content>
+                <p><span>{{bottleWashed}}</span> bouteilles collectées et lavées par Oc’consigne</p>
+                <p>Économie CO2 : <span>{{co2Economy}}</span> ?Unité?</p>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mt-2">
+            <mat-card-title>Qui est Oc’Consigne ?</mat-card-title>
+            <mat-card-content>
+                Oc’Consigne est une Société Coopérative et Participative (SCOP) qui fédère les acteurs de la filière
+                des emballages en verre pour réintroduire la pratique du réemploi dans l’Est de l’Occitanie (Languedoc,
+                Roussillon, Grands Causses, Cévennes), à 150km autour de la métropole de Montpellier.
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button
+                        [routerLink]="['presentation']">
+                    <span>En savoir plus</span>
                 </button>
-            </div>
-        </div>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="mt-2">
+            <mat-card-title>Où trouver/rapporter les bouteilles ?</mat-card-title>
+            <mat-card-content>
+                Vous pouvez acheter ou rapporter vos bouteilles dans l’un des points de collecte répertoriés par Oc’Consigne.
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button
+                        [routerLink]="['map']">
+                    <span>Voir la carte</span>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="mt-2">
+            <mat-card-title>Actualités</mat-card-title>
+            <mat-card-content>
+                <mat-card class="mt-2">
+                    <mat-card-title>Actualités 1</mat-card-title>
+                    <mat-card-content>
+                        contenu 1
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="mt-2">
+                    <mat-card-title>Actualités 2</mat-card-title>
+                    <mat-card-content>
+                        contenu 2
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="mt-2">
+                    <mat-card-title>Actualités 3</mat-card-title>
+                    <mat-card-content>
+                        contenu 3
+                    </mat-card-content>
+                </mat-card>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button
+                        [routerLink]="['news']">
+                    <span>En voir plus</span>
+                </button>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>

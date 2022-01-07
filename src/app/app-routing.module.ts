@@ -8,6 +8,17 @@ import {AuthGuard} from "./_helpers/auth.guard";
 import {Role} from "./user/data/Role";
 import {ProfilComponent} from "./user/profil/profil.component";
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
+import {ConsommateurComponent} from "./pages/consommateur/consommateur.component";
+import {ProducerListComponent} from "./pages/producer-list/producer-list.component";
+import {ProducerEngagementComponent} from "./pages/producer-engagement/producer-engagement.component";
+import {ResellerEngagementComponent} from "./pages/reseller-engagement/reseller-engagement.component";
+import {ResellerListComponent} from "./pages/reseller-list/reseller-list.component";
+import {ReemploiComponent} from "./pages/reemploi/reemploi.component";
+import {PresentationComponent} from "./pages/presentation/presentation.component";
+import {PartnersComponent} from "./pages/partners/partners.component";
+import {NewsComponent} from "./pages/news/news.component";
+import {MapComponent} from "./pages/map/map.component";
+import {FaqComponent} from "./pages/faq/faq.component";
 
 const routes: Routes = [
     {
@@ -17,6 +28,46 @@ const routes: Routes = [
     {
         path: 'dashboard',
         component: DashboardComponent
+    },
+    {
+        path: 'consommateur',
+        component: ConsommateurComponent
+    },
+    {
+        path: 'producer-engagement',
+        component: ProducerEngagementComponent
+    },
+    {
+        path: 'producer-list',
+        component: ProducerListComponent
+    },
+    {
+        path: 'reseller-engagement',
+        component: ResellerEngagementComponent
+    },
+    {
+        path: 'reseller-list',
+        component: ResellerListComponent
+    },
+    {
+        path: 'reemploi',
+        component: ReemploiComponent
+    },
+    {
+        path: 'presentation',
+        component: PresentationComponent
+    },
+    {
+        path: 'partners',
+        component: PartnersComponent
+    },
+    {
+        path: 'news',
+        component: NewsComponent
+    },
+    {
+        path: 'faq',
+        component: FaqComponent
     },
     {
         path: 'contact',
@@ -51,8 +102,7 @@ const routes: Routes = [
     },
     {
         path: 'map',
-        canActivate: [LoggedInGuardService],
-        loadChildren: () => import('./map/map.module').then(m => m.MapModule)
+        component: MapComponent
     },
     {
         path: 'not-found',

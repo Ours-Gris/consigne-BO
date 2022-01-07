@@ -1,0 +1,24 @@
+<div class="row ">
+    <div class="col-md-8 offset-md-2 mt-4">
+
+        <h1>Les producteurs déjà engagés</h1>
+
+        <mat-card class="mt-2">
+            <mat-card-title>Repérez les producteurs engagés</mat-card-title>
+            <mat-card-subtitle></mat-card-subtitle>
+            <mat-card-content>
+                Oc’Cconsigne travaille avec {{nbrProducer}} producteurs engagés, nous nous engageons à accompagner les
+                producteurs dans leur transition vers le réemploi !
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button
+                        [routerLink]="['../map']">
+                    <span>Voir la carte</span>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <div class="mt-4">
+        <app-gallery [producer]="true"></app-gallery>
+    </div>
+</div>

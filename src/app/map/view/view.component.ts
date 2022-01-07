@@ -1,7 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
-import 'lrm-mapbox';
+// import 'lrm-mapbox';
 import {MarkerService} from '../services/marker.service';
 import {StatistiqueService} from '../services/statistique.service';
 

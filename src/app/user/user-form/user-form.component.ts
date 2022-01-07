@@ -1,12 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../data/User";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import {Role} from "../data/Role";
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
 import {AuthService} from "../../shared/services/auth.service";
+import {FileValidator} from "ngx-material-file-input";
+import {imageFile} from "../../shared/image-file.validator";
 
 @Component({
     selector: 'app-user-form',
@@ -19,9 +21,11 @@ export class UserFormComponent implements OnInit {
     userForm: FormGroup;
     roles = Object.values(Role);
     isAdmin = false;
+    readonly maxSize: number = 104857600;
 
     usernameCtrl: FormControl;
     companyCtrl!: FormControl;
+    descriptionCtrl!: FormControl;
     telCtrl!: FormControl;
     emailCtrl: FormControl;
     roleCtrl: FormControl;
@@ -43,6 +47,7 @@ export class UserFormComponent implements OnInit {
     forkliftCtrl: FormControl;
     pallet_truckCtrl: FormControl;
     internal_dataCtrl: FormControl;
+    img_userCtrl: FormControl;
 
     constructor(
         private fb: FormBuilder,
@@ -55,6 +60,7 @@ export class UserFormComponent implements OnInit {
         this.usernameCtrl = fb.control('', [Validators.required, Validators.minLength(3)]);
         this.emailCtrl = fb.control('', [Validators.required, Validators.email]);
         this.companyCtrl = fb.control('');
+        this.descriptionCtrl = fb.control('');
         this.telCtrl = fb.control('');
         this.resellerCtrl = fb.control(false);
         this.producerCtrl = fb.control(false);
@@ -79,6 +85,8 @@ export class UserFormComponent implements OnInit {
         this.pallet_truckCtrl = fb.control(false);
 
         this.internal_dataCtrl = fb.control('');
+
+        this.img_userCtrl = fb.control(null, [FileValidator.maxContentSize(this.maxSize)]);
 
         this.userForm = fb.group({
             username: this.usernameCtrl,
@@ -107,8 +115,12 @@ export class UserFormComponent implements OnInit {
             forklift: this.forkliftCtrl,
             pallet_truck: this.pallet_truckCtrl,
             role: this.roleCtrl,
-            internal_data: this.internal_dataCtrl
-        });
+            description: this.descriptionCtrl,
+            internal_data: this.internal_dataCtrl,
+            img_user: this.img_userCtrl
+        }, {
+            validator: imageFile('img_user')
+        } as AbstractControlOptions);
     }
 
     ngOnInit(): void {
@@ -145,7 +157,9 @@ export class UserFormComponent implements OnInit {
                 forklift: this.user.forklift,
                 pallet_truck: this.user.pallet_truck,
                 role: this.user.role,
-                internal_data: this.user.internal_data
+                description: this.user.description ? this.user.description : '',
+                internal_data: this.user.internal_data ? this.user.internal_data : '',
+                img_user: this.user.img_user ? this.user.img_user : ''
             })
         }
     }
@@ -170,10 +184,40 @@ export class UserFormComponent implements OnInit {
         }
     }
 
+    saveImage(id: string): void {
+        if (this.userForm.value.img_user && this.userForm.value.img_user._files) {
+            this.userForm.value.img_user = this.userForm.value.img_user._files[0]
+            // For delete old img
+            if (this.user && this.user.img_name) {
+                this.userForm.value.img_name = this.user.img_name
+            }
+            if (this.profil && this.user) {
+                this.userService.editMyImage(this.userForm.value).subscribe({
+                    next: () => {
+                        this.toastr.success('Image enregistrée', 'Modifier');
+                    },
+                    error: (err) => {
+                        this.errorSubmit(err)
+                    }
+                })
+            } else {
+                this.userService.editUserImage(id, this.userForm.value).subscribe({
+                    next: () => {
+                        this.toastr.success('Image enregistrée', 'Modifier');
+                    },
+                    error: (err) => {
+                        this.errorSubmit(err)
+                    }
+                })
+            }
+        }
+    }
+
     onSubmit(): void {
         if (this.profil && this.user) {
             this.userService.editMe(this.userForm.value).subscribe({
-                next: () => {
+                next: (user) => {
+                    this.saveImage(user.id)
                     this.toastr.success('Votre profil a été Modifié', 'Modifier');
                 },
                 error: (err) => {
@@ -182,7 +226,8 @@ export class UserFormComponent implements OnInit {
             })
         } else if (this.user) {
             this.userService.editUser(this.user.id, this.userForm.value).subscribe({
-                next: () => {
+                next: (user) => {
+                    this.saveImage(user.id)
                     this.toastr.success('L\'utilisateur a été Modifié', 'Modifier');
                     this.router.navigateByUrl('/user').catch(err => console.error(err));
                 },
@@ -192,7 +237,8 @@ export class UserFormComponent implements OnInit {
             })
         } else {
             this.userService.addUser(this.userForm.value).subscribe({
-                next: () => {
+                next: (user) => {
+                    this.saveImage(user.id)
                     this.toastr.success('L\'utilisateur a été ajouté', 'Ajouter');
                     this.router.navigateByUrl('/user').catch(err => console.error(err));
                 },
