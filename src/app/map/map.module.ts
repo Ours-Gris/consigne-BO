@@ -8,11 +8,13 @@ import {MapService} from './services/map.service';
 import {MarkerService} from "./services/marker.service";
 import {PopupService} from "./services/popup.service";
 import {StatistiqueService} from "./services/statistique.service";
+import {PassageMapComponent} from './passage-map/passage-map.component';
 
 
 @NgModule({
     declarations: [
-        ViewComponent
+        ViewComponent,
+        PassageMapComponent
     ],
     imports: [
         CommonModule,
