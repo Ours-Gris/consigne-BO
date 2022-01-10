@@ -1,15 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from "../../user/data/User";
+import {UserService} from "../../user/services/user.service";
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+    selector: 'app-map',
+    templateUrl: './map.component.html',
+    styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
 
-  constructor() { }
+    producer: boolean = false;
+    reseller: boolean = false;
+    users: User[] = [];
 
-  ngOnInit(): void {
-  }
+    constructor(
+        private userService: UserService,
+    ) {
+    }
+
+    ngOnInit(): void {
+        this.getUsers()
+    }
+
+    getUsers(filter?: string) {
+        this.userService.getAllPublicUser(filter).subscribe(
+            (users) => {
+                this.users.push(...users)
+            },
+            error => {
+                console.error(error)
+            }
+        )
+    }
 
 }

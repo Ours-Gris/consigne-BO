@@ -9,6 +9,8 @@ import Swal from "sweetalert2";
 import {AuthService} from "../../shared/services/auth.service";
 import {FileValidator} from "ngx-material-file-input";
 import {imageFile} from "../../shared/image-file.validator";
+import {Address} from "../data/Address";
+import {NominatimService} from "../services/nominatim.service";
 
 @Component({
     selector: 'app-user-form',
@@ -53,6 +55,7 @@ export class UserFormComponent implements OnInit {
         private fb: FormBuilder,
         private userService: UserService,
         private authService: AuthService,
+        private nominatimService: NominatimService,
         private toastr: ToastrService,
         public router: Router,
         public route: ActivatedRoute
@@ -213,9 +216,24 @@ export class UserFormComponent implements OnInit {
         }
     }
 
+    getLatLon(user: User): User {
+        if (user.address.address && user.address.postal_code && user.address.city) {
+            this.nominatimService.addressLookup(user.address).subscribe(
+                (results) => {
+                    console.log(results);
+                    user.address.lat = results[0].lat
+                    user.address.lon = results[0].lon
+                    return user
+                }
+            )
+        }
+        return user
+    }
+
     onSubmit(): void {
+        const newUser = this.getLatLon(this.userForm.value);
         if (this.profil && this.user) {
-            this.userService.editMe(this.userForm.value).subscribe({
+            this.userService.editMe(newUser).subscribe({
                 next: (user) => {
                     this.saveImage(user.id)
                     this.toastr.success('Votre profil a été Modifié', 'Modifier');
@@ -225,7 +243,7 @@ export class UserFormComponent implements OnInit {
                 }
             })
         } else if (this.user) {
-            this.userService.editUser(this.user.id, this.userForm.value).subscribe({
+            this.userService.editUser(this.user.id, newUser).subscribe({
                 next: (user) => {
                     this.saveImage(user.id)
                     this.toastr.success('L\'utilisateur a été Modifié', 'Modifier');
@@ -236,7 +254,7 @@ export class UserFormComponent implements OnInit {
                 }
             })
         } else {
-            this.userService.addUser(this.userForm.value).subscribe({
+            this.userService.addUser(newUser).subscribe({
                 next: (user) => {
                     this.saveImage(user.id)
                     this.toastr.success('L\'utilisateur a été ajouté', 'Ajouter');

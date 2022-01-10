@@ -10,7 +10,6 @@ import {PopupService} from "./services/popup.service";
 import {StatistiqueService} from "./services/statistique.service";
 import {PassageMapComponent} from './passage-map/passage-map.component';
 
-
 @NgModule({
     declarations: [
         ViewComponent,

@@ -30,6 +30,7 @@ import {MaterialModule} from "../material/material.module";
 import {OrderModule} from "../order/order.module";
 import {MaterialFileInputModule} from "ngx-material-file-input";
 import {UserPresentationComponent} from './user-presentation/user-presentation.component';
+import {NominatimService} from "./services/nominatim.service";
 
 @NgModule({
     declarations: [
@@ -66,7 +67,7 @@ import {UserPresentationComponent} from './user-presentation/user-presentation.c
         OrderModule,
         MaterialFileInputModule
     ],
-    providers: [UserService],
+    providers: [UserService, NominatimService],
     exports: [ProfilComponent]
 })
 export class UserModule {

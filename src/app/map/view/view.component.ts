@@ -1,9 +1,13 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 // import 'lrm-mapbox';
 import {MarkerService} from '../services/marker.service';
 import {StatistiqueService} from '../services/statistique.service';
+import {UsersDataSource} from "../../user/data/users-data-source";
+import {UserService} from "../../user/services/user.service";
+import {User} from "../../user/data/User";
+import {NominatimService} from "../../user/services/nominatim.service";
 
 // const iconRetinaUrl = 'assets/marker-icon-2x.png';
 // const iconUrl = 'assets/marker-icon.png';
@@ -26,14 +30,18 @@ import {StatistiqueService} from '../services/statistique.service';
     styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements AfterViewInit {
+    @Input() users: User[] = [];
     private map!: L.Map;
     private isochrones: any;
     //private: fonds;
     //private: data;
+    address: string = '28 rue verdier 33000 bordeaux'
+
 
     constructor(
         private markerService: MarkerService,
-        private statistiqueService: StatistiqueService
+        private statistiqueService: StatistiqueService,
+        private nominatimService: NominatimService
     ) {
     }
 
@@ -44,6 +52,9 @@ export class ViewComponent implements AfterViewInit {
         this.statistiqueService.getIsochroneStats().subscribe(AA_MINS => {
             this.isochrones = AA_MINS;
             this.initIsochronesLayer();
+        });
+        this.nominatimService.addressLookup(this.address).subscribe(results => {
+            console.log(results)
         });
     }
 

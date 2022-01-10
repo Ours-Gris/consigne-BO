@@ -55,7 +55,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
             this.userService.getProducers(filter, sortBy, sortDirection, startUser, nbrUsers).subscribe(
                 (users) => {
                     this.users.push(...users)
-                    console.log(this.users)
                 },
                 error => {
                     console.error(error)

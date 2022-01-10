@@ -16,7 +16,8 @@ export class UserService {
     constructor(
         private authService: AuthService,
         private http: HttpClient
-    ) {}
+    ) {
+    }
 
     getMe(): Observable<User> {
         return this.http.get(this.authUrl + '/users/me').pipe(
@@ -131,17 +132,30 @@ export class UserService {
 
         return this.http.get(this.authUrl + '/users/waiting', options).pipe(
             map((res: any) => res)
-        );
+        )
     }
 
     getOneUser(idUser: string): Observable<User> {
         return this.http.get(this.authUrl + '/users/' + idUser).pipe(
             map((res: any) => res)
-        );
+        )
     }
 
     getOnePublicUser(idUser: string): Observable<User> {
         return this.http.get(this.authUrl + '/users/public/' + idUser).pipe(
+            map((res: any) => res)
+        )
+    }
+
+    getAllPublicUser(filter?: string): Observable<Array<User>> {
+        let params = new HttpParams()
+        if (filter) {
+            params = params.set('_contains', filter);
+        }
+        const options = {
+            params
+        };
+        return this.http.get(this.authUrl + '/users/public', options).pipe(
             map((res: any) => res)
         );
     }
