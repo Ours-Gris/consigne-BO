@@ -14,23 +14,9 @@ export class MapComponent implements OnInit {
     users: User[] = [];
 
     constructor(
-        private userService: UserService,
     ) {
     }
 
     ngOnInit(): void {
-        this.getUsers()
     }
-
-    getUsers() {
-        this.userService.getAllPublicUser().subscribe(
-            (users) => {
-                this.users.push(...users)
-            },
-            error => {
-                console.error(error)
-            }
-        )
-    }
-
 }

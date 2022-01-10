@@ -30,7 +30,7 @@ import {NominatimService} from "../../user/services/nominatim.service";
     styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements AfterViewInit {
-    @Input() users: User[] = [];
+    users: User[] = [];
     private map!: L.Map;
     private isochrones: any;
     //private: fonds;
@@ -38,13 +38,26 @@ export class ViewComponent implements AfterViewInit {
 
     constructor(
         private markerService: MarkerService,
+        private userService: UserService,
         private statistiqueService: StatistiqueService
     ) {
     }
 
+    getUsers() {
+        this.userService.getAllPublicUser().subscribe(
+            (users) => {
+                this.users = users;
+                this.markerService.makeCapitalMarkers(this.map, this.users);
+            },
+            error => {
+                console.error(error)
+            }
+        )
+    }
+
     ngAfterViewInit(): void {
         this.initMap();
-        this.markerService.makeCapitalMarkers(this.map, this.users);
+        this.getUsers()
         // this.markerService.makeCapitalCircleMarkers(this.map);
         this.statistiqueService.getIsochroneStats().subscribe(AA_MINS => {
             this.isochrones = AA_MINS;

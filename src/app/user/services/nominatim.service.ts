@@ -14,8 +14,8 @@ export class NominatimService {
         private http: HttpClient) {
     }
 
-    addressLookup(req?: any): Observable<any> {
-        let url = `https://${this.BASE_NOMINATIM_URL}/search?format=json&q=${req}&${this.DEFAULT_VIEW_BOX}&bounded=1`;
+    addressLookup(address: string): Observable<any> {
+        let url = `https://${this.BASE_NOMINATIM_URL}/search?format=json&q=${address}&${this.DEFAULT_VIEW_BOX}&bounded=1`;
         return this.http.get(url).pipe(
             map((data) => {
                     return data
