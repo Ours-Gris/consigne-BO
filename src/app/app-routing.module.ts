@@ -17,7 +17,6 @@ import {ReemploiComponent} from "./pages/reemploi/reemploi.component";
 import {PresentationComponent} from "./pages/presentation/presentation.component";
 import {PartnersComponent} from "./pages/partners/partners.component";
 import {NewsComponent} from "./pages/news/news.component";
-import {MapComponent} from "./pages/map/map.component";
 import {FaqComponent} from "./pages/faq/faq.component";
 
 const routes: Routes = [

@@ -9,8 +9,8 @@ import Swal from "sweetalert2";
 import {AuthService} from "../../shared/services/auth.service";
 import {FileValidator} from "ngx-material-file-input";
 import {imageFile} from "../../shared/image-file.validator";
-import {Address} from "../data/Address";
 import {NominatimService} from "../services/nominatim.service";
+import {Address} from "../data/Address";
 
 @Component({
     selector: 'app-user-form',
@@ -216,26 +216,37 @@ export class UserFormComponent implements OnInit {
         }
     }
 
-    getLatLon(user: User): User {
-        if (user.address.address && user.address.postal_code && user.address.city) {
-            this.nominatimService.addressLookup(user.address).subscribe(
-                (results) => {
-                    console.log(results);
-                    user.address.lat = results[0].lat
-                    user.address.lon = results[0].lon
-                    return user
-                }
-            )
+    saveLocation(user: User): void {
+        if (user.role === Role.USER) {
+            if (user.delivery_address.address && user.delivery_address.postal_code && user.delivery_address.city) {
+                this.getAndSaveLocation(user, user.delivery_address)
+            } else if (user.address.address && user.address.postal_code && user.address.city) {
+                this.getAndSaveLocation(user, user.address)
+            }
         }
-        return user
+    }
+
+    getAndSaveLocation(user: User, address: Address): void {
+        this.nominatimService.addressLookup(`${address.address} ${address.address_details} ${address.postal_code} ${address.city}`).subscribe(
+            (results) => {
+                console.log(results);
+                if (results.length){
+                    user.lat = results[0].lat;
+                    user.lon = results[0].lon;
+                    this.userService.editUser(user.id, user).subscribe()
+                } else {
+                    this.toastr.error(`L'adresse n'a pas pu être modifiée en localisation.`, `Localisation`)
+                }
+            }
+        )
     }
 
     onSubmit(): void {
-        const newUser = this.getLatLon(this.userForm.value);
         if (this.profil && this.user) {
-            this.userService.editMe(newUser).subscribe({
+            this.userService.editMe(this.userForm.value).subscribe({
                 next: (user) => {
-                    this.saveImage(user.id)
+                    this.saveImage(user.id);
+                    this.saveLocation(user);
                     this.toastr.success('Votre profil a été Modifié', 'Modifier');
                 },
                 error: (err) => {
@@ -243,9 +254,10 @@ export class UserFormComponent implements OnInit {
                 }
             })
         } else if (this.user) {
-            this.userService.editUser(this.user.id, newUser).subscribe({
+            this.userService.editUser(this.user.id, this.userForm.value).subscribe({
                 next: (user) => {
                     this.saveImage(user.id)
+                    this.saveLocation(user);
                     this.toastr.success('L\'utilisateur a été Modifié', 'Modifier');
                     this.router.navigateByUrl('/user').catch(err => console.error(err));
                 },
@@ -254,9 +266,10 @@ export class UserFormComponent implements OnInit {
                 }
             })
         } else {
-            this.userService.addUser(newUser).subscribe({
+            this.userService.addUser(this.userForm.value).subscribe({
                 next: (user) => {
                     this.saveImage(user.id)
+                    this.saveLocation(user);
                     this.toastr.success('L\'utilisateur a été ajouté', 'Ajouter');
                     this.router.navigateByUrl('/user').catch(err => console.error(err));
                 },

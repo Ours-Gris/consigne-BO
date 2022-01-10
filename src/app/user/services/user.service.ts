@@ -10,7 +10,6 @@ import {User} from "../data/User";
     providedIn: 'root'
 })
 export class UserService {
-
     private authUrl = environment.api_base_url;
 
     constructor(

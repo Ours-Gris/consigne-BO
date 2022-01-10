@@ -26,6 +26,9 @@ export interface User {
     producer: boolean;
     collecte_point: boolean;
 
+    lat: string;
+    lon: string;
+
     delivery_data: string;
     delivery_schedules: string;
     heavy_truck: boolean;

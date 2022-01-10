@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ViewComponent} from './view/view.component';
 import {PassageMapComponent} from "./passage-map/passage-map.component";
 import {AuthGuard} from "../_helpers/auth.guard";
 import {Role} from "../user/data/Role";
+import {MapComponent} from "../pages/map/map.component";
 
 const routes: Routes = [
     {
         path: '',
-        component: ViewComponent
+        component: MapComponent
     }, {
         path: 'passage',
         canActivate: [AuthGuard],

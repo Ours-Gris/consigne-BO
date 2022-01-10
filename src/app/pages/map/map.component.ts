@@ -22,8 +22,8 @@ export class MapComponent implements OnInit {
         this.getUsers()
     }
 
-    getUsers(filter?: string) {
-        this.userService.getAllPublicUser(filter).subscribe(
+    getUsers() {
+        this.userService.getAllPublicUser().subscribe(
             (users) => {
                 this.users.push(...users)
             },

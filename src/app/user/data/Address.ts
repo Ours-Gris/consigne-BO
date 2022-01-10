@@ -3,6 +3,4 @@ export interface Address {
     address_details: string;
     postal_code: string;
     city: string;
-    lat: string;
-    lon:string;
 }

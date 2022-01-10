@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 // import 'lrm-mapbox';
@@ -35,27 +35,21 @@ export class ViewComponent implements AfterViewInit {
     private isochrones: any;
     //private: fonds;
     //private: data;
-    address: string = '28 rue verdier 33000 bordeaux'
-
 
     constructor(
         private markerService: MarkerService,
-        private statistiqueService: StatistiqueService,
-        private nominatimService: NominatimService
+        private statistiqueService: StatistiqueService
     ) {
     }
 
     ngAfterViewInit(): void {
         this.initMap();
-        //this.markerService.makeCapitalMarkers(this.map);
-        this.markerService.makeCapitalCircleMarkers(this.map);
+        this.markerService.makeCapitalMarkers(this.map, this.users);
+        // this.markerService.makeCapitalCircleMarkers(this.map);
         this.statistiqueService.getIsochroneStats().subscribe(AA_MINS => {
             this.isochrones = AA_MINS;
             this.initIsochronesLayer();
-        });
-        this.nominatimService.addressLookup(this.address).subscribe(results => {
-            console.log(results)
-        });
+        })
     }
 
     private initMap(): void {

@@ -2,11 +2,16 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import * as L from 'leaflet';
 import {PopupService} from './popup.service';
+import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
+import {User} from "../../user/data/User";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MarkerService {
+    private authUrl = environment.api_base_url;
     acteurs: string = '/assets/data/acteurs_consigne.geojson';
 
     constructor(
@@ -19,17 +24,13 @@ export class MarkerService {
         return 20 * (val / maxVal);
     }
 
-    makeCapitalMarkers(map: L.Map): void {
-        this.http.get(this.acteurs).subscribe((res: any) => {
-            for (const c of res.features) {
-                const lon = c.geometry.coordinates[0];
-                const lat = c.geometry.coordinates[1];
-                const marker = L.marker([lat, lon]);
-
+    makeCapitalMarkers(map: L.Map, users: User[]): void {
+        users.map(user => {
+            if (user.lat && user.lon) {
+                const marker = L.marker([Number(user.lat), Number(user.lon)]);
                 marker.addTo(map);
             }
-        });
-
+        })
     }
 
     makeCapitalCircleMarkers(map: L.Map): void {
@@ -48,6 +49,6 @@ export class MarkerService {
 
                 circle.addTo(map);
             }
-        });
+        })
     }
 }
