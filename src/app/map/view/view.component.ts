@@ -66,19 +66,47 @@ export class ViewComponent implements AfterViewInit {
     }
 
     private initMap(): void {
-        this.map = L.map('map', {
-            center: [43.765, 3.641],
-            zoom: 9
-            //layers:[fondsGris, fonds]
-        });
 
-        const fonds = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var mapboxAttribution = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+        var mapboxUrl = 'https://api.mapbox.com/styles/v1/sangis/cjz8itspx0b771cqfmhddl6sx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FuZ2lzIiwiYSI6Ii1YT3B3encifQ.DuJG8BEzs7jc79vHmB4ytg';
+        var mapboxStyle = 'mapbox://styles/sangis/cjz8itspx0b771cqfmhddl6sx';
+
+        var fonds_noir = L.tileLayer(mapboxUrl, {id: 'mapbox/Moonlight', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
+        //fonds_noir.addTo(this.map);
+        //
+
+       
+
+        var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             minZoom: 3,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             className: "OSM"
         });
-        fonds.addTo(this.map);
+
+        var acteurs = L.layerGroup();
+
+        var producers =  L.marker([43.765, 3.641]).bindPopup('Ceci est un brasseur !!!').addTo(acteurs);
+        //var producers =  L.marker([this.user.lon, 3.641]).bindPopup('Ceci est un brasseur !!!').addTo(acteurs);
+
+        this.map = L.map('map', {
+            center: [43.765, 3.641],
+            zoom: 9,
+            layers: [fonds_noir, acteurs]
+        });
+
+        var baseLayers = {
+            'Moonlight': fonds_noir,
+            'Streets': streets
+        };
+
+        
+        var overlays = {
+            'Acteurs': acteurs
+        };
+
+        var layerControl = L.control.layers(baseLayers, overlays).addTo(this.map);
+        //fonds.addTo(this.map);
     }
 
     private initIsochronesLayer() {

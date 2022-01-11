@@ -19,20 +19,61 @@ export class MarkerService {
         private popupService: PopupService
     ) {
     }
-
+/*
     static scaledRadius(val: number, maxVal: number): number {
         return 20 * (val / maxVal);
     }
+*/
 
     makeCapitalMarkers(map: L.Map, users: User[]): void {
+
+        var producersIcon = L.icon({
+            iconUrl: '/assets/img/producers.png',       
+            iconSize:     [35, 35] // size of the icon
+        });
+
+        var resellersIcon = L.icon({
+            iconUrl: '/assets/img/resellers.png',       
+            iconSize:     [35, 35] // size of the icon
+        });
+
+        var collectePointIcon = L.icon({
+            iconUrl: '/assets/img/collectePoint.png',       
+            iconSize:     [35, 35] // size of the icon
+        });
+        // if :
+        
         users.map(user => {
             if (user.lat && user.lon) {
-                const marker = L.marker([Number(user.lat), Number(user.lon)]);
+                const marker = L.marker([Number(user.lat), Number(user.lon)], {icon:producersIcon}).bindPopup('<div> nom : '+user.username +'</div>' + '<div> mail : ' + user.email+'</div>');
+                marker.addTo(map);
+            }
+            else if (user.lat && user.lon && user.producer) {
+                const marker = L.marker([Number(user.lat), Number(user.lon)], {icon:producersIcon}).bindPopup('<div> nom : '+user.username +'</div>' + '<div> mail : ' + user.email+'</div>');
                 marker.addTo(map);
             }
         })
+        // switch case :
+/*
+        users.map(user => {
+            if (user.lat && user.lon) {
+                switch (user.reseller && user.producer && user.collecte_point) {
+                    case true && true && true : // distributeur + producteur + point de collecte
+                        return console.log('all')
+                        const marker = L.marker([Number(user.lat), Number(user.lon)], {icon:producersIcon}).bindPopup('<div> nom : '+user.username +'</div>' + '<div> mail : ' + user.email+'</div>');
+                        marker.addTo(map);;
+                    case true && false && true :// distributeur + point de collecte
+                        return console.log('distrib et ptdC');
+                    case true && false && false : // distributeur
+                        return console.log('distrib');
+                    case false && true && false : // producteur
+                        return console.log('producteur');
+                //const marker = L.marker([Number(user.lat), Number(user.lon)], {icon:producersIcon}).bindPopup('<div> nom : '+user.username +'</div>' + '<div> mail : ' + user.email+'</div>');
+               // marker.addTo(map);
+            }
+        })*/
     }
-
+    /*
     makeCapitalCircleMarkers(map: L.Map): void {
         this.http.get(this.acteurs).subscribe((res: any) => {
 
@@ -50,5 +91,5 @@ export class MarkerService {
                 circle.addTo(map);
             }
         })
-    }
+    }*/
 }

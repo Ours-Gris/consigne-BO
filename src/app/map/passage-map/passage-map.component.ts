@@ -23,7 +23,7 @@ export class PassageMapComponent implements AfterViewInit {
     ngAfterViewInit(): void {
         this.initMap();
         //this.markerService.makeCapitalMarkers(this.map);
-        this.markerService.makeCapitalCircleMarkers(this.map);
+        //this.markerService.makeCapitalCircleMarkers(this.map);
         this.statistiqueService.getIsochroneStats().subscribe(AA_MINS => {
             this.isochrones = AA_MINS;
             this.initIsochronesLayer();
