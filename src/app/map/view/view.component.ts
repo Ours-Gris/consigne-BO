@@ -22,7 +22,7 @@ import {NominatimService} from "../../user/services/nominatim.service";
 //     tooltipAnchor: [16, -28],
 //     shadowSize: [41, 41]
 // });
-// L.Marker.prototype.options.icon = iconDefault;
+// L.Marker.prototype.options.icon = iconDefault; ok
 
 @Component({
     selector: 'app-view',

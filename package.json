@@ -33,6 +33,7 @@
     "leaflet": "^1.7.1",
     "leaflet-routing-machine": "^3.2.12",
     "lrm-mapbox": "^1.0.4",
+    "masonry-layout": "^4.2.2",
     "ng-recaptcha": "^8.0.0",
     "ngx-infinite-scroll": "^10.0.1",
     "ngx-masonry": "^13.0.0",
