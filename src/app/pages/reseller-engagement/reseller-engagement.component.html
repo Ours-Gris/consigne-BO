@@ -60,35 +60,6 @@
             </mat-card-actions>
         </mat-card>
 
-        <mat-card class="mt-2">
-            <mat-card-title>Foire aux questions</mat-card-title>
-            <mat-card-subtitle>les 3 questions les plus posées</mat-card-subtitle>
-            <mat-card-content>
-                <mat-card class="mt-2">
-                    <mat-card-title>Question 1</mat-card-title>
-                    <mat-card-content>
-                        Response 1
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="mt-2">
-                    <mat-card-title>Question 2</mat-card-title>
-                    <mat-card-content>
-                        Response 2
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="mt-2">
-                    <mat-card-title>Question 3</mat-card-title>
-                    <mat-card-content>
-                        Response 3
-                    </mat-card-content>
-                </mat-card>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button
-                        [routerLink]="['../faq']">
-                    <span>En voir plus</span>
-                </button>
-            </mat-card-actions>
-        </mat-card>
+        <app-faq-mini-list></app-faq-mini-list>
     </div>
 </div>

@@ -75,8 +75,12 @@
                 <span>Nos partenaires</span>
             </button>
             <button mat-menu-item
-                    [routerLink]="['news']">
+                    [routerLink]="['actu']">
                 <span>Actualités</span>
+            </button>
+            <button mat-menu-item
+                    [routerLink]="['faq']">
+                <span>F.A.Q.</span>
             </button>
         </mat-menu>
     </div>
@@ -141,6 +145,18 @@
                     [routerLink]="['material']">
                 <mat-icon color="accent">inventory</mat-icon>
                 <span>Matériels</span>
+            </button>
+            <button mat-menu-item
+                    *ngIf="roleAdmin"
+                    [routerLink]="['question']">
+                <mat-icon color="accent">quiz</mat-icon>
+                <span>Gestion de la FAQ</span>
+            </button>
+            <button mat-menu-item
+                    *ngIf="roleAdmin"
+                    [routerLink]="['news']">
+                <mat-icon color="accent">article</mat-icon>
+                <span>Gestion des atualitées</span>
             </button>
         </mat-menu>
 

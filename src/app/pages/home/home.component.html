@@ -52,34 +52,6 @@
             </mat-card-actions>
         </mat-card>
 
-        <mat-card class="mt-2">
-            <mat-card-title>Actualités</mat-card-title>
-            <mat-card-content>
-                <mat-card class="mt-2">
-                    <mat-card-title>Actualités 1</mat-card-title>
-                    <mat-card-content>
-                        contenu 1
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="mt-2">
-                    <mat-card-title>Actualités 2</mat-card-title>
-                    <mat-card-content>
-                        contenu 2
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="mt-2">
-                    <mat-card-title>Actualités 3</mat-card-title>
-                    <mat-card-content>
-                        contenu 3
-                    </mat-card-content>
-                </mat-card>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button
-                        [routerLink]="['news']">
-                    <span>En voir plus</span>
-                </button>
-            </mat-card-actions>
-        </mat-card>
+        <app-news-public-mini-list></app-news-public-mini-list>
     </div>
 </div>

@@ -37,11 +37,13 @@ import {ResellerListComponent} from './pages/reseller-list/reseller-list.compone
 import {ReemploiComponent} from './pages/reemploi/reemploi.component';
 import {PresentationComponent} from './pages/presentation/presentation.component';
 import {PartnersComponent} from './pages/partners/partners.component';
-import {NewsComponent} from './pages/news/news.component';
 import {MapComponent} from './pages/map/map.component';
 import {MapModule} from "./map/map.module";
 import {FaqComponent} from './pages/faq/faq.component';
 import {MatInputModule} from "@angular/material/input";
+import {QuestionModule} from "./question/question.module";
+import { PageNewsComponent } from './pages/page-news/page-news.component';
+import {NewsModule} from "./news/news.module";
 
 registerLocaleData(localeFr);
 
@@ -59,9 +61,9 @@ registerLocaleData(localeFr);
         ReemploiComponent,
         PresentationComponent,
         PartnersComponent,
-        NewsComponent,
         MapComponent,
-        FaqComponent
+        FaqComponent,
+        PageNewsComponent
     ],
     imports: [
         BrowserModule,
@@ -90,7 +92,9 @@ registerLocaleData(localeFr);
         OrderModule,
         MapModule,
         MatInputModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        QuestionModule,
+        NewsModule
     ],
     providers: [
         {provide: LOCALE_ID, useValue: 'fr-FR'},

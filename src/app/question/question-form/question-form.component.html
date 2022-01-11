@@ -1,0 +1,55 @@
+<div class="row">
+    <h2>Ajouter une Question / Réponse</h2>
+    <div class="col-md-6 offset-md-3 mt-4">
+        <form [formGroup]="questionForm"
+              (ngSubmit)="onSubmit()">
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="label">La question</mat-label>
+                <input matInput
+                       formControlName="label"
+                       id="label"
+                       placeholder="question ?">
+                <mat-error *ngIf="questionCtrl.touched && questionCtrl.hasError('required')">
+                    La question est requise
+                </mat-error>
+                <mat-error *ngIf="questionCtrl.touched && questionCtrl.hasError('minlength')">
+                    La question doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="answer">La réponse</mat-label>
+                <textarea matInput
+                          formControlName="answer"
+                          id="answer"
+                          placeholder="réponse"></textarea>
+                <mat-error *ngIf="answerCtrl.touched && answerCtrl.hasError('required')">
+                    La réponse est requise
+                </mat-error>
+                <mat-error *ngIf="answerCtrl.touched && answerCtrl.hasError('minlength')">
+                    La réponse doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <div class="flex-row pt-2">
+                <button mat-raised-button
+                        color="warn"
+                        class="m-lg-2"
+                        type="button"
+                        routerLink="/question"
+                        i18n="QuestionForm.button.cancel">Annuler
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="questionForm.invalid || !questionForm.dirty"
+                        i18n="QuestionForm.button.submit">Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+

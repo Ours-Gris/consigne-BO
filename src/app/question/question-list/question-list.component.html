@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pt-2">
+            <h3 i18n="@@QuestionList.title">Liste des questions de la FAQ</h3>
+
+            <div>
+                <label for="searchInput">
+                    <input matInput
+                           id="searchInput"
+                           i18n-placeholder="@@QuestionList.findQuestion.placeholder"
+                           placeholder="Rechercher une question"
+                           #input>
+                </label>
+            </div>
+
+            <mat-table class="lessons-table mat-elevation-z8"
+                       [dataSource]="questions"
+                       matSort
+                       matSortActive="label"
+                       matSortDirection="asc">
+
+                <!-- Question Column -->
+                <ng-container matColumnDef="label">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header=""
+                                     i18n="@@QuestionAttributes.label"> Question
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let question"> {{question.label}} </mat-cell>
+                </ng-container>
+
+                <!-- answer Column -->
+                <ng-container matColumnDef="answer">
+                    <mat-header-cell *matHeaderCellDef
+                                     mat-sort-header=""
+                                     i18n="@@QuestionAttributes.answer"> Réponse
+                    </mat-header-cell>
+                    <mat-cell mat-cell
+                              *matCellDef="let question"> {{question.answer}} </mat-cell>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef
+                                     i18n="@@QuestionAttributes.actions"> Actions
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let question">
+                        <button mat-mini-fab
+                                (click)="editQuestion(question.id)"
+                                title="Détails"
+                                class="m-lg-2"
+                                color="accent">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-mini-fab
+                                (click)="deleteQuestion(question.id)"
+                                title="Supprimer"
+                                class="m-lg-2"
+                                color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator [pageIndex]="0"
+                           [length]="totalQuestions"
+                           [pageSize]="10"
+                           [pageSizeOptions]="[10, 20, 50]"
+                           [showFirstLastButtons]="true"></mat-paginator>
+
+            <div class="spinner-container"
+                 *ngIf="questions && questions.loading$ | async">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <div class="flex-row pt-2">
+                <button mat-raised-button
+                        class="m-lg-2"
+                        color="primary"
+                        routerLink="/question/add">
+                    <span i18n="@@QuestionList.button.addQuestion">Ajouter une question</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

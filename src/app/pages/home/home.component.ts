@@ -14,6 +14,5 @@ export class HomeComponent implements OnInit {
     }
 
     // TODO rechercher bottleWashed et co2Economy
-    // TODO rechercher les 3 dernières actu
     ngOnInit(): void {}
 }

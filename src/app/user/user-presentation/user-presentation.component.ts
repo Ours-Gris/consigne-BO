@@ -11,7 +11,6 @@ import {Meta, Title} from "@angular/platform-browser";
     styleUrls: ['./user-presentation.component.css']
 })
 export class UserPresentationComponent implements OnInit {
-    //TODO ça va pas marcher en prod
     authUrl = environment.api_base_url;
     user!: User;
 

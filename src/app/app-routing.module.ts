@@ -16,8 +16,8 @@ import {ResellerListComponent} from "./pages/reseller-list/reseller-list.compone
 import {ReemploiComponent} from "./pages/reemploi/reemploi.component";
 import {PresentationComponent} from "./pages/presentation/presentation.component";
 import {PartnersComponent} from "./pages/partners/partners.component";
-import {NewsComponent} from "./pages/news/news.component";
 import {FaqComponent} from "./pages/faq/faq.component";
+import {PageNewsComponent} from "./pages/page-news/page-news.component";
 
 const routes: Routes = [
     {
@@ -61,8 +61,8 @@ const routes: Routes = [
         component: PartnersComponent
     },
     {
-        path: 'news',
-        component: NewsComponent
+        path: 'actu',
+        component: PageNewsComponent
     },
     {
         path: 'faq',
@@ -92,6 +92,18 @@ const routes: Routes = [
         path: 'material',
         canActivate: [AuthGuard],
         loadChildren: () => import('./material/material.module').then(m => m.MaterialModule),
+        data: {roles: [Role.ADMIN]}
+    },
+    {
+        path: 'question',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./question/question.module').then(m => m.QuestionModule),
+        data: {roles: [Role.ADMIN]}
+    },
+    {
+        path: 'news',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./news/news.module').then(m => m.NewsModule),
         data: {roles: [Role.ADMIN]}
     },
     {

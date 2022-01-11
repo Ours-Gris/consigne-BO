@@ -1,0 +1,94 @@
+<div class="row">
+    <h2>Ajouter une actualitée</h2>
+    <div class="pt-2" [ngClass]="classNews">
+        <h3>Informations générales</h3>
+        <form [formGroup]="newsForm"
+              (ngSubmit)="onSubmit()">
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="title">Titre</mat-label>
+                <input matInput
+                       formControlName="title"
+                       id="title">
+                <mat-error *ngIf="titleCtrl.touched && titleCtrl.hasError('required')">
+                    Le titre est requis
+                </mat-error>
+                <mat-error *ngIf="titleCtrl.touched && titleCtrl.hasError('minlength')">
+                    Le titre doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="subtitle">Sous-titre</mat-label>
+                <textarea matInput
+                          formControlName="subtitle"
+                          id="subtitle"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="content">Contenu</mat-label>
+                <textarea matInput
+                          formControlName="content"
+                          id="content"></textarea>
+                <mat-error *ngIf="contentCtrl.touched && contentCtrl.hasError('required')">
+                    Le contenu est requise
+                </mat-error>
+                <mat-error *ngIf="contentCtrl.touched && contentCtrl.hasError('minlength')">
+                    Le contenu doit faire au moins 3 caractères
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <mat-label for="link">Lien</mat-label>
+                <input matInput
+                       formControlName="link"
+                       id="link">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard"
+                            color="accent">
+                <ngx-mat-file-input formControlName="img_news"
+                                    [accept]="'.png, .jpg, .jpeg'"
+                                    placeholder="Image d'illustration"
+                                    valuePlaceholder="{{this.news && this.news.img_original_name ? this.news.img_original_name : 'Image d\'illustration ( PNG ou JPG ou JPEG)'}}"></ngx-mat-file-input>
+                <mat-icon matSuffix>folder</mat-icon>
+                <mat-error *ngIf="img_newsCtrl.touched && img_newsCtrl.hasError('maxContentSize')">
+                    La taille du fichier ne doit pas
+                    dépasser {{img_newsCtrl?.getError('maxContentSize').maxSize | byteFormat}}
+                    ({{img_newsCtrl?.getError('maxContentSize').actualSize
+                    | byteFormat}}).
+                </mat-error>
+                <mat-error *ngIf="img_newsCtrl.touched && img_newsCtrl.hasError('imageFile')">
+                    Le type de fichier doit-être : PNG ou JPG ou JPEG.
+                </mat-error>
+            </mat-form-field>
+
+            <div class="flex-row pt-2">
+                <button mat-raised-button
+                        color="warn"
+                        class="m-lg-2"
+                        type="button"
+                        routerLink="/news"
+                        i18n="NewsAdd.button.cancel">Annuler
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="newsForm.invalid || !newsForm.dirty"
+                        i18n="NewsAdd.button.submit">Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 pt-2"
+         *ngIf="news && news.img_name">
+        <img class="img-fluid"
+             src="{{this.authUrl + '/news/file/' + this.news.img_name}}"
+             alt="Image d'illustration de l'actualité">
+    </div>
+</div>
+

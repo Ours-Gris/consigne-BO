@@ -1,0 +1,28 @@
+<mat-card class="mt-2">
+    <mat-card-title>Actualités</mat-card-title>
+    <mat-card-content *ngIf="newsList">
+
+        <mat-card class="mt-2" *ngFor="let news of newsList">
+            <img mat-card-image *ngIf="news.img_name" src="{{this.authUrl + '/news/file/' + this.news.img_name}}"
+                 alt="Image d'illustration de l'actualité">
+            <mat-card-title>{{news.title}}</mat-card-title>
+            <mat-card-subtitle>{{news.subtitle}}</mat-card-subtitle>
+            <mat-card-content>
+                {{news.content}}
+            </mat-card-content>
+            <mat-card-actions *ngIf="news.link">
+                <a mat-raised-button href="{{news.link}}" target="_blank">
+                    <span>En voir plus</span>
+                </a>
+            </mat-card-actions>
+        </mat-card>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button
+                [routerLink]="['actu']">
+            <span>Voir plus d'actualité</span>
+        </button>
+    </mat-card-actions>
+</mat-card>
+
