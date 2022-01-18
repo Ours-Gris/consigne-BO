@@ -66,8 +66,8 @@
                             color="accent">
                 <ngx-mat-file-input formControlName="img_material"
                                     [accept]="'.png, .jpg, .jpeg'"
-                                    placeholder="Image de la matériel"
-                                    valuePlaceholder="{{this.material && this.material.img_original_name ? this.material.img_original_name : 'Image de la matériel ( PNG ou JPG ou JPEG)'}}"></ngx-mat-file-input>
+                                    placeholder="Image du matériel"
+                                    valuePlaceholder="{{this.material && this.material.img_original_name ? this.material.img_original_name : 'Image du matériel ( PNG ou JPG ou JPEG)'}}"></ngx-mat-file-input>
                 <mat-icon matSuffix>folder</mat-icon>
                 <mat-error *ngIf="img_materialCtrl.touched && img_materialCtrl.hasError('maxContentSize')">
                     La taille du fichier ne doit pas

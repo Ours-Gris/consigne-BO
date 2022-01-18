@@ -227,7 +227,8 @@ export class UserFormComponent implements OnInit {
     }
 
     getAndSaveLocation(user: User, address: Address): void {
-        this.nominatimService.addressLookup(`${address.address} ${address.address_details} ${address.postal_code} ${address.city}`).subscribe(
+        let addressString = `${address.address}, ${address.address_details}, ${address.postal_code}, ${address.city}, Occitanie, France`
+            this.nominatimService.addressLookup(addressString).subscribe(
             (results) => {
                 console.log(results);
                 if (results.length){

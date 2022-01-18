@@ -96,8 +96,4 @@ export class MaterialService {
             })
         )
     }
-
-    getMaterialFile(fileName: string) {
-        return this.http.get(this.authUrl + '/materials/file/' + fileName, {responseType: 'blob'})
-    }
 }
