@@ -9,7 +9,7 @@ export class StatistiqueService {
     constructor(private http: HttpClient) {
     }
 
-    getIsochroneStats() {
+    getIsochroneStats(): any {
         return this.http.get('/assets/data/isochrone_lansargues_15_30_45_60_min.geojson');
     }
 }

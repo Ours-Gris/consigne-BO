@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import * as L from "leaflet";
 import {MarkerService} from "../services/marker.service";
 import {StatistiqueService} from "../services/statistique.service";
@@ -24,7 +24,7 @@ export class PassageMapComponent implements AfterViewInit {
         this.initMap();
         //this.markerService.makeCapitalMarkers(this.map);
         //this.markerService.makeCapitalCircleMarkers(this.map);
-        this.statistiqueService.getIsochroneStats().subscribe(AA_MINS => {
+        this.statistiqueService.getIsochroneStats().subscribe((AA_MINS: any) => {
             this.isochrones = AA_MINS;
             this.initIsochronesLayer();
         });

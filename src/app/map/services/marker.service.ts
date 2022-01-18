@@ -8,28 +8,27 @@ import {LayerGroup} from "leaflet";
 })
 export class MarkerService {
 
-    constructor(
-    ) {
+    constructor() {
     }
 
     makeCapitalMarkers(map: L.Map, users: User[]): { Producteurs: LayerGroup<any>; Distributeurs: LayerGroup<any>; "Points de collectes": LayerGroup<any> } {
 
-        let producers = L.layerGroup();
-        let resellers = L.layerGroup();
-        let collecte_points = L.layerGroup();
+        let producers = L.layerGroup().addTo(map);
+        let resellers = L.layerGroup().addTo(map);
+        let collecte_points = L.layerGroup().addTo(map);
 
         const producersIcon = L.icon({
-            iconUrl: '/assets/img/producers.png',
+            iconUrl: '/assets/icones/producer.png',
             iconSize: [35, 35] // size of the icon
         });
 
         const resellersIcon = L.icon({
-            iconUrl: '/assets/img/resellers.png',
+            iconUrl: '/assets/icones/reseller.png',
             iconSize: [35, 35] // size of the icon
         });
 
         const collectePointIcon = L.icon({
-            iconUrl: '/assets/img/collectePoint.png',
+            iconUrl: '/assets/icones/collect_point.png',
             iconSize: [35, 35] // size of the icon
         });
 
@@ -64,11 +63,11 @@ export class MarkerService {
                 }
             }
         })
-        return  {
+        return {
             'Producteurs': producers,
             'Distributeurs': resellers,
             'Points de collectes': collecte_points
-        };
+        }
     }
 
     /*
