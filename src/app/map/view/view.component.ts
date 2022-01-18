@@ -33,8 +33,6 @@ export class ViewComponent implements AfterViewInit {
     users: User[] = [];
     private map!: L.Map;
     private isochrones: any;
-    //private: fonds;
-    //private: data;
 
     constructor(
         private markerService: MarkerService,
@@ -64,19 +62,11 @@ export class ViewComponent implements AfterViewInit {
             this.initIsochronesLayer();
         })
     }
-
     private initMap(): void {
-
         var mapboxAttribution = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
         var mapboxUrl = 'https://api.mapbox.com/styles/v1/sangis/cjz8itspx0b771cqfmhddl6sx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FuZ2lzIiwiYSI6Ii1YT3B3encifQ.DuJG8BEzs7jc79vHmB4ytg';
-        var mapboxStyle = 'mapbox://styles/sangis/cjz8itspx0b771cqfmhddl6sx';
-
         var fonds_noir = L.tileLayer(mapboxUrl, {id: 'mapbox/Moonlight', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
-        //fonds_noir.addTo(this.map);
-        //
-
-       
-
+     
         var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             minZoom: 3,
@@ -96,17 +86,15 @@ export class ViewComponent implements AfterViewInit {
         });
 
         var baseLayers = {
-            'Moonlight': fonds_noir,
-            'Streets': streets
+            'Streets': streets,
+            'Moonlight': fonds_noir
         };
-
-        
+       
         var overlays = {
             'Acteurs': acteurs
         };
 
         var layerControl = L.control.layers(baseLayers, overlays).addTo(this.map);
-        //fonds.addTo(this.map);
     }
 
     private initIsochronesLayer() {
