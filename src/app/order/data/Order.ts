@@ -1,9 +1,12 @@
 import {User} from "../../user/data/User";
-import {DeliveryStatus} from "./delivery.status";
+import {OrderStatus} from "./order.status";
+import {Material} from "../../material/data/Material";
 
 export interface Order {
     id: string;
-    delivery_status: DeliveryStatus;
+    order_status: OrderStatus;
+    createdAt: string;
 
+    material: Material;
     user: User;
 }

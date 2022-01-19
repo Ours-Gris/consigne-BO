@@ -1,6 +1,6 @@
 <div class="mat-card p-4">
     <div class="mat-card-title">
-        Collecte de bouteilles : {{ user.collecte_status | collecteStatus}}
+        État de la collecte
     </div>
     <div class="mat-card-subtitle">
         <p>En nous signalant l'état de votre collecte à 80%, nous pourrons organiser sa récupération plus
@@ -8,25 +8,28 @@
     </div>
     <div class="mat-card-actions">
         <button mat-raised-button
-                color="primary"
+                [color]="collecteStatus.NO_COLLECTE === user.collecte_status ? 'accent' : 'primary'"
                 class="m-lg-2"
-                *ngIf="user.collecte_status !== collecteStatus.IN_FILLING"
+                (click)="editCollecteStatus(collecteStatus.NO_COLLECTE)">
+            <span i18n="@@CollecteList.button.NO_COLLECTE">{{collecteStatus.NO_COLLECTE | collecteStatus}}</span>
+        </button>
+        <button mat-raised-button
+                [color]="collecteStatus.IN_FILLING === user.collecte_status ? 'accent' : 'primary'"
+                class="m-lg-2"
                 (click)="editCollecteStatus(collecteStatus.IN_FILLING)">
-            <span i18n="@@CollecteList.button.AlmustFull">Signaler une collecte en cours</span>
+            <span i18n="@@CollecteList.button.IN_FILLING">{{collecteStatus.IN_FILLING | collecteStatus}}</span>
         </button>
         <button mat-raised-button
-                color="accent"
+                [color]="collecteStatus.ALMOST_FULL === user.collecte_status ? 'accent' : 'primary'"
                 class="m-lg-2"
-                *ngIf="user.collecte_status !== collecteStatus.ALMOST_FULL"
                 (click)="editCollecteStatus(collecteStatus.ALMOST_FULL)">
-            <span i18n="@@CollecteList.button.AlmustFull">Signaler un remplissage à 80%</span>
+            <span i18n="@@CollecteList.button.ALMOST_FULL">{{collecteStatus.ALMOST_FULL | collecteStatus}}</span>
         </button>
         <button mat-raised-button
-                color="accent"
+                [color]="collecteStatus.FULL === user.collecte_status ? 'accent' : 'primary'"
                 class="m-lg-2"
-                *ngIf="user.collecte_status !== collecteStatus.FULL"
                 (click)="editCollecteStatus(collecteStatus.FULL)">
-            <span i18n="@@CollecteList.button.AlmustFull">Signaler un remplissage à 100%</span>
+            <span i18n="@@CollecteList.button.FULL">{{collecteStatus.FULL | collecteStatus}}</span>
         </button>
 
         <mat-divider></mat-divider>

@@ -3,7 +3,7 @@ import {User} from "../../user/data/User";
 import {OrderDataSource} from "../data/order-data-source";
 import {OrderService} from "../order.service";
 import Swal from "sweetalert2";
-import {DeliveryStatus} from "../data/delivery.status";
+import {OrderStatus} from "../data/order.status";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -16,8 +16,8 @@ export class UserOrderComponent implements OnInit {
     @Input() isAdmin: boolean = false;
     listUserOrder!: OrderDataSource;
     totalUserOrder: number = 0;
-    userDisplayedColumns: string[] = ['createdAt', 'delivery_status'];
-    adminDisplayedColumns: string[] = ['createdAt', 'delivery_status', 'actions'];
+    userDisplayedColumns: string[] = ['createdAt', 'order_status', 'material.name'];
+    adminDisplayedColumns: string[] = ['createdAt', 'order_status', 'material.name', 'actions'];
 
     constructor(
         private orderService: OrderService,
@@ -59,14 +59,14 @@ export class UserOrderComponent implements OnInit {
             icon: 'question',
             input: 'select',
             inputLabel: 'Nouvelle état de la commande ?',
-            inputOptions: DeliveryStatus,
+            inputOptions: OrderStatus,
             showConfirmButton: true,
             cancelButtonText: 'Annuler'
         }).then(
             response => {
                 if (response.isConfirmed && response.value) {
                     this.orderService.editOrder(idUserOrder, {
-                        delivery_status: response.value
+                        order_status: response.value
                     }).subscribe({
                         next: () => {
                             this.countUserOrder();

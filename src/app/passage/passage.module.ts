@@ -11,6 +11,7 @@ import {CollecteStatusPipe} from "../_helpers/collecte-status.pipe";
 import {MatDividerModule} from "@angular/material/divider";
 import { BottleCollectedChartComponent } from './bottle-collected-chart/bottle-collected-chart.component';
 import { ChartModule } from 'angular-highcharts';
+import {MatChipsModule} from "@angular/material/chips";
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ChartModule } from 'angular-highcharts';
         MatPaginatorModule,
         MatProgressBarModule,
         MatDividerModule,
-        ChartModule
+        ChartModule,
+        MatChipsModule
     ]
 })
 export class PassageModule {
