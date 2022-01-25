@@ -7,9 +7,7 @@
                  alt="Image d'illustration de l'actualité">
             <mat-card-title>{{news.title}}</mat-card-title>
             <mat-card-subtitle>{{news.subtitle}}</mat-card-subtitle>
-            <mat-card-content>
-                {{news.content}}
-            </mat-card-content>
+            <mat-card-content [innerHTML]="news.content"></mat-card-content>
             <mat-card-actions *ngIf="news.link">
                 <a mat-raised-button href="{{news.link}}" target="_blank">
                     <span>En voir plus</span>

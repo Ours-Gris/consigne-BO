@@ -10,12 +10,14 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSortModule} from "@angular/material/sort";
 import {OrderStatusPipe} from "../_helpers/order-status.pipe";
 import {MatDividerModule} from "@angular/material/divider";
-
+import {OrderListComponent} from './order-list/order-list.component';
+import {MaterialModule} from "../material/material.module";
 
 @NgModule({
     declarations: [
         UserOrderComponent,
-        OrderStatusPipe
+        OrderStatusPipe,
+        OrderListComponent
     ],
     exports: [
         UserOrderComponent,
@@ -30,7 +32,8 @@ import {MatDividerModule} from "@angular/material/divider";
         MatProgressBarModule,
         MatButtonModule,
         MatSortModule,
-        MatDividerModule
+        MatDividerModule,
+        MaterialModule
     ]
 })
 export class OrderModule {

@@ -92,7 +92,7 @@ export class MaterialService {
     deleteMaterial(idMaterial: string): Observable<void> {
         return this.http.delete(`${this.authUrl}/materials/${idMaterial}`).pipe(
             map(() => {
-                console.log('Type de bouteille supprimé');
+                console.log('Type de materiel supprimé');
             })
         )
     }

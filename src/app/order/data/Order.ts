@@ -1,12 +1,12 @@
 import {User} from "../../user/data/User";
 import {OrderStatus} from "./order.status";
-import {Material} from "../../material/data/Material";
+import {Item} from "./Item";
 
 export interface Order {
-    id: string;
+    id?: string;
     order_status: OrderStatus;
-    createdAt: string;
+    createdAt?: string;
 
-    material: Material;
-    user: User;
+    items: Item[];
+    user: User | string;
 }

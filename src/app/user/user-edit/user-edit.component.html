@@ -9,8 +9,9 @@
                                   [user]="user"
                                   [home]="false"
                                   class="col-md-6 pt-2"></app-passage-user-history>
-        <app-user-order [user]="user"
-                                 [isAdmin]="true"
-                                 class="col-md-6 pt-2"></app-user-order>
+        <app-user-order *ngIf="user"
+                        [user]="user"
+                        [isAdmin]="true"
+                        class="col-md-6 pt-2"></app-user-order>
     </div>
 </div>

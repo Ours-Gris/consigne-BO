@@ -12,7 +12,6 @@ import {AuthService} from "./shared/services/auth.service";
 import {LoggedInGuardService} from "./shared/services/logged-in-guard.service";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
-// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptor";
 import {ContactComponent} from './pages/contact/contact.component';
@@ -42,7 +41,7 @@ import {MapModule} from "./map/map.module";
 import {FaqComponent} from './pages/faq/faq.component';
 import {MatInputModule} from "@angular/material/input";
 import {QuestionModule} from "./question/question.module";
-import { PageNewsComponent } from './pages/page-news/page-news.component';
+import {PageNewsComponent} from './pages/page-news/page-news.component';
 import {NewsModule} from "./news/news.module";
 
 registerLocaleData(localeFr);

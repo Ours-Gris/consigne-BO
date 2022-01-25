@@ -18,6 +18,8 @@ import {PresentationComponent} from "./pages/presentation/presentation.component
 import {PartnersComponent} from "./pages/partners/partners.component";
 import {FaqComponent} from "./pages/faq/faq.component";
 import {PageNewsComponent} from "./pages/page-news/page-news.component";
+import {MaterialPresentationComponent} from "./material/material-presentation/material-presentation.component";
+import {UserPresentationComponent} from "./user/user-presentation/user-presentation.component";
 
 const routes: Routes = [
     {
@@ -77,6 +79,10 @@ const routes: Routes = [
         loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
     },
     {
+        path: 'user/:idUser/presentation',
+        component: UserPresentationComponent
+    },
+    {
         path: 'user',
         canActivate: [AuthGuard],
         loadChildren: () => import('./user/user.module').then(m => m.UserModule),
@@ -87,6 +93,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () => import('./bottle/bottle.module').then(m => m.BottleModule),
         data: {roles: [Role.ADMIN]}
+    },
+    {
+        path: 'material/:idMaterial/presentation',
+        canActivate: [LoggedInGuardService],
+        component: MaterialPresentationComponent
     },
     {
         path: 'material',

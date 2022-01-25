@@ -7,6 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FileValidator} from "ngx-material-file-input";
 import {imageFile} from "../../shared/image-file.validator";
+import {AngularEditorConfig} from "@kolkov/angular-editor";
 
 @Component({
     selector: 'app-news-form',
@@ -17,9 +18,38 @@ export class NewsFormComponent implements OnInit {
     @Input() idNews!: string | null;
     classNews: string = 'col-md-12';
     authUrl = environment.api_base_url;
-    newsForm: FormGroup;
+    newsForm!: FormGroup;
     news!: News;
     readonly maxSize: number = 104857600;
+    editorConfig: AngularEditorConfig = {
+        editable: true,
+        spellcheck: true,
+        height: 'auto',
+        minHeight: '0',
+        maxHeight: 'auto',
+        width: 'auto',
+        minWidth: '0',
+        translate: 'yes',
+        enableToolbar: true,
+        showToolbar: true,
+        placeholder: 'Le contenu de votre actualité',
+        defaultParagraphSeparator: '',
+        defaultFontName: '',
+        defaultFontSize: '',
+        toolbarHiddenButtons: [
+            [
+                'fontName'
+            ],
+            [
+                'customClasses',
+                'link',
+                'unlink',
+                'insertImage',
+                'insertVideo',
+                'insertHorizontalRule'
+            ]
+        ]
+    };
 
     titleCtrl: FormControl;
     subtitleCtrl: FormControl;

@@ -29,7 +29,7 @@ export class OrderDataSource implements DataSource<Order> {
             .pipe(
                 catchError(() => of([])),
                 finalize(() => this.loadingSubject.next(false))
-            ).subscribe((userMaterial: Order[]) => this.ordersSubject.next(userMaterial));
+            ).subscribe((userOrders: Order[]) => this.ordersSubject.next(userOrders));
     }
 
     loadMyOrders(sortBy?: string, sortDirection?: string, pageIndex?: number, pageSize?: number): void {

@@ -1,0 +1,38 @@
+<div class="container mb-2" *ngIf="material">
+    <div class="row pt-2">
+        <div class="col-md-6">
+            <mat-card>
+                <img mat-card-image
+                     *ngIf="material.img_name"
+                     src="{{this.authUrl + '/materials/file/' + this.material.img_name}}"
+                     alt="Image material">
+                <mat-icon *ngIf="!material.img_name">add_circle_outline</mat-icon>
+                <mat-card-actions>
+                    <button class="onHoverButtonHave"
+                            color="primary"
+                            (click)="onOrderMaterial(material)"
+                            mat-raised-button>
+                        <mat-icon>local_shipping</mat-icon> Commander
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+        <div class="col-md-6">
+            <mat-card>
+                <mat-card-title>{{material.name}}</mat-card-title>
+                <mat-card-content>
+                    <p>{{material.description}}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button class="onHoverButtonHave"
+                            color="primary"
+                            (click)="onOrderMaterial(material)"
+                            mat-raised-button>
+                        <mat-icon>local_shipping</mat-icon> Commander
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

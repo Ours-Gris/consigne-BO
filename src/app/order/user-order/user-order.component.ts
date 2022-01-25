@@ -5,19 +5,31 @@ import {OrderService} from "../order.service";
 import Swal from "sweetalert2";
 import {OrderStatus} from "../data/order.status";
 import {ToastrService} from "ngx-toastr";
+import {Order} from "../data/Order";
+import {animate, state, style, transition, trigger} from "@angular/animations";
+import {environment} from "../../../environments/environment";
 
 @Component({
     selector: 'app-user-order',
     templateUrl: './user-order.component.html',
-    styleUrls: ['./user-order.component.css']
+    styleUrls: ['./user-order.component.css'],
+    animations: [
+        trigger('detailExpand', [
+            state('collapsed', style({height: '0px', minHeight: '0'})),
+            state('expanded', style({height: '*'})),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
 })
 export class UserOrderComponent implements OnInit {
     @Input() user!: User;
     @Input() isAdmin: boolean = false;
     listUserOrder!: OrderDataSource;
     totalUserOrder: number = 0;
-    userDisplayedColumns: string[] = ['createdAt', 'order_status', 'material.name'];
-    adminDisplayedColumns: string[] = ['createdAt', 'order_status', 'material.name', 'actions'];
+    displayedColumns: string[] = ['createdAt', 'order_status'];
+    adminDisplayedColumns: string[] = ['createdAt', 'order_status', 'actions'];
+    expandedOrder!: Order | null;
+    authUrl = environment.api_base_url;
 
     constructor(
         private orderService: OrderService,
@@ -29,6 +41,7 @@ export class UserOrderComponent implements OnInit {
         if (this.user) {
             this.listUserOrder = new OrderDataSource(this.orderService);
             if (this.isAdmin) {
+                this.displayedColumns = this.adminDisplayedColumns;
                 this.listUserOrder.loadUserOrders(this.user.id)
             } else {
                 this.listUserOrder.loadMyOrders()
@@ -65,9 +78,9 @@ export class UserOrderComponent implements OnInit {
         }).then(
             response => {
                 if (response.isConfirmed && response.value) {
-                    this.orderService.editOrder(idUserOrder, {
-                        order_status: response.value
-                    }).subscribe({
+                    // @ts-ignore
+                    let newOrder: Partial<Order> = {order_status: OrderStatus[response.value]}
+                    this.orderService.editOrder(idUserOrder, newOrder).subscribe({
                         next: () => {
                             this.countUserOrder();
                             this.listUserOrder.loadUserOrders(this.user.id);

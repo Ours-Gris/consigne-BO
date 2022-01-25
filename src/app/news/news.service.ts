@@ -85,7 +85,7 @@ export class NewsService {
     deleteNews(idNews: string): Observable<void> {
         return this.http.delete(`${this.authUrl}/news/${idNews}`).pipe(
             map(() => {
-                console.log('Type de bouteille supprimé');
+                console.log('Actualité supprimée');
             })
         )
     }

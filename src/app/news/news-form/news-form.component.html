@@ -27,19 +27,19 @@
                           id="subtitle"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="standard"
-                            color="accent">
                 <mat-label for="content">Contenu</mat-label>
-                <textarea matInput
-                          formControlName="content"
-                          id="content"></textarea>
+                <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
+
+<!--                <textarea matInput-->
+<!--                              formControlName="content"-->
+<!--                              id="content"></textarea>-->
+
                 <mat-error *ngIf="contentCtrl.touched && contentCtrl.hasError('required')">
                     Le contenu est requise
                 </mat-error>
                 <mat-error *ngIf="contentCtrl.touched && contentCtrl.hasError('minlength')">
                     Le contenu doit faire au moins 3 caractères
                 </mat-error>
-            </mat-form-field>
 
             <mat-form-field appearance="standard"
                             color="accent">

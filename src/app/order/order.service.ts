@@ -78,7 +78,7 @@ export class OrderService {
     deleteOrder(idOrder: string): Observable<void> {
         return this.http.delete(`${this.authUrl}/orders/${idOrder}`).pipe(
             map(() => {
-                console.log('Type de bouteille supprimé');
+                console.log('Order supprimé');
             })
         )
     }

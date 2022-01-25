@@ -7,42 +7,35 @@
     </div>
     <div class="mat-card-content">
         <h3>Liste des commandes</h3>
-        <mat-table class="lessons-table mat-elevation-z8"
-                   [dataSource]="listUserOrder">
+        <table mat-table
+               [dataSource]="listUserOrder"
+               multiTemplateDataRows
+               class="mat-elevation-z8">
 
             <!-- CreatedAt Column -->
             <ng-container matColumnDef="createdAt">
-                <mat-header-cell *matHeaderCellDef
-                                 i18n="@@order.createdAt"> Date
-                </mat-header-cell>
-                <mat-cell mat-cell
-                          *matCellDef="let order"> {{order.createdAt | date}} </mat-cell>
+                <th mat-header-cell *matHeaderCellDef
+                    i18n="@@order.createdAt"> Date
+                </th>
+                <td mat-cell
+                    *matCellDef="let order"> {{order.createdAt | date}} </td>
             </ng-container>
 
             <!-- order_status Column -->
             <ng-container matColumnDef="order_status">
-                <mat-header-cell *matHeaderCellDef
-                                 i18n="@@order.order_status"> Statut de la commande
-                </mat-header-cell>
-                <mat-cell mat-cell
-                          *matCellDef="let order"> {{order.order_status | orderStatus}} </mat-cell>
-            </ng-container>
-
-            <!-- material.name Column -->
-            <ng-container matColumnDef="material.name">
-                <mat-header-cell *matHeaderCellDef
-                                 i18n="@@order.material.name"> Matériel
-                </mat-header-cell>
-                <mat-cell mat-cell
-                          *matCellDef="let order"> {{order.material.name}} </mat-cell>
+                <th mat-header-cell *matHeaderCellDef
+                    i18n="@@order.order_status"> Statut de la commande
+                </th>
+                <td mat-cell
+                    *matCellDef="let order"> {{order.order_status | orderStatus}} </td>
             </ng-container>
 
             <!-- Actions Column -->
             <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef
-                                 i18n="@@order.actions"> Actions
-                </mat-header-cell>
-                <mat-cell *matCellDef="let order">
+                <th mat-header-cell *matHeaderCellDef
+                    i18n="@@order.actions"> Actions
+                </th>
+                <td mat-cell *matCellDef="let order">
                     <button mat-mini-fab
                             (click)="editOrder(order.id)"
                             title="Modifier"
@@ -57,12 +50,37 @@
                             color="warn">
                         <mat-icon>delete</mat-icon>
                     </button>
-                </mat-cell>
+                </td>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="isAdmin ? adminDisplayedColumns : userDisplayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: isAdmin ? adminDisplayedColumns : userDisplayedColumns"></mat-row>
-        </mat-table>
+<!--            Todo vois comment ça réagie avec plusieurs articles differents-->
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let order" [attr.colspan]="displayedColumns.length">
+                    <div class="example-element-detail"
+                         [@detailExpand]="order == expandedOrder ? 'expanded' : 'collapsed'"
+                         *ngFor="let item of order.items">
+                        <img *ngIf="item.material.img_name"
+                             src="{{this.authUrl + '/materials/file/' + item.material.img_name}}"
+                             alt="Image material"
+                             class="example-element-diagram">
+                        <div class="example-element-description">
+                            {{item.material.name}} x {{item.quantity}}
+                        </div>
+                        <div class="example-element-description">
+                            {{item.material.description}}
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let order; columns: displayedColumns"
+                class="example-element-row"
+                [class.example-expanded-row]="expandedOrder === order"
+                (click)="expandedOrder = expandedOrder === order ? null : order"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
         <div *ngIf="totalUserOrder === 0" class="text-center mt-2">Aucune commande</div>
 
         <mat-paginator *ngIf="totalUserOrder !== 0"
@@ -81,17 +99,6 @@
 
     <div class="mat-card-content" *ngIf="!isAdmin">
         <h3>Liste du matériel disponnible</h3>
-
-        <p>Par de commande possible pour le moment</p>
-
-<!--        <div class="mat-card-actions">-->
-<!--            <button mat-raised-button-->
-<!--                    color="primary"-->
-<!--                    class="m-lg-2"-->
-<!--                    (click)="addUserOrder()">-->
-<!--                <span i18n="@@order.button.add">Commander du matériel</span>-->
-<!--            </button>-->
-<!--        </div>-->
+        <app-material-gallery-mini></app-material-gallery-mini>
     </div>
-
 </div>

@@ -14,13 +14,23 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MaterialFileInputModule} from "ngx-material-file-input";
 import {MaterialFormComponent} from './material-form/material-form.component';
+import {MaterialGalleryMiniComponent} from './material-gallery-mini/material-gallery-mini.component';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {NgxMasonryModule} from "ngx-masonry";
+import {MatCardModule} from "@angular/material/card";
+import {MaterialPresentationComponent} from './material-presentation/material-presentation.component';
 
 @NgModule({
     declarations: [
         MaterialAddComponent,
         MaterialEditComponent,
         MaterialListComponent,
-        MaterialFormComponent
+        MaterialFormComponent,
+        MaterialGalleryMiniComponent,
+        MaterialPresentationComponent
+    ],
+    exports: [
+        MaterialGalleryMiniComponent
     ],
     imports: [
         CommonModule,
@@ -33,7 +43,10 @@ import {MaterialFormComponent} from './material-form/material-form.component';
         MatPaginatorModule,
         MatProgressBarModule,
         ReactiveFormsModule,
-        MaterialFileInputModule
+        MaterialFileInputModule,
+        InfiniteScrollModule,
+        NgxMasonryModule,
+        MatCardModule
     ]
 })
 export class MaterialModule {

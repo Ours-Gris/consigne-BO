@@ -1,0 +1,27 @@
+<div class="grid-container" *ngIf="materials">
+    <div infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         (scrolled)="onScroll()"
+         [scrollWindow]="true">
+
+        <ngx-masonry [options]="masonryOptions">
+            <div class="grid-sizer"></div>
+            <div ngxMasonryItem class="masonry-item" *ngFor="let material of materials">
+                <mat-card routerLink="/material/{{material.id}}/presentation">
+                    <img mat-card-image *ngIf="material.img_name"
+                         src="{{this.authUrl + '/materials/file/' + material.img_name}}"
+                         alt="Photo du {{material.name}}">
+                    <mat-icon *ngIf="!material.img_name">add_circle_outline</mat-icon>
+                    <mat-card-title>{{material.name}}</mat-card-title>
+                    <mat-card-content>
+                        {{material.description}}
+                    </mat-card-content>
+                </mat-card>
+                <div class="onHoverUIBottom">
+
+                </div>
+            </div>
+        </ngx-masonry>
+    </div>
+</div>
