@@ -109,6 +109,10 @@ export class UserWaitingPassageComponent implements OnInit, AfterViewInit {
         })
     }
 
+    editUser(idUser: string): void {
+        this.router.navigate(['user', 'edit', idUser]).then();
+    }
+
     editCollecteStatus(idUser: string): void {
         this.userService.editUser(idUser, {collecte_status: CollecteStatus.IN_FILLING}).subscribe({
                 next: () => {

@@ -26,8 +26,8 @@ export class UserOrderComponent implements OnInit {
     @Input() isAdmin: boolean = false;
     listUserOrder!: OrderDataSource;
     totalUserOrder: number = 0;
-    displayedColumns: string[] = ['createdAt', 'order_status'];
-    adminDisplayedColumns: string[] = ['createdAt', 'order_status', 'actions'];
+    displayedColumns: string[] = ['createdAt', 'order_status', 'countTotal'];
+    adminDisplayedColumns: string[] = ['createdAt', 'order_status', 'countTotal', 'actions'];
     expandedOrder!: Order | null;
     authUrl = environment.api_base_url;
 

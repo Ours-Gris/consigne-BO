@@ -2,11 +2,12 @@
     <div class="row pt-2">
         <div class="col-md-6">
             <mat-card>
-                <img mat-card-image
-                     *ngIf="material.img_name"
-                     src="{{this.authUrl + '/materials/file/' + this.material.img_name}}"
-                     alt="Image material">
-                <mat-icon *ngIf="!material.img_name">add_circle_outline</mat-icon>
+                <mat-card-title>{{material.name}}</mat-card-title>
+                <mat-card-content>
+                    <p>{{material.description}}</p>
+                    <mat-card-title>Prix : {{material.price | currency:'EUR':true}}</mat-card-title>
+                    <mat-card-subtitle>Le matériel que nous vous proposons est aussi consigné. ;)</mat-card-subtitle>
+                </mat-card-content>
                 <mat-card-actions>
                     <button class="onHoverButtonHave"
                             color="primary"
@@ -20,16 +21,17 @@
 
         <div class="col-md-6">
             <mat-card>
-                <mat-card-title>{{material.name}}</mat-card-title>
-                <mat-card-content>
-                    <p>{{material.description}}</p>
-                </mat-card-content>
+                <img mat-card-image
+                     *ngIf="material.img_name"
+                     src="{{this.authUrl + '/materials/file/' + this.material.img_name}}"
+                     alt="Image material">
+                <mat-icon *ngIf="!material.img_name">add_circle_outline</mat-icon>
                 <mat-card-actions>
                     <button class="onHoverButtonHave"
                             color="primary"
-                            (click)="onOrderMaterial(material)"
+                            (click)="onGoBack()"
                             mat-raised-button>
-                        <mat-icon>local_shipping</mat-icon> Commander
+                        <mat-icon>keyboard_backspace</mat-icon> Retour
                     </button>
                 </mat-card-actions>
             </mat-card>

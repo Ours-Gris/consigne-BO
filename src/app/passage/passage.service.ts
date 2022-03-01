@@ -19,12 +19,6 @@ export class PassageService {
     ) {
     }
 
-    countWaitingPassages(): Observable<number> {
-        return this.http.get(this.authUrl + '/passages/waiting/count').pipe(
-            map((res: any) => res)
-        );
-    }
-
     countUserPassages(idUser: string): Observable<number> {
         return this.http.get(this.authUrl + '/passages/count/' + idUser).pipe(
             map((res: any) => res)

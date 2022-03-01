@@ -40,4 +40,13 @@ export class OrderDataSource implements DataSource<Order> {
                 finalize(() => this.loadingSubject.next(false))
             ).subscribe((userMaterial: Order[]) => this.ordersSubject.next(userMaterial));
     }
+
+    loadAllOrders(sortBy?: string, sortDirection?: string, pageIndex?: number, pageSize?: number): void {
+        this.loadingSubject.next(true);
+        this.orderService.getAllOrders(sortBy, sortDirection, pageIndex, pageSize)
+            .pipe(
+                catchError(() => of([])),
+                finalize(() => this.loadingSubject.next(false))
+            ).subscribe((userMaterial: Order[]) => this.ordersSubject.next(userMaterial));
+    }
 }

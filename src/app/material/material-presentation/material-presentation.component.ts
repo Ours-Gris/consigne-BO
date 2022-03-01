@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common'
 import {Material} from "../data/Material";
 import {environment} from "../../../environments/environment";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -12,9 +13,9 @@ import {OrderService} from "../../order/order.service";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-material-presentation',
-  templateUrl: './material-presentation.component.html',
-  styleUrls: ['./material-presentation.component.css']
+    selector: 'app-material-presentation',
+    templateUrl: './material-presentation.component.html',
+    styleUrls: ['./material-presentation.component.css']
 })
 export class MaterialPresentationComponent implements OnInit {
     material!: Material;
@@ -25,6 +26,7 @@ export class MaterialPresentationComponent implements OnInit {
         private _authService: AuthService,
         private orderService: OrderService,
         private toastr: ToastrService,
+        private location: Location,
         public route: ActivatedRoute,
         public router: Router
     ) {
@@ -68,7 +70,7 @@ export class MaterialPresentationComponent implements OnInit {
                             const order: Order = {
                                 order_status: OrderStatus.PENDING_VALIDATION,
                                 items: [item],
-                                user: user.sub
+                                user: user
                             };
 
                             this.orderService.addOrder(order).subscribe(
@@ -85,5 +87,9 @@ export class MaterialPresentationComponent implements OnInit {
                 }
             })
         }
+    }
+
+    onGoBack() {
+        this.location.back()
     }
 }

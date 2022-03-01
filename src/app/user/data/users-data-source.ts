@@ -41,4 +41,13 @@ export class UsersDataSource implements DataSource<User> {
                 finalize(() => this.loadingSubject.next(false))
             ).subscribe((users: User[]) => this.usersSubject.next(users));
     }
+
+    loadUsersWaitingOrder(filter?: string, sortBy?: string, sortDirection?: string, pageIndex?: number, pageSize?: number): void {
+        this.loadingSubject.next(true);
+        this.userService.getUsersWaitingOrder(filter, sortBy, sortDirection, pageIndex, pageSize)
+            .pipe(
+                catchError(() => of([])),
+                finalize(() => this.loadingSubject.next(false))
+            ).subscribe((users: User[]) => this.usersSubject.next(users));
+    }
 }

@@ -28,6 +28,7 @@ const routes: Routes = [
     },
     {
         path: 'dashboard',
+        canActivate: [AuthGuard],
         component: DashboardComponent
     },
     {
@@ -103,6 +104,12 @@ const routes: Routes = [
         path: 'material',
         canActivate: [AuthGuard],
         loadChildren: () => import('./material/material.module').then(m => m.MaterialModule),
+        data: {roles: [Role.ADMIN]}
+    },
+    {
+        path: 'order',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
         data: {roles: [Role.ADMIN]}
     },
     {

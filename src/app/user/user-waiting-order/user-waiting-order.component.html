@@ -1,39 +1,34 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 pt-2">
-            <h3 i18n="@@UserList.title">Liste des commandes</h3>
+            <h3 i18n="@@UserList.title">Liste des livraisons en attente </h3>
 
-            <!--            <div>-->
-            <!--                <label for="searchInput">-->
-            <!--                    <input matInput-->
-            <!--                           id="searchInput"-->
-            <!--                           i18n-placeholder="@@UserList.findOrder.placeholder"-->
-            <!--                           placeholder="Rechercher une livraison"-->
-            <!--                           #input>-->
-            <!--                </label>-->
-            <!--            </div>-->
+            <div>
+                <label for="searchInput">
+                    <input matInput
+                           id="searchInput"
+                           i18n-placeholder="@@UserList.findOrder.placeholder"
+                           placeholder="Rechercher une livraison"
+                           #input>
+                </label>
+            </div>
 
             <mat-table class="lessons-table mat-elevation-z8"
-                       *ngIf="orders"
-                       [dataSource]="orders"
+                       [dataSource]="users"
                        matSort
-                       matSortActive="createdAt"
-                       matSortDirection="desc">
+                       matSortActive="order_status"
+                       matSortDirection="asc">
 
                 <!-- order_status Column -->
                 <ng-container matColumnDef="order_status">
                     <mat-header-cell *matHeaderCellDef
                                      mat-sort-header=""
-                                     i18n="@@UserAttributes.order_status"> Statut de la commande
+                                     i18n="@@UserAttributes.order_status"> Statut de la livraison
                     </mat-header-cell>
                     <mat-cell mat-cell
-                              *matCellDef="let order">
-                        <mat-chip-list>
-                            <mat-chip selected
-                                [color]="order.order_status === OrderStatus.COMPLETE || order.order_status === OrderStatus.CANCELLED ? 'primary' : 'accent'">
-                                {{order.order_status | orderStatus}}
-                            </mat-chip>
-                        </mat-chip-list>
+                              *matCellDef="let user">
+                        <mat-icon [color]="user.orders.order_status === OrderStatus.PENDING_DELIVERY ? 'warn' : 'primary'">liquor</mat-icon>
+                        {{user.order.order_status | orderStatus}}
                     </mat-cell>
                 </ng-container>
 
@@ -44,7 +39,7 @@
                                      i18n="@@UserAttributes.company"> Société
                     </mat-header-cell>
                     <mat-cell mat-cell
-                              *matCellDef="let order"> {{order.user && order.user.company ? order.user.company : '-'}} </mat-cell>
+                              *matCellDef="let user"> {{user.company}} </mat-cell>
                 </ng-container>
 
                 <!-- Username Column -->
@@ -54,7 +49,7 @@
                                      i18n="@@UserAttributes.username"> Nom
                     </mat-header-cell>
                     <mat-cell mat-cell
-                              *matCellDef="let order"> {{order.user && order.user.username ? order.user.username : '-'}} </mat-cell>
+                              *matCellDef="let user"> {{user.username}} </mat-cell>
                 </ng-container>
 
                 <!-- Tel Column -->
@@ -64,7 +59,7 @@
                                      i18n="@@UserAttributes.tel"> Téléphone
                     </mat-header-cell>
                     <mat-cell mat-cell
-                              *matCellDef="let order"> {{order.user && order.user.tel ? order.user.tel : '-'}} </mat-cell>
+                              *matCellDef="let user"> {{user.tel}} </mat-cell>
                 </ng-container>
 
                 <!-- delivery_schedules Column -->
@@ -74,7 +69,7 @@
                                      i18n="@@UserAttributes.delivery_schedules"> Horaires livraison
                     </mat-header-cell>
                     <mat-cell mat-cell
-                              *matCellDef="let order"> {{order.user && order.user.delivery_schedules ? order.user.delivery_schedules : '-'}} </mat-cell>
+                              *matCellDef="let user"> {{user.delivery_schedules}} </mat-cell>
                 </ng-container>
 
                 <!-- delivery_data Column -->
@@ -84,7 +79,7 @@
                                      i18n="@@UserAttributes.delivery_data"> Informations livraison
                     </mat-header-cell>
                     <mat-cell mat-cell
-                              *matCellDef="let order"> {{order.user && order.user.delivery_data ? order.user.delivery_data : '-'}} </mat-cell>
+                              *matCellDef="let user"> {{user.delivery_data}} </mat-cell>
                 </ng-container>
 
                 <!-- City Column -->
@@ -94,18 +89,7 @@
                                      i18n="@@UserAttributes.city"> Ville
                     </mat-header-cell>
                     <mat-cell mat-cell
-                              *matCellDef="let order">{{order.user && order.user.delivery_address ? order.user.delivery_address.city : '-'}}
-                    </mat-cell>
-                </ng-container>
-
-                <!-- Date Column -->
-                <ng-container matColumnDef="createdAt">
-                    <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header=""
-                                     i18n="@@OrderAttributes.createdAt"> Date de création
-                    </mat-header-cell>
-                    <mat-cell mat-cell
-                              *matCellDef="let order">{{order.createdAt | date}}
+                              *matCellDef="let user">{{user.address ? user.address.city : '-'}}
                     </mat-cell>
                 </ng-container>
 
@@ -114,30 +98,20 @@
                     <mat-header-cell *matHeaderCellDef
                                      i18n="@@UserAttributes.actions"> Actions
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let order">
+                    <mat-cell *matCellDef="let user">
+<!--                        <button mat-mini-fab-->
+<!--                                (click)="addPassage(user.id)"-->
+<!--                                title="Valider le passage"-->
+<!--                                class="m-lg-2"-->
+<!--                                color="accent">-->
+<!--                            <mat-icon>local_shipping</mat-icon>-->
+<!--                        </button>-->
                         <button mat-mini-fab
-                                *ngIf="order.order_status === OrderStatus.PENDING_VALIDATION"
-                                (click)="validOrder(order.id)"
-                                matTooltip="Valider la commande"
+                                (click)="editUser(user.id)"
+                                title="Détails"
                                 class="m-lg-2"
                                 color="accent">
-                            <mat-icon>done</mat-icon>
-                        </button>
-                        <button mat-mini-fab
-                                *ngIf="order.order_status === OrderStatus.PENDING_DELIVERY"
-                                (click)="validDelivery(order.id)"
-                                matTooltip="Valider la livraison"
-                                class="m-lg-2"
-                                color="accent">
-                            <mat-icon>local_shipping</mat-icon>
-                        </button>
-                        <button mat-mini-fab
-                                *ngIf="order.order_status === OrderStatus.PENDING_PAYMENT"
-                                (click)="validPayment(order.id)"
-                                matTooltip="Valider le payment"
-                                class="m-lg-2"
-                                color="accent">
-                            <mat-icon>credit_score</mat-icon>
+                            <mat-icon>visibility</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>
@@ -147,13 +121,13 @@
             </mat-table>
 
             <mat-paginator [pageIndex]="0"
-                           [length]="totalOrders"
+                           [length]="totalUsers"
                            [pageSize]="10"
                            [pageSizeOptions]="[10, 20, 50]"
                            [showFirstLastButtons]="true"></mat-paginator>
 
             <div class="spinner-container"
-                 *ngIf="orders && orders.loading$ | async">
+                 *ngIf="users && users.loading$ | async">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </div>
         </div>

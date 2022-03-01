@@ -22,7 +22,7 @@
                 <!-- collecte_status Column -->
                 <ng-container matColumnDef="collecte_status">
                     <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
+                                     mat-sort-header=""
                                      i18n="@@UserAttributes.collecte_status"> Statut de la collecte
                     </mat-header-cell>
                     <mat-cell mat-cell
@@ -35,7 +35,7 @@
                 <!-- Company Column -->
                 <ng-container matColumnDef="company">
                     <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
+                                     mat-sort-header=""
                                      i18n="@@UserAttributes.company"> Société
                     </mat-header-cell>
                     <mat-cell mat-cell
@@ -45,7 +45,7 @@
                 <!-- Username Column -->
                 <ng-container matColumnDef="username">
                     <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
+                                     mat-sort-header=""
                                      i18n="@@UserAttributes.username"> Nom
                     </mat-header-cell>
                     <mat-cell mat-cell
@@ -55,7 +55,7 @@
                 <!-- Tel Column -->
                 <ng-container matColumnDef="tel">
                     <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
+                                     mat-sort-header=""
                                      i18n="@@UserAttributes.tel"> Téléphone
                     </mat-header-cell>
                     <mat-cell mat-cell
@@ -65,7 +65,7 @@
                 <!-- delivery_schedules Column -->
                 <ng-container matColumnDef="delivery_schedules">
                     <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
+                                     mat-sort-header=""
                                      i18n="@@UserAttributes.delivery_schedules"> Horaires livraison
                     </mat-header-cell>
                     <mat-cell mat-cell
@@ -75,7 +75,7 @@
                 <!-- delivery_data Column -->
                 <ng-container matColumnDef="delivery_data">
                     <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
+                                     mat-sort-header=""
                                      i18n="@@UserAttributes.delivery_data"> Informations livraison
                     </mat-header-cell>
                     <mat-cell mat-cell
@@ -85,7 +85,7 @@
                 <!-- City Column -->
                 <ng-container matColumnDef="city">
                     <mat-header-cell *matHeaderCellDef
-                                     mat-sort-header
+                                     mat-sort-header=""
                                      i18n="@@UserAttributes.city"> Ville
                     </mat-header-cell>
                     <mat-cell mat-cell
@@ -105,6 +105,13 @@
                                 class="m-lg-2"
                                 color="accent">
                             <mat-icon>local_shipping</mat-icon>
+                        </button>
+                        <button mat-mini-fab
+                                (click)="editUser(user.id)"
+                                title="Détails"
+                                class="m-lg-2"
+                                color="accent">
+                            <mat-icon>visibility</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>

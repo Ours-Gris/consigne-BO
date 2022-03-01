@@ -31,6 +31,7 @@ import {OrderModule} from "../order/order.module";
 import {MaterialFileInputModule} from "ngx-material-file-input";
 import {UserPresentationComponent} from './user-presentation/user-presentation.component';
 import {NominatimService} from "./services/nominatim.service";
+import { UserWaitingOrderComponent } from './user-waiting-order/user-waiting-order.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import {NominatimService} from "./services/nominatim.service";
         ProfilComponent,
         UserFormComponent,
         UserWaitingPassageComponent,
-        UserPresentationComponent
+        UserPresentationComponent,
+        UserWaitingOrderComponent
     ],
     imports: [
         CommonModule,

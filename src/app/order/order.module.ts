@@ -12,11 +12,16 @@ import {OrderStatusPipe} from "../_helpers/order-status.pipe";
 import {MatDividerModule} from "@angular/material/divider";
 import {OrderListComponent} from './order-list/order-list.component';
 import {MaterialModule} from "../material/material.module";
+import {CountTotalPipe} from "../_helpers/count-total.pipe";
+import {MatInputModule} from "@angular/material/input";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
     declarations: [
         UserOrderComponent,
         OrderStatusPipe,
+        CountTotalPipe,
         OrderListComponent
     ],
     exports: [
@@ -33,7 +38,10 @@ import {MaterialModule} from "../material/material.module";
         MatButtonModule,
         MatSortModule,
         MatDividerModule,
-        MaterialModule
+        MaterialModule,
+        MatInputModule,
+        MatChipsModule,
+        MatTooltipModule
     ]
 })
 export class OrderModule {

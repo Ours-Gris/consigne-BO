@@ -9,15 +9,15 @@ export class OrderStatusPipe implements PipeTransform {
     transform(value: string, ...args: unknown[]): string {
         switch (value) {
             case OrderStatus.PENDING_VALIDATION: {
-                value = 'En attente de validation';
+                value = 'Validation';
                 break
             }
             case OrderStatus.PENDING_DELIVERY: {
-                value = 'En attente de livraison';
+                value = 'Livraison';
                 break
             }
             case OrderStatus.PENDING_PAYMENT: {
-                value = 'En attente de paiement';
+                value = 'Paiement';
                 break
             }
             case OrderStatus.COMPLETE: {

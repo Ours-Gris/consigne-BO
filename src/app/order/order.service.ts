@@ -49,7 +49,35 @@ export class OrderService {
         );
     }
 
+    getAllOrders(sortBy?: string, sortDirection?: string, pageNumber?: number, pageSize?: number): Observable<Order[]> {
+        let params = new HttpParams()
+            .set('_sort', sortBy ? sortBy : 'createdAt')
+            .set('_direction', sortDirection ? sortDirection : 'DESC')
+            .set('_start', pageNumber && pageSize ? (pageNumber * pageSize).toString() : '0')
+            .set('_limit', pageSize ? pageSize.toString() : '10');
+        const options = {
+            params
+        };
 
+        return this.http.get(`${this.authUrl}/orders`, options).pipe(
+            map((res: any) => res)
+        );
+    }
+
+    getWaitingOrders(sortBy?: string, sortDirection?: string, pageNumber?: number, pageSize?: number): Observable<Order[]> {
+        let params = new HttpParams()
+            .set('_sort', sortBy ? sortBy : 'order_status')
+            .set('_direction', sortDirection ? sortDirection : 'ASC')
+            .set('_start', pageNumber && pageSize ? (pageNumber * pageSize).toString() : '0')
+            .set('_limit', pageSize ? pageSize.toString() : '10');
+        const options = {
+            params
+        };
+
+        return this.http.get(`${this.authUrl}/orders`, options).pipe(
+            map((res: any) => res)
+        );
+    }
 
     countUserOrders(idUser: string): Observable<number> {
         return this.http.get(`${this.authUrl}/orders/count/user/${idUser}`).pipe(
@@ -63,8 +91,20 @@ export class OrderService {
         );
     }
 
+    countAllOrders(): Observable<number> {
+        return this.http.get(`${this.authUrl}/orders/count`).pipe(
+            map((res: any) => res)
+        );
+    }
+
+    countWaitingOrders(): Observable<number> {
+        return this.http.get(`${this.authUrl}/orders/waiting/count`).pipe(
+            map((res: any) => res)
+        );
+    }
+
     addOrder(order: Partial<Order>): Observable<Order> {
-        return this.http.post(`${this.authUrl}/orders`, order).pipe(
+        return this.http.post(`${this.authUrl}/orders/me`, order).pipe(
             map((newPassage: any) => newPassage)
         );
     }

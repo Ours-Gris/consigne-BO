@@ -43,6 +43,7 @@ import {MatInputModule} from "@angular/material/input";
 import {QuestionModule} from "./question/question.module";
 import {PageNewsComponent} from './pages/page-news/page-news.component';
 import {NewsModule} from "./news/news.module";
+import {MatBadgeModule} from "@angular/material/badge";
 
 registerLocaleData(localeFr);
 
@@ -93,7 +94,8 @@ registerLocaleData(localeFr);
         MatInputModule,
         ReactiveFormsModule,
         QuestionModule,
-        NewsModule
+        NewsModule,
+        MatBadgeModule
     ],
     providers: [
         {provide: LOCALE_ID, useValue: 'fr-FR'},

@@ -8,27 +8,40 @@
                     <button mat-raised-button
                             color="primary"
                             class="mt-2"
+                            matBadge="{{countWaitingPassage}}"
+                            [matBadgeHidden]="countWaitingPassage === 0"
+                            matBadgeColor="accent"
                             [routerLink]="'/user/waiting-passage'">
                         <mat-icon>local_shipping</mat-icon>
                         <span> Point de collecte en attente</span>
                     </button>
                     <button mat-raised-button
                             color="primary"
-                            class="mt-2"
+                            class="mt-3"
+                            matBadge="{{countWaitingOrders}}"
+                            [matBadgeHidden]="countWaitingOrders === 0"
+                            matBadgeColor="accent"
+                            [routerLink]="'/order'">
+                        <mat-icon>local_shipping</mat-icon>
+                        <span> Livraison en attente</span>
+                    </button>
+                    <button mat-raised-button
+                            color="primary"
+                            class="mt-3"
                             [routerLink]="'/user'">
                         <mat-icon>people</mat-icon>
                         <span> Utilisateurs</span>
                     </button>
                     <button mat-raised-button
                             color="primary"
-                            class="mt-2"
+                            class="mt-3"
                             [routerLink]="'/bottle'">
                         <mat-icon>liquor</mat-icon>
                         <span> Bouteilles</span>
                     </button>
                     <button mat-raised-button
                             color="primary"
-                            class="mt-2"
+                            class="mt-3"
                             [routerLink]="'/material'">
                         <mat-icon>inventory</mat-icon>
                         <span> Matériels</span>

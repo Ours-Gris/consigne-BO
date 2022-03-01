@@ -27,7 +27,20 @@
                     i18n="@@order.order_status"> Statut de la commande
                 </th>
                 <td mat-cell
-                    *matCellDef="let order"> {{order.order_status | orderStatus}} </td>
+                    *matCellDef="let order">
+                    <mat-chip-list>
+                        <mat-chip matTooltip="Nous validons votre commande et la livrons au plus tôt.">{{order.order_status | orderStatus}}</mat-chip>
+                    </mat-chip-list>
+                </td>
+            </ng-container>
+
+            <!-- countTotal Column -->
+            <ng-container matColumnDef="countTotal">
+                <th mat-header-cell *matHeaderCellDef
+                    i18n="@@order.countTotal"> Total
+                </th>
+                <td mat-cell
+                    *matCellDef="let order"> {{order.items | countTotal | currency:'EUR':true}} </td>
             </ng-container>
 
             <!-- Actions Column -->
