@@ -9,17 +9,30 @@ import {OrderService} from "../order.service";
 import {OrderStatus} from "../data/order.status";
 import {OrderDataSource} from "../data/order-data-source";
 import Swal from "sweetalert2";
+import {Order} from "../data/Order";
+import {environment} from "../../../environments/environment";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
     selector: 'app-order-list',
     templateUrl: './order-list.component.html',
-    styleUrls: ['./order-list.component.css']
+    styleUrls: ['./order-list.component.css'],
+    animations: [
+        trigger('detailExpand', [
+            state('collapsed', style({height: '0px', minHeight: '0'})),
+            state('expanded', style({height: '*'})),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
 })
 export class OrderListComponent implements OnInit {
     OrderStatus = OrderStatus;
     orders!: OrderDataSource;
     displayedColumns: string[] = ['createdAt', 'order_status', 'company', 'username', 'tel', 'delivery_schedules', 'delivery_data', 'actions'];
     totalOrders: number = 0;
+
+    expandedOrder!: Order | null;
+    authUrl = environment.api_base_url;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -141,6 +154,32 @@ export class OrderListComponent implements OnInit {
         }).then(response => {
             if (response.isConfirmed) {
                 this.orderService.editOrder(idOrder, {order_status: OrderStatus.COMPLETE}).subscribe({
+                        next: () => {
+                            this.loadAllOrderPage();
+                            this.countAllOrders();
+                            this.toastr.success('L\'état de la commande a été modifier', 'Modification');
+                        },
+                        error: (err) => {
+                            this.errorSubmit(err)
+                        }
+                    }
+                )
+            }
+        })
+    }
+
+    cancelledOrder(idOrder: string): void {
+        Swal.fire({
+            title: `Annuler la commande`,
+            icon: 'question',
+            text: 'Êtes-vous sûr de vouloir annuler la commande ?',
+            showConfirmButton: true,
+            confirmButtonText: 'Valider',
+            showCancelButton: true,
+            cancelButtonText: 'Annuler'
+        }).then(response => {
+            if (response.isConfirmed) {
+                this.orderService.editOrder(idOrder, {order_status: OrderStatus.CANCELLED}).subscribe({
                         next: () => {
                             this.loadAllOrderPage();
                             this.countAllOrders();
