@@ -116,12 +116,12 @@
             <mat-icon>settings</mat-icon>
         </button>
         <mat-menu #menuAdmin="matMenu">
-<!--            <button mat-menu-item-->
-<!--                    *ngIf="roleAdmin"-->
-<!--                    [routerLink]="['map/passage']">-->
-<!--                <mat-icon color="accent">local_shipping</mat-icon>-->
-<!--                <span>Gestion des passages</span>-->
-<!--            </button>-->
+            <button mat-menu-item
+                    *ngIf="roleAdmin"
+                    [routerLink]="['map/passage']">
+                <mat-icon color="accent">local_shipping</mat-icon>
+                <span>Itinéraire (test)</span>
+            </button>
             <button mat-menu-item
                     *ngIf="roleAdmin"
                     [routerLink]="['user/waiting-passage']">
